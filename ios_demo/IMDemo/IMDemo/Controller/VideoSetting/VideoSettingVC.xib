@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VideoSettingVC">
+            <connections>
+                <outlet property="fpsButton" destination="UeS-nX-tCu" id="yZp-0D-qfI"/>
+                <outlet property="hwEncodeButton" destination="wV7-Qn-1pv" id="lGD-Jc-b0A"/>
+                <outlet property="openGLButton" destination="94f-Rl-12q" id="Iva-eL-Bvm"/>
+                <outlet property="openNLButton" destination="FdL-hk-s0f" id="dnq-uH-aEs"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rr1-oE-vCA">
+                    <rect key="frame" x="30" y="557" width="315" height="50"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="确定">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="ibBackgroundColor">
+                            <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="enterButtonClicked:" destination="-1" eventType="touchUpInside" id="H8r-OL-1Xk"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lMA-5d-e8T">
+                    <rect key="frame" x="30" y="437" width="315" height="50"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="音视频编码格式">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="ibBackgroundColor">
+                            <color key="value" red="0.0" green="0.79607843140000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="encodeButtonClicked:" destination="-1" eventType="touchUpInside" id="DFf-m2-3sy"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceT-hu-kP5">
+                    <rect key="frame" x="30" y="257" width="152.5" height="50"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="测速">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="ibBackgroundColor">
+                            <color key="value" red="0.0" green="0.79607843140000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="testSpeedButtonClicked:" destination="-1" eventType="touchUpInside" id="g2m-Cq-vfq"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94f-Rl-12q">
+                    <rect key="frame" x="30" y="317" width="152.5" height="50"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="OPENGL关">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" title="OPENGL开">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="ibBackgroundColor">
+                            <color key="value" red="0.0" green="0.79607843140000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="openGLButtonClicked:" destination="-1" eventType="touchUpInside" id="4ud-ev-FQK"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZE-qa-s3g">
+                    <rect key="frame" x="192.5" y="257" width="152.5" height="50"/>
+                    <state key="normal" title="分辨率设置">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="ibBackgroundColor">
+                            <color key="value" red="0.0" green="0.79607843140000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="pixButtonClicked:" destination="-1" eventType="touchUpInside" id="41F-dc-MpR"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdL-hk-s0f">
+                    <rect key="frame" x="192.5" y="317" width="152.5" height="50"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="OPENSL关">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" title="OPENSL开"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="ibBackgroundColor">
+                            <color key="value" red="0.0" green="0.79607843140000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="openNLButtonClicked:" destination="-1" eventType="touchUpInside" id="W7U-Y9-iLq"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wV7-Qn-1pv">
+                    <rect key="frame" x="30" y="377" width="315" height="50"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="编码器选择(软编）">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" title="编码器选择(硬编）"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="ibBackgroundColor">
+                            <color key="value" red="0.0" green="0.79607843140000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="encodeTypeButtonClicked:" destination="-1" eventType="touchUpInside" id="dt7-QQ-5FU"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UeS-nX-tCu">
+                    <rect key="frame" x="30" y="197" width="315" height="50"/>
+                    <state key="normal" title="FPS控制(开)">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="ibBackgroundColor">
+                            <color key="value" red="0.0" green="0.79607843140000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="fpsButtonClicked:" destination="-1" eventType="touchUpInside" id="6PV-Xz-d12"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Rr1-oE-vCA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="03G-Bg-hjn"/>
+                <constraint firstItem="FdL-hk-s0f" firstAttribute="leading" secondItem="AZE-qa-s3g" secondAttribute="leading" id="1sX-RI-aRX"/>
+                <constraint firstAttribute="centerX" secondItem="94f-Rl-12q" secondAttribute="trailing" constant="5" id="6fi-e3-80j"/>
+                <constraint firstItem="wV7-Qn-1pv" firstAttribute="leading" secondItem="94f-Rl-12q" secondAttribute="leading" id="6rV-0G-sZs"/>
+                <constraint firstItem="Rr1-oE-vCA" firstAttribute="trailing" secondItem="lMA-5d-e8T" secondAttribute="trailing" id="DP6-dq-1Tq"/>
+                <constraint firstItem="lMA-5d-e8T" firstAttribute="trailing" secondItem="wV7-Qn-1pv" secondAttribute="trailing" id="DVc-j2-JcS"/>
+                <constraint firstItem="ceT-hu-kP5" firstAttribute="leading" secondItem="UeS-nX-tCu" secondAttribute="leading" id="Dl1-CU-1To"/>
+                <constraint firstItem="wV7-Qn-1pv" firstAttribute="top" secondItem="FdL-hk-s0f" secondAttribute="bottom" constant="10" id="FTR-bN-bLF"/>
+                <constraint firstItem="FdL-hk-s0f" firstAttribute="trailing" secondItem="AZE-qa-s3g" secondAttribute="trailing" id="Kvz-tG-rPh"/>
+                <constraint firstItem="Rr1-oE-vCA" firstAttribute="top" secondItem="lMA-5d-e8T" secondAttribute="bottom" constant="70" id="Mo4-Qt-jyJ"/>
+                <constraint firstItem="94f-Rl-12q" firstAttribute="height" secondItem="ceT-hu-kP5" secondAttribute="height" id="NN7-06-PsK"/>
+                <constraint firstAttribute="trailing" secondItem="Rr1-oE-vCA" secondAttribute="trailing" constant="30" id="Ntk-bI-AeV"/>
+                <constraint firstItem="ceT-hu-kP5" firstAttribute="top" secondItem="UeS-nX-tCu" secondAttribute="bottom" constant="10" id="QFZ-zs-3SP"/>
+                <constraint firstItem="FdL-hk-s0f" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="5" id="UWd-P9-BWs"/>
+                <constraint firstAttribute="bottom" secondItem="Rr1-oE-vCA" secondAttribute="bottom" constant="60" id="V9t-uI-GZI"/>
+                <constraint firstItem="94f-Rl-12q" firstAttribute="trailing" secondItem="ceT-hu-kP5" secondAttribute="trailing" id="VV2-T4-afK"/>
+                <constraint firstItem="ceT-hu-kP5" firstAttribute="height" secondItem="UeS-nX-tCu" secondAttribute="height" id="WoC-LZ-Wof"/>
+                <constraint firstItem="lMA-5d-e8T" firstAttribute="height" secondItem="wV7-Qn-1pv" secondAttribute="height" id="XRF-dN-dST"/>
+                <constraint firstItem="Rr1-oE-vCA" firstAttribute="height" secondItem="lMA-5d-e8T" secondAttribute="height" id="aWD-XW-izr"/>
+                <constraint firstItem="94f-Rl-12q" firstAttribute="top" secondItem="ceT-hu-kP5" secondAttribute="bottom" constant="10" id="bm2-Jo-zXY"/>
+                <constraint firstItem="wV7-Qn-1pv" firstAttribute="top" secondItem="94f-Rl-12q" secondAttribute="bottom" constant="10" id="eGZ-PU-MoN"/>
+                <constraint firstItem="lMA-5d-e8T" firstAttribute="top" secondItem="wV7-Qn-1pv" secondAttribute="bottom" constant="10" id="gV3-pn-cgd"/>
+                <constraint firstItem="Rr1-oE-vCA" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="50:667" id="gV9-qh-c42"/>
+                <constraint firstItem="AZE-qa-s3g" firstAttribute="trailing" secondItem="UeS-nX-tCu" secondAttribute="trailing" id="iMi-Du-N2E"/>
+                <constraint firstItem="wV7-Qn-1pv" firstAttribute="height" secondItem="94f-Rl-12q" secondAttribute="height" id="kCs-DV-p2H"/>
+                <constraint firstItem="FdL-hk-s0f" firstAttribute="top" secondItem="AZE-qa-s3g" secondAttribute="bottom" constant="10" id="mcf-Bn-aav"/>
+                <constraint firstItem="94f-Rl-12q" firstAttribute="leading" secondItem="ceT-hu-kP5" secondAttribute="leading" id="n7u-k1-5lZ"/>
+                <constraint firstItem="Rr1-oE-vCA" firstAttribute="leading" secondItem="lMA-5d-e8T" secondAttribute="leading" id="uRI-va-mdW"/>
+                <constraint firstItem="FdL-hk-s0f" firstAttribute="height" secondItem="AZE-qa-s3g" secondAttribute="height" id="vda-N2-be9"/>
+                <constraint firstItem="FdL-hk-s0f" firstAttribute="height" secondItem="94f-Rl-12q" secondAttribute="height" id="yDM-KK-fv4"/>
+                <constraint firstItem="lMA-5d-e8T" firstAttribute="leading" secondItem="wV7-Qn-1pv" secondAttribute="leading" id="z9s-Vo-IZK"/>
+                <constraint firstItem="FdL-hk-s0f" firstAttribute="trailing" secondItem="wV7-Qn-1pv" secondAttribute="trailing" id="zI5-oC-VsP"/>
+            </constraints>
+            <point key="canvasLocation" x="42.5" y="53.5"/>
+        </view>
+    </objects>
+</document>

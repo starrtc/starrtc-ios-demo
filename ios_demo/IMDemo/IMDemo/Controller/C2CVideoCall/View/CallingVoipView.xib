@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CallingVoipView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="voip_bg" translatesAutoresizingMaskIntoConstraints="NO" id="6hk-Cu-Y1Q">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D7Z-NW-C4V">
+                    <rect key="frame" x="0.0" y="226" width="375" height="160"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starfox_500" translatesAutoresizingMaskIntoConstraints="NO" id="XyF-G0-gKj">
+                            <rect key="frame" x="143" y="0.0" width="90" height="90"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="90" id="gmg-bw-9at"/>
+                                <constraint firstAttribute="height" constant="90" id="s1g-ab-C2e"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="45"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8s-K5-yIn">
+                            <rect key="frame" x="15" y="107" width="345" height="25.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在等待对方接受视频通话..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJF-IO-CDL">
+                            <rect key="frame" x="15" y="147.5" width="345" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="XyF-G0-gKj" firstAttribute="top" secondItem="D7Z-NW-C4V" secondAttribute="top" id="5CV-1t-IQP"/>
+                        <constraint firstItem="rJF-IO-CDL" firstAttribute="leading" secondItem="D7Z-NW-C4V" secondAttribute="leading" constant="15" id="HrX-jb-0mz"/>
+                        <constraint firstAttribute="height" constant="160" id="Jb5-yf-cVi"/>
+                        <constraint firstItem="f8s-K5-yIn" firstAttribute="leading" secondItem="D7Z-NW-C4V" secondAttribute="leading" constant="15" id="NBh-je-cHM"/>
+                        <constraint firstItem="f8s-K5-yIn" firstAttribute="top" secondItem="XyF-G0-gKj" secondAttribute="bottom" constant="17" id="Qu1-ZZ-hSi"/>
+                        <constraint firstAttribute="trailing" secondItem="rJF-IO-CDL" secondAttribute="trailing" constant="15" id="XZf-OD-LXo"/>
+                        <constraint firstAttribute="trailing" secondItem="f8s-K5-yIn" secondAttribute="trailing" constant="15" id="ZCA-08-hsJ"/>
+                        <constraint firstItem="XyF-G0-gKj" firstAttribute="centerX" secondItem="D7Z-NW-C4V" secondAttribute="centerX" id="fdm-6u-n57"/>
+                        <constraint firstItem="rJF-IO-CDL" firstAttribute="top" secondItem="f8s-K5-yIn" secondAttribute="bottom" constant="15" id="rUn-n3-qpO"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xrv-ZH-teD">
+                    <rect key="frame" x="154.5" y="686.5" width="66" height="66"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="66" id="2Et-gS-M68"/>
+                        <constraint firstAttribute="height" constant="66" id="rQo-Dt-9XZ"/>
+                    </constraints>
+                    <state key="normal" image="hangup"/>
+                    <connections>
+                        <action selector="cancelButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="TFG-iX-ZkX"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="取消" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9c-4e-wrx">
+                    <rect key="frame" x="50" y="767.5" width="275" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="D7Z-NW-C4V" secondAttribute="trailing" id="0ed-9w-9cO"/>
+                <constraint firstAttribute="trailing" secondItem="6hk-Cu-Y1Q" secondAttribute="trailing" id="7Ba-7L-gix"/>
+                <constraint firstItem="D7Z-NW-C4V" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ANT-R8-ZXk"/>
+                <constraint firstItem="m9c-4e-wrx" firstAttribute="top" secondItem="Xrv-ZH-teD" secondAttribute="bottom" constant="15" id="JXW-z8-vab"/>
+                <constraint firstItem="m9c-4e-wrx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="Lhx-Jh-B2s"/>
+                <constraint firstItem="6hk-Cu-Y1Q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Lzn-DW-4qG"/>
+                <constraint firstItem="m9c-4e-wrx" firstAttribute="centerX" secondItem="Xrv-ZH-teD" secondAttribute="centerX" id="M8U-jh-GnL"/>
+                <constraint firstItem="D7Z-NW-C4V" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-100" id="Max-Qu-Ui6"/>
+                <constraint firstAttribute="bottom" secondItem="6hk-Cu-Y1Q" secondAttribute="bottom" id="Va2-3A-TZm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="m9c-4e-wrx" secondAttribute="trailing" constant="50" id="cxk-Q9-d67"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="m9c-4e-wrx" secondAttribute="bottom" constant="30" id="lIn-Dv-OZ8"/>
+                <constraint firstItem="6hk-Cu-Y1Q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vVB-u0-4uk"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="headerImageView" destination="XyF-G0-gKj" id="pXt-GL-HSt"/>
+                <outlet property="nickNameLabel" destination="f8s-K5-yIn" id="4d5-OU-EWu"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="94"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="hangup" width="65" height="65"/>
+        <image name="starfox_500" width="485" height="500"/>
+        <image name="voip_bg" width="375" height="667"/>
+    </resources>
+</document>

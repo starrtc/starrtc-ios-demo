@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="VoipConversationView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lqf-cs-K1m">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOM-9y-w8b">
+                    <rect key="frame" x="15" y="40" width="116" height="155"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="155" id="XY9-T1-pyG"/>
+                        <constraint firstAttribute="width" constant="116" id="aa4-Eg-8Vh"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSP-7L-LL4">
+                    <rect key="frame" x="154.5" y="516" width="66" height="66"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="66" id="CVi-20-a0s"/>
+                        <constraint firstAttribute="height" constant="66" id="vCi-C4-6Mj"/>
+                    </constraints>
+                    <state key="normal" image="hangup"/>
+                    <connections>
+                        <action selector="hangupButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Q4X-l4-B0v"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="挂断" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dat-1y-rTJ">
+                    <rect key="frame" x="162.5" y="597" width="50" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="U2y-cY-fbU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fgm-rU-PfA">
+                    <rect key="frame" x="325" y="40" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="fgm-rU-PfA" secondAttribute="height" id="g42-Ux-uKG"/>
+                        <constraint firstAttribute="width" constant="30" id="lpn-Bw-lJb"/>
+                    </constraints>
+                    <state key="normal" image="VoipSwitchCamar"/>
+                    <connections>
+                        <action selector="switchCameraButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="awW-He-Eze"/>
+                    </connections>
+                </button>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="转换摄像头" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u08-AX-VoM">
+                    <rect key="frame" x="250" y="606" width="51.5" height="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4UI-Ew-kp2">
+                    <rect key="frame" x="48.5" y="516" width="66" height="66"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="66" id="lTR-YE-Sf2"/>
+                        <constraint firstAttribute="width" constant="66" id="uf1-ei-xRV"/>
+                    </constraints>
+                    <state key="normal" image="RecordScreen1"/>
+                    <state key="selected" image="RecordScreen2"/>
+                    <state key="highlighted" image="RecordScreen2"/>
+                    <connections>
+                        <action selector="recordScreenButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="4qB-hd-zC8"/>
+                    </connections>
+                </button>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="录屏" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vr-gU-XIl">
+                    <rect key="frame" x="64.5" y="597" width="35" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Lqf-cs-K1m" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="12F-FB-WFW"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="u08-AX-VoM" secondAttribute="trailing" constant="73.5" id="30o-Ks-oSt"/>
+                <constraint firstItem="dat-1y-rTJ" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="4of-qU-3Ma"/>
+                <constraint firstItem="dat-1y-rTJ" firstAttribute="top" secondItem="eSP-7L-LL4" secondAttribute="bottom" constant="15" id="ASJ-3X-EIu"/>
+                <constraint firstItem="5Vr-gU-XIl" firstAttribute="centerX" secondItem="4UI-Ew-kp2" secondAttribute="centerX" id="Hwf-Je-Qcr"/>
+                <constraint firstItem="Lqf-cs-K1m" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="J4s-co-TuY"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="u08-AX-VoM" secondAttribute="bottom" constant="49" id="Jen-9v-7NS"/>
+                <constraint firstItem="dat-1y-rTJ" firstAttribute="centerX" secondItem="eSP-7L-LL4" secondAttribute="centerX" id="JqC-FY-pb6"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="dat-1y-rTJ" secondAttribute="bottom" constant="49" id="OW5-dm-W3a"/>
+                <constraint firstItem="LOM-9y-w8b" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="a3H-kc-xiO"/>
+                <constraint firstItem="LOM-9y-w8b" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="b5H-nr-mmM"/>
+                <constraint firstItem="Lqf-cs-K1m" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="dfZ-O3-4Ch"/>
+                <constraint firstItem="eSP-7L-LL4" firstAttribute="leading" secondItem="4UI-Ew-kp2" secondAttribute="trailing" constant="40" id="ehF-6Q-zB7"/>
+                <constraint firstItem="5Vr-gU-XIl" firstAttribute="top" secondItem="4UI-Ew-kp2" secondAttribute="bottom" constant="15" id="oHp-ve-NEk"/>
+                <constraint firstItem="fgm-rU-PfA" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="oO5-3y-Pxy"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="5Vr-gU-XIl" secondAttribute="bottom" constant="49" id="rOl-ZI-EsK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="fgm-rU-PfA" secondAttribute="trailing" constant="20" id="tgU-sT-1Tj"/>
+                <constraint firstItem="Lqf-cs-K1m" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="wv5-vm-U1D"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="selfView" destination="LOM-9y-w8b" id="y83-xO-0Qk"/>
+                <outlet property="targetView" destination="Lqf-cs-K1m" id="x0q-41-EGE"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="93.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="RecordScreen1" width="65" height="65"/>
+        <image name="RecordScreen2" width="65" height="65"/>
+        <image name="VoipSwitchCamar" width="65" height="65"/>
+        <image name="hangup" width="65" height="65"/>
+    </resources>
+</document>
