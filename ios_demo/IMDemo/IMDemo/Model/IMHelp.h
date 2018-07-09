@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SenderVoipVideoVC.h"
+#import "VoipVideoVC.h"
 @interface IMHelp : NSObject
 
 + (instancetype)shareManager;
 
-@property (nonatomic, weak) UIViewController * delegate;
+@property (nonatomic, weak) VoipVideoVC * delegate;
 
 - (void)startMonitoring;
 - (void)stopMonitoring;

@@ -12,7 +12,7 @@
 #import "SenderVoipVideoVC.h"
 #import "XHClient.h"
 #import "VoipHistoryManage.h"
-#import "XHEchoCancellation.h"
+
 @interface IMHelp ()<XHVoipManagerDelegate>
 
 {

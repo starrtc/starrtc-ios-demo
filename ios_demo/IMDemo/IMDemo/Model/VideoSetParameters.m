@@ -17,10 +17,9 @@
     
     if (parametersDic) {
         [parameters setValuesForKeysWithDictionary:parametersDic];
-        
         //记得注释掉
-        parameters.hwEncodeEnable = NO;
     }
+     parameters.hwEncodeEnable = NO;
     return parameters;
 }
 

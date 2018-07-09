@@ -142,4 +142,5 @@ typedef NS_ENUM(NSInteger, XHVideoConnectionType)
                     len:(UInt32)len;
 //-(int)get_AudioData:(Byte *)readData;
 -(Byte*)get_AudioData:(int *)readLength;
+
 @end

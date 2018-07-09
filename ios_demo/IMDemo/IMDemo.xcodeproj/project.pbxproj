@@ -24,7 +24,6 @@
 		7B7DFA652071C21100619936 /* IMHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DFA642071C21100619936 /* IMHelp.m */; };
 		7B7DFA682071CD9200619936 /* IMUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DFA672071CD9200619936 /* IMUserInfo.m */; };
 		7B8247EE206E1A6D00513F41 /* VoipReadyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8247EC206E1A6D00513F41 /* VoipReadyVC.m */; };
-		7B8535DB20D0C4120039D447 /* XHEchoCancellation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8535DA20D0C4120039D447 /* XHEchoCancellation.m */; };
 		7B8F12A120A18AB200E7C30F /* VoipHistoryManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F12A020A18AB200E7C30F /* VoipHistoryManage.m */; };
 		7BA8AB64206D0953007CA939 /* UIView+layerXib.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BA8AB63206D0953007CA939 /* UIView+layerXib.m */; };
 		7BB49CED20B7DCE200480D49 /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB49CEC20B7DCE200480D49 /* AppConfig.m */; };
@@ -35,6 +34,7 @@
 		7BBD696020DC939600E663D4 /* QGSendboxViewerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BBD695A20DC939600E663D4 /* QGSendboxViewerCell.xib */; };
 		7BCE7C0E20C52E92003A3FFF /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCE7C0C20C52E92003A3FFF /* AboutUsVC.m */; };
 		7BCE7C0F20C52E92003A3FFF /* AboutUsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BCE7C0D20C52E92003A3FFF /* AboutUsVC.xib */; };
+		7BCFCB9920EDBB59003CDAEB /* XQEchoCancellation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFCB9720EDBB59003CDAEB /* XQEchoCancellation.m */; };
 		7BD33C0120CA7D5900038402 /* UIImage+utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD33C0020CA7D5900038402 /* UIImage+utils.m */; };
 		7BD47D6B206E2ED50000E9A1 /* SenderVoipVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD47D69206E2ED50000E9A1 /* SenderVoipVideoVC.m */; };
 		7BD47D6C206E2ED50000E9A1 /* SenderVoipVideoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD47D6A206E2ED50000E9A1 /* SenderVoipVideoVC.xib */; };
@@ -170,8 +170,6 @@
 		7B7DFA672071CD9200619936 /* IMUserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMUserInfo.m; sourceTree = "<group>"; };
 		7B8247EB206E1A6D00513F41 /* VoipReadyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoipReadyVC.h; sourceTree = "<group>"; };
 		7B8247EC206E1A6D00513F41 /* VoipReadyVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoipReadyVC.m; sourceTree = "<group>"; };
-		7B8535D920D0C4120039D447 /* XHEchoCancellation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHEchoCancellation.h; sourceTree = "<group>"; };
-		7B8535DA20D0C4120039D447 /* XHEchoCancellation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHEchoCancellation.m; sourceTree = "<group>"; };
 		7B8F129F20A18AB200E7C30F /* VoipHistoryManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoipHistoryManage.h; sourceTree = "<group>"; };
 		7B8F12A020A18AB200E7C30F /* VoipHistoryManage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoipHistoryManage.m; sourceTree = "<group>"; };
 		7BA8AB62206D0953007CA939 /* UIView+layerXib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+layerXib.h"; sourceTree = "<group>"; };
@@ -189,6 +187,8 @@
 		7BCE7C0B20C52E92003A3FFF /* AboutUsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
 		7BCE7C0C20C52E92003A3FFF /* AboutUsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
 		7BCE7C0D20C52E92003A3FFF /* AboutUsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutUsVC.xib; sourceTree = "<group>"; };
+		7BCFCB9720EDBB59003CDAEB /* XQEchoCancellation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQEchoCancellation.m; sourceTree = "<group>"; };
+		7BCFCB9820EDBB59003CDAEB /* XQEchoCancellation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQEchoCancellation.h; sourceTree = "<group>"; };
 		7BD33BFF20CA7D5900038402 /* UIImage+utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+utils.h"; sourceTree = "<group>"; };
 		7BD33C0020CA7D5900038402 /* UIImage+utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+utils.m"; sourceTree = "<group>"; };
 		7BD47D68206E2ED50000E9A1 /* SenderVoipVideoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SenderVoipVideoVC.h; sourceTree = "<group>"; };
@@ -529,8 +529,8 @@
 			children = (
 				7B8F129F20A18AB200E7C30F /* VoipHistoryManage.h */,
 				7B8F12A020A18AB200E7C30F /* VoipHistoryManage.m */,
-				7B8535D920D0C4120039D447 /* XHEchoCancellation.h */,
-				7B8535DA20D0C4120039D447 /* XHEchoCancellation.m */,
+				7BCFCB9820EDBB59003CDAEB /* XQEchoCancellation.h */,
+				7BCFCB9720EDBB59003CDAEB /* XQEchoCancellation.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1322,7 +1322,6 @@
 				84D4944F1FFF5CBC00D151BE /* MessageGroupListViewController.m in Sources */,
 				7B57080A207AFFED00857F30 /* EMViewController.m in Sources */,
 				A549CB69207B0C510045A2E1 /* IFCreateBaseVC.m in Sources */,
-				7B8535DB20D0C4120039D447 /* XHEchoCancellation.m in Sources */,
 				A58DFF6A206E08DC0074DB7B /* UIColor+Category.m in Sources */,
 				A58DFF44206CE6A80074DB7B /* ViewController+MASAdditions.m in Sources */,
 				A5B92F082071D731003456D0 /* IFChatView.m in Sources */,
@@ -1371,6 +1370,7 @@
 				7BD33C0120CA7D5900038402 /* UIImage+utils.m in Sources */,
 				A58DFF3F206CE6A80074DB7B /* MASViewAttribute.m in Sources */,
 				A5B1B9BD20A02F5A00EF4DEB /* InterfaceUrls.m in Sources */,
+				7BCFCB9920EDBB59003CDAEB /* XQEchoCancellation.m in Sources */,
 				A5E15F9020900EE600A6EA85 /* IFVideoListView.m in Sources */,
 				7BCE7C0E20C52E92003A3FFF /* AboutUsVC.m in Sources */,
 				A57FA72820902625006CE93C /* IFVideoListCell.m in Sources */,

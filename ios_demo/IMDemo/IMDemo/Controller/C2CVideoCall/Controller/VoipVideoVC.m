@@ -11,26 +11,18 @@
 #import "ReceiveVoipView.h"
 #import "VoipConversationView.h"
 #import "XHClient.h"
+#import "XQEchoCancellation.h"
 #import "VideoSetParameters.h"
-#import "XHEchoCancellation.h"
 #define subPathPCM @"/Documents/xbMedia"
 #define stroePath [NSHomeDirectory() stringByAppendingString:subPathPCM]
 @interface VoipVideoVC ()<CallingVoipViewDelegate,ReceiveVoipViewDelegate,VoipConversationViewDelegate>
 {
     VoipVCStatus _voipStatus;  //当前控制器的Voip 连接状态
-    
-    NSMutableArray <A*> *_buffs;
-    Byte * lastBuff[1000];
-    NSString *pcmFile_input;
-    NSFileHandle *fileHandle_input;
-    NSString *pcmFile_output;
-    NSFileHandle *fileHandle_output;
-    
 }
 @property (weak, nonatomic) CallingVoipView *callingView;
 @property (weak, nonatomic) VoipConversationView *conversationView;
 @property (weak, nonatomic) ReceiveVoipView *receiveView;
-
+//@property (nonatomic, strong) XQEchoCancellation *echoCancellation;
 @end
 
 @implementation VoipVideoVC
@@ -56,14 +48,12 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         _voipStatus = VoipVCStatus_Calling;
-        
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _buffs = [NSMutableArray arrayWithCapacity:15];
     self.callingView = [CallingVoipView instanceFromNIB];
     self.receiveView = [ReceiveVoipView instanceFromNIB];
     self.conversationView = [VoipConversationView instanceFromNIB];
@@ -79,10 +69,6 @@
     [self.view addSubview:self.callingView];
     [self.view addSubview:self.receiveView];
     [self.view addSubview:self.conversationView];
-    
-    
-    [self setupUI];
-    [self initWriteToFile];
 
 }
 
@@ -94,8 +80,6 @@
 {
     [super viewWillAppear:animated];
     
-    self.navigationController.navigationBarHidden = YES;
-
     [self setupUI];
     [[XHClient sharedClient].voipManager setVideoConfig:[VideoSetParameters locaParameters]];
     //设置用于视频显示的View
@@ -121,83 +105,9 @@
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
-void    showRawData( char *pBuf, int bufLen )
-{
-    
-    int            temI, secondI, t_Loop;
-    const    int T_HM = 64 ;
-    
-    
-    if( bufLen < 0x00 )
-    {
-        return ;
-    }
-    
-    t_Loop = bufLen ;//显示所有的数据
-    //t_Loop = bufLen > T_HM ? T_HM : bufLen;
-    //    t_Loop = bufLen < T_HM ? T_HM : bufLen;
-    
-    printf( "\n\n\tTotal:      %d ( 0x%.8X )", bufLen, bufLen );
-    
-    for ( temI=0x00; temI<t_Loop; temI++ )
-    {
-        if ( temI % 16 == 0x00 )
-        {
-            printf( "\n\t%.8X    ", temI );
-        }
-        
-        
-        printf( "%.2X, ", *(unsigned char*)( pBuf + temI ) );
-        //        printf( "%c  ", *(unsigned char*)( pBuf + temI ) );
-        
-        if ( temI % 16 == 15 )
-        {
-            printf( "\t\t" );
-            
-            for( secondI=temI-15; secondI<=temI; secondI++ )
-            {
-                if ( isprint( *( pBuf + secondI ) ) )
-                {
-                    printf("%c", (char)*(pBuf+secondI));
-                }
-                else
-                {
-                    printf( "." );
-                }
-            }
-        }
-    }
-    
-    temI   = ( temI / 16 ) * 16;
-    
-    for( secondI=0x00; secondI<( 16 - ( t_Loop - temI ) ); secondI++ )
-    {
-        printf( "    " );
-    }
-    
-    printf( "\t\t" );
-    
-    for( ; temI<t_Loop; temI++ )
-    {
-        if ( isprint( *( pBuf + temI ) ) )
-        {
-            printf("%c", (char)*(pBuf+temI));
-        }
-        else
-        {
-            printf( "." );
-        }
-    }
-    
-    
-    
-    
-    printf( "\n\n" );
-    
-    
-    
-}
+
 - (void)setupUI{
+    self.navigationController.navigationBarHidden = YES;
     switch (_voipStatus) {
         case VoipVCStatus_Calling:
             self.callingView.hidden = NO;
@@ -214,6 +124,7 @@ void    showRawData( char *pBuf, int bufLen )
             self.callingView.hidden = YES;
             self.receiveView.hidden = YES;
             self.conversationView.hidden = NO;
+            //[self.echoCancellation start];
             break;
         default:
             self.callingView.hidden = NO;
@@ -222,6 +133,31 @@ void    showRawData( char *pBuf, int bufLen )
             break;
     }
 }
+
+//- (XQEchoCancellation*)echoCancellation{
+//    if (!_echoCancellation) {
+//        _echoCancellation = [XQEchoCancellation manager];
+//         __block XHVoipManager *voipManager = [XHClient sharedClient].voipManager;
+//        _echoCancellation.bl_input = ^(AudioBufferList *bufferList) {
+//            AudioBuffer buffer = bufferList->mBuffers[0];
+//            Byte *mDate = (Byte*)malloc(sizeof(Byte)*buffer.mDataByteSize);
+//            memcpy(mDate,buffer.mData,buffer.mDataByteSize);
+//            [voipManager insert_AudioData:mDate len:buffer.mDataByteSize];
+//        };
+//        _echoCancellation.bl_output = ^(AudioBufferList *bufferList, UInt32 inNumberFrames) {
+//            AudioBuffer buffer = bufferList->mBuffers[0];
+//            int length = buffer.mDataByteSize;
+//            NSLog(@"=length = %d",length);
+//            Byte *tempByte = [voipManager get_AudioData:&length];
+//            NSLog(@"-length = %d",length);
+//            memcpy(buffer.mData,tempByte,length);
+//            buffer.mDataByteSize = length;
+//
+//        };
+//    }
+//    return _echoCancellation;
+//}
+
 - (void)setupTargetId:(NSString*)targetId viopStatus:(VoipVCStatus)voipStatus{
     [self setupVoipState:voipStatus];
     self.targetId = targetId;
@@ -307,56 +243,13 @@ void    showRawData( char *pBuf, int bufLen )
 }
 
 - (void)backup{
-    [[XHEchoCancellation shared] stop];
+//    [self.echoCancellation stop];
+//    self.echoCancellation = nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)showError:(NSError*)error{
 //    [UIWindow ilg_makeToast:[NSString stringWithFormat:@"%@",error.userInfo]];
-}
-
--(void)initWriteToFile
-{
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    pcmFile_input = [documentsDirectory stringByAppendingPathComponent:@"voipEchoCancel_input.pcm"];
-    [fileManager removeItemAtPath:pcmFile_input error:nil];
-    [fileManager createFileAtPath:pcmFile_input contents:nil attributes:nil];
-    fileHandle_input = [NSFileHandle fileHandleForWritingAtPath:pcmFile_input];
-    
-    pcmFile_output = [documentsDirectory stringByAppendingPathComponent:@"voipEchoCancel_output.pcm"];
-    [fileManager removeItemAtPath:pcmFile_output error:nil];
-    [fileManager createFileAtPath:pcmFile_output contents:nil attributes:nil];
-    fileHandle_output = [NSFileHandle fileHandleForWritingAtPath:pcmFile_output];
-}
-
-- (void)writeData_input:(NSData *)data
-{
-    if (fileHandle_input) {
-        [fileHandle_input writeData:data];
-    }
-}
-
-- (void)writeData_output:(NSData *)data
-{
-    if (fileHandle_output) {
-        [fileHandle_output writeData:data];
-    }
-}
-@end
-
-@implementation A
-
-- (void)setMData:(void * _Nullable)mData mDataByteSize:(UInt32)mDataByteSize {
-    _mData = malloc(sizeof(Byte)*mDataByteSize);
-    memcpy(_mData, mData, mDataByteSize);
-    _mDataByteSize = mDataByteSize;
-}
-
-- (void)free{
-    free(_mData);
 }
 
 

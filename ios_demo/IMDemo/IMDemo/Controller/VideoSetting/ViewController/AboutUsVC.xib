@@ -36,9 +36,8 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pBk-4k-jOT">
-                    <rect key="frame" x="0.0" y="497.5" width="320" height="50.5"/>
+                    <rect key="frame" x="0.0" y="514.5" width="320" height="33.5"/>
                     <string key="text">www.StarRTC.com
-星盒科技（北京）有限公司
 手机:186-1294-6552  微信:starRTC</string>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>

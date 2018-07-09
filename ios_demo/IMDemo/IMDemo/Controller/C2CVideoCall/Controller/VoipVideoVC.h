@@ -31,15 +31,3 @@ typedef NS_ENUM(NSInteger , VoipVCStatus) {
 
 @end
 
-@interface A :NSObject
-
-@property (nonatomic, assign) UInt32              mNumberChannels;
-@property (nonatomic, assign) UInt32              mDataByteSize;
-@property (nonatomic, assign) void* __nullable    mData;
-
-- (void)setMData:(void * _Nullable)mData mDataByteSize:(UInt32)mDataByteSize;
-
-- (void)free;
-
-@end
-

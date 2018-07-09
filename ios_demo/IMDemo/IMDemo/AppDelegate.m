@@ -25,7 +25,6 @@
     XHSDKConfig * config = [[XHSDKConfig alloc] init];
     config.appID = @"BjR6QV3vUJ4d";
     [[XHClient sharedClient] initSDKWithConfiguration:config];
-    
     [Bugly startWithAppId:@"9b09df1886"];
     
     return YES;
