@@ -2,7 +2,7 @@
 
 ![StarRTC_demo](assets/StarRTC_demo.jpg)
 
-App下载地址：
+App下载：
 
 ![StarRTC_demo](assets/pgyer.png)
 
