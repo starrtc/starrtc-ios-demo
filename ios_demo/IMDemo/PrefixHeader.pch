@@ -1,0 +1,39 @@
+//
+//  PrefixHeader.pch
+//  IMDemo
+//
+//  Created by zhangtongle-Pro on 2018/3/29.
+//  Copyright © 2018年  Admin. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "Masonry.h"
+#import "MBProgressHUD.h"
+
+#import "UIView+layerXib.h"
+#import "UIView+Toast.h"
+#import "UIView+ILGKit.h"
+#import "UIButton+ILGUIKit.h"
+#import "UIColor+Category.h"
+#import "ILGLocalData.h"
+#import "NSDate+ILGLib.h"
+#import "ILGDevice.h"
+#import "IMUserInfo.h"
+#import "IMHelp.h"
+#import "IFBaseView.h"
+#import "AppConfig.h"
+#import "UIImage+utils.h"
+#import "UIView+utils.h"
+#import "AssignToObject.h"
+#define UserOnline [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserOnline"] boolValue]
+#define UserId [IMUserInfo shareInstance].userID
+#define StatusBarHeight UIApplication.sharedApplication.statusBarFrame.size.height
+#define IFHAppId @"stargWeHN8Y7"
+
+#define IMChatMsgReceiveNotif @"IMChatMsgReceiveNotif"
+
+#endif /* PrefixHeader_pch */

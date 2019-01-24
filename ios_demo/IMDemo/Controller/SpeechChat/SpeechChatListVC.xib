@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SpeechChatListVC">
+            <connections>
+                <outlet property="tableView" destination="RTe-8j-AIe" id="d7d-CY-DeB"/>
+                <outlet property="tableViewTopConstraint" destination="wFE-r6-GZE" id="cP0-3e-hBI"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RTe-8j-AIe">
+                    <rect key="frame" x="0.0" y="64" width="375" height="543"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dI-fU-6e6">
+                    <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                    <subviews>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="StN-V2-hmu">
+                            <rect key="frame" x="60" y="10" width="255" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="qrR-Do-bnB"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="创建语音直播" backgroundImage="big_button"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="createSpeechButtonClicked:" destination="-1" eventType="touchUpInside" id="VA1-PP-moP"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="StN-V2-hmu" firstAttribute="top" secondItem="0f2-Bm-F8C" secondAttribute="top" constant="10" id="0yZ-dM-fty"/>
+                        <constraint firstAttribute="bottom" secondItem="StN-V2-hmu" secondAttribute="bottom" constant="10" id="2fY-r8-C5l"/>
+                        <constraint firstAttribute="trailing" secondItem="StN-V2-hmu" secondAttribute="trailing" constant="60" id="J95-Vh-Sz1"/>
+                        <constraint firstItem="StN-V2-hmu" firstAttribute="leading" secondItem="3dI-fU-6e6" secondAttribute="leading" constant="60" id="xDB-TQ-kSP"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="0f2-Bm-F8C"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="RTe-8j-AIe" secondAttribute="trailing" id="0l1-qa-AMF"/>
+                <constraint firstItem="3dI-fU-6e6" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="1bH-Y4-TYP"/>
+                <constraint firstItem="3dI-fU-6e6" firstAttribute="top" secondItem="RTe-8j-AIe" secondAttribute="bottom" id="BPm-cP-YgU"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="3dI-fU-6e6" secondAttribute="trailing" id="UzV-H5-Gzc"/>
+                <constraint firstItem="3dI-fU-6e6" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="otA-Mo-3MW"/>
+                <constraint firstItem="RTe-8j-AIe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="wFE-r6-GZE"/>
+                <constraint firstItem="RTe-8j-AIe" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="wov-7J-pae"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="big_button" width="298" height="55.5"/>
+    </resources>
+</document>
