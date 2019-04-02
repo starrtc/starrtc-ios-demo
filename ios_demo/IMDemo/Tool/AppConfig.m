@@ -67,7 +67,6 @@
 
 #ifdef DEBUG
     _liveEnable = YES;
-
     [self saveParametersToLocal];
     return;
 #endif
@@ -123,7 +122,7 @@
 }
 - (void)saveParametersToLocal{
     NSDictionary *parameters = [self objectToDictionary];
-    [[NSUserDefaults standardUserDefaults] setObject:parameters forKey:@"AppConfigs"];
+    [[NSUserDefaults standardUserDefaults] setObject:parameters forKey:@"AppConfigParameters"];
 }
 
 @end

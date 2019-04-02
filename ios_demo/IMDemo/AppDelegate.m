@@ -10,16 +10,17 @@
 #import "XHClient.h"
 #import "InterfaceUrls.h"
 #import <Bugly/Bugly.h>
-
+#import "IQKeyboardManager.h"
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:YES];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     [[AppConfig shareConfig] checkAppConfig];
     
     XHSDKConfig * config = [[XHSDKConfig alloc] init];

@@ -87,14 +87,14 @@
 - (IBAction)saveButtonClicked:(UIButton *)sender {
     
     NSMutableDictionary *appParameters = [NSMutableDictionary dictionaryWithCapacity:1];
-    [appParameters setObject:self.appIdTextField.text forKey:@"host"];
+    [appParameters setObject:self.yewuTextField.text forKey:@"host"];
     [appParameters setObject:self.loginTextField.text forKey:@"loginHost"];
     [appParameters setObject:self.messageTextField.text forKey:@"messageHost"];
     [appParameters setObject:self.chatTextField.text forKey:@"chatHost"];
     [appParameters setObject:self.uploadTextField.text forKey:@"uploadHost"];
     [appParameters setObject:self.downloadTextField.text forKey:@"downloadHost"];
     [appParameters setObject:self.voipTextField.text forKey:@"voipHost"];
-    [appParameters setObject:self.yewuTextField.text forKey:@"host"];
+    [appParameters setObject:self.appIdTextField.text forKey:@"appId"];
     [appParameters setObject:self.userIdTextField.text forKey:@"userId"];
     [[NSUserDefaults standardUserDefaults] setObject:appParameters forKey:@"AppConfigParameters"];
     [UIWindow ilg_makeToast:@"保存成功，重新启动APP后生效"];

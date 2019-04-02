@@ -12,6 +12,7 @@
 #import "XHVoipManager.h"
 #import "XHMeetingManager.h"
 #import "XHLiveManager.h"
+#import "XHVoipP2PManager.h"
 
 @interface XHSDKConfig:NSObject
 /* 应用ID*/
@@ -44,6 +45,7 @@
 @property (nonatomic, strong, readonly) XHGroupManager *groupManager;
 @property (nonatomic, strong, readonly) XHChatManager *chatManager;
 @property (nonatomic, strong, readonly) XHVoipManager *voipManager;
+@property (nonatomic, strong, readonly) XHVoipP2PManager *voipP2PManager;
 @property (nonatomic, strong, readonly) XHMeetingManager *meetingManager;
 @property (nonatomic, strong, readonly) XHLiveManager *liveManager;
 @property (nonatomic, strong, readonly) XHSDKConfig *config;
