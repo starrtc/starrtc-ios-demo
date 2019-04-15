@@ -2,9 +2,7 @@
 
 ![StarRTC_demo](assets/StarRTC_demo.jpg)
 
-App下载：
-
-![StarRTC_demo](assets/pgyer.png)
+iOS示例程序需要自己编译下。
 
 IM测试时，除了app之间可以互发消息，app也可以和这个页面互发消息进行测试：
 
