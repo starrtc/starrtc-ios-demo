@@ -13,6 +13,9 @@
 #import "CircleTestVC.h"
 #import "QGSandboxViewerVC.h"
 #import "SystemSettingVC.h"
+
+#import "IFInnerHomeVC.h"
+
 @interface VideoSettingVC ()
 
 {
@@ -255,6 +258,13 @@
 -(void)handleLogTap:(UIGestureRecognizer *)sender{
     QGSandboxViewerVC *vc = [[QGSandboxViewerVC alloc] initWithHomeDirectory];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+// 内网直连测试
+- (IBAction)innerConnect:(id)sender {
+    IFInnerHomeVC *vc = [[IFInnerHomeVC alloc] initWithNibName:NSStringFromClass([IFInnerHomeVC class]) bundle:[NSBundle mainBundle]];
+    
+    [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)shareLogsAtDirectory:(NSString*)path delegate:(UIViewController*)delegate {

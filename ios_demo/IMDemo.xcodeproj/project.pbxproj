@@ -158,6 +158,8 @@
 		A549CB6F207B15D00045A2E1 /* IFCreateLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A549CB6E207B15D00045A2E1 /* IFCreateLiveVC.m */; };
 		A549CB73207CD4450045A2E1 /* IFChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A549CB72207CD4450045A2E1 /* IFChatCell.m */; };
 		A54D214820B81D5100E89114 /* IFVideoChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A54D214620B81D5100E89114 /* IFVideoChatCell.m */; };
+		A5650D42221D4A1F00E9A655 /* IFInnerVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5650D40221D4A1F00E9A655 /* IFInnerVideoVC.m */; };
+		A5650D49221FCC0500E9A655 /* IFInnerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5650D48221FCC0500E9A655 /* IFInnerManager.m */; };
 		A57FA72820902625006CE93C /* IFVideoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A57FA72720902625006CE93C /* IFVideoListCell.m */; };
 		A58C187620CE856B0036278A /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = A58C186720CE856B0036278A /* README.markdown */; };
 		A58C187820CE856B0036278A /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A58C186C20CE856B0036278A /* FMDatabaseQueue.m */; };
@@ -188,8 +190,11 @@
 		A58DFF66206E084A0074DB7B /* README.mdown in Resources */ = {isa = PBXBuildFile; fileRef = A58DFF63206E084A0074DB7B /* README.mdown */; };
 		A58DFF6A206E08DC0074DB7B /* UIColor+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DFF69206E08DC0074DB7B /* UIColor+Category.m */; };
 		A58DFF6E206E414A0074DB7B /* IFListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DFF6D206E414A0074DB7B /* IFListView.m */; };
+		A5A39A0C221D2A7A00960461 /* IFInnerHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A39A0A221D2A7A00960461 /* IFInnerHomeVC.m */; };
+		A5A39A0D221D2A7A00960461 /* IFInnerHomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5A39A0B221D2A7A00960461 /* IFInnerHomeVC.xib */; };
+		A5A39A11221D335600960461 /* IFInnerCallVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A39A0F221D335600960461 /* IFInnerCallVC.m */; };
+		A5A39A12221D335600960461 /* IFInnerCallVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5A39A10221D335600960461 /* IFInnerCallVC.xib */; };
 		A5B1B9BD20A02F5A00EF4DEB /* InterfaceUrls.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B1B9BC20A02F5A00EF4DEB /* InterfaceUrls.m */; };
-		A5B1B9BF20A04A9700EF4DEB /* libstarRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5B1B9BE20A04A9700EF4DEB /* libstarRTC.a */; };
 		A5B1B9C220A40DC300EF4DEB /* IFC2CSessionListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B1B9C120A40DC300EF4DEB /* IFC2CSessionListVC.m */; };
 		A5B92F052071D70E003456D0 /* IFBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B92F042071D70E003456D0 /* IFBaseView.m */; };
 		A5B92F082071D731003456D0 /* IFChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B92F072071D731003456D0 /* IFChatView.m */; };
@@ -215,6 +220,7 @@
 		A5E15F8C208F12C800A6EA85 /* IFGroupMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E15F8B208F12C800A6EA85 /* IFGroupMemberCell.m */; };
 		A5E15F9020900EE600A6EA85 /* IFVideoListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E15F8F20900EE600A6EA85 /* IFVideoListView.m */; };
 		A5E4C38620A96D5B00F7D34A /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5E4C38520A96D5B00F7D34A /* Bugly.framework */; };
+		A5F4CDE422684F5200398268 /* libstarRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5F4CDE022684F5200398268 /* libstarRTC.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -478,19 +484,6 @@
 		845799C11FE7D85600560EC2 /* IMDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IMDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		845799C51FE7D85600560EC2 /* IMDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMDemoTests.m; sourceTree = "<group>"; };
 		845799C71FE7D85600560EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84A4163420A01C7900BF9059 /* XHVoipManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHVoipManager.h; sourceTree = "<group>"; };
-		84A4163520A01C7900BF9059 /* XHVideoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHVideoConfig.h; sourceTree = "<group>"; };
-		84A4163720A01C7900BF9059 /* XHChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHChatManager.h; sourceTree = "<group>"; };
-		84A4163820A01C7900BF9059 /* XHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHConstants.h; sourceTree = "<group>"; };
-		84A4163920A01C7900BF9059 /* XHChatroomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHChatroomManager.h; sourceTree = "<group>"; };
-		84A4163A20A01C7900BF9059 /* XHClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHClient.h; sourceTree = "<group>"; };
-		84A4163B20A01C7900BF9059 /* XHLiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLiveManager.h; sourceTree = "<group>"; };
-		84A4163C20A01C7900BF9059 /* XHGroupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHGroupManager.h; sourceTree = "<group>"; };
-		84A4163D20A01C7A00BF9059 /* XHLoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLoginManager.h; sourceTree = "<group>"; };
-		84A4163E20A01C7A00BF9059 /* XHMeetingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHMeetingManager.h; sourceTree = "<group>"; };
-		84A4164E20A2CDDD00BF9059 /* LoopTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopTest.h; sourceTree = "<group>"; };
-		84A4164F20A2CDDE00BF9059 /* EchoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EchoTest.h; sourceTree = "<group>"; };
-		84C31CF5217586620008408C /* XHWhitePanel2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHWhitePanel2.h; sourceTree = "<group>"; };
 		84D4944A1FFF5C9800D151BE /* MessageGroupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageGroupViewController.h; sourceTree = "<group>"; };
 		84D4944B1FFF5C9800D151BE /* MessageGroupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageGroupViewController.m; sourceTree = "<group>"; };
 		84D4944D1FFF5CBC00D151BE /* MessageGroupListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageGroupListViewController.h; sourceTree = "<group>"; };
@@ -512,7 +505,6 @@
 		84E59DB11FF21B9E00048219 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		84E59DB21FF21B9E00048219 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A502842520B7DDBD003845E8 /* IMDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IMDemo.entitlements; sourceTree = "<group>"; };
-		A5276B592112EFE400D348AB /* XHWhitePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHWhitePanel.h; sourceTree = "<group>"; };
 		A549CB67207B0C510045A2E1 /* IFCreateBaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFCreateBaseVC.h; sourceTree = "<group>"; };
 		A549CB68207B0C510045A2E1 /* IFCreateBaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFCreateBaseVC.m; sourceTree = "<group>"; };
 		A549CB6A207B0EFD0045A2E1 /* IFCreateMeetingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFCreateMeetingVC.h; sourceTree = "<group>"; };
@@ -523,6 +515,10 @@
 		A549CB72207CD4450045A2E1 /* IFChatCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFChatCell.m; sourceTree = "<group>"; };
 		A54D214620B81D5100E89114 /* IFVideoChatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFVideoChatCell.m; sourceTree = "<group>"; };
 		A54D214720B81D5100E89114 /* IFVideoChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFVideoChatCell.h; sourceTree = "<group>"; };
+		A5650D3F221D4A1F00E9A655 /* IFInnerVideoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFInnerVideoVC.h; sourceTree = "<group>"; };
+		A5650D40221D4A1F00E9A655 /* IFInnerVideoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFInnerVideoVC.m; sourceTree = "<group>"; };
+		A5650D47221FCC0500E9A655 /* IFInnerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFInnerManager.h; sourceTree = "<group>"; };
+		A5650D48221FCC0500E9A655 /* IFInnerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFInnerManager.m; sourceTree = "<group>"; };
 		A57FA72620902625006CE93C /* IFVideoListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFVideoListCell.h; sourceTree = "<group>"; };
 		A57FA72720902625006CE93C /* IFVideoListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFVideoListCell.m; sourceTree = "<group>"; };
 		A58C186720CE856B0036278A /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
@@ -584,9 +580,14 @@
 		A58DFF69206E08DC0074DB7B /* UIColor+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Category.m"; sourceTree = "<group>"; };
 		A58DFF6C206E414A0074DB7B /* IFListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFListView.h; sourceTree = "<group>"; };
 		A58DFF6D206E414A0074DB7B /* IFListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFListView.m; sourceTree = "<group>"; };
+		A5A39A09221D2A7A00960461 /* IFInnerHomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFInnerHomeVC.h; sourceTree = "<group>"; };
+		A5A39A0A221D2A7A00960461 /* IFInnerHomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFInnerHomeVC.m; sourceTree = "<group>"; };
+		A5A39A0B221D2A7A00960461 /* IFInnerHomeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IFInnerHomeVC.xib; sourceTree = "<group>"; };
+		A5A39A0E221D335600960461 /* IFInnerCallVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFInnerCallVC.h; sourceTree = "<group>"; };
+		A5A39A0F221D335600960461 /* IFInnerCallVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFInnerCallVC.m; sourceTree = "<group>"; };
+		A5A39A10221D335600960461 /* IFInnerCallVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IFInnerCallVC.xib; sourceTree = "<group>"; };
 		A5B1B9BB20A02F5A00EF4DEB /* InterfaceUrls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterfaceUrls.h; sourceTree = "<group>"; };
 		A5B1B9BC20A02F5A00EF4DEB /* InterfaceUrls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterfaceUrls.m; sourceTree = "<group>"; };
-		A5B1B9BE20A04A9700EF4DEB /* libstarRTC.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstarRTC.a; sourceTree = "<group>"; };
 		A5B1B9C020A40DC300EF4DEB /* IFC2CSessionListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFC2CSessionListVC.h; sourceTree = "<group>"; };
 		A5B1B9C120A40DC300EF4DEB /* IFC2CSessionListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFC2CSessionListVC.m; sourceTree = "<group>"; };
 		A5B92F032071D70E003456D0 /* IFBaseView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFBaseView.h; sourceTree = "<group>"; };
@@ -634,6 +635,22 @@
 		A5E15F8E20900EE600A6EA85 /* IFVideoListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFVideoListView.h; sourceTree = "<group>"; };
 		A5E15F8F20900EE600A6EA85 /* IFVideoListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFVideoListView.m; sourceTree = "<group>"; };
 		A5E4C38520A96D5B00F7D34A /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
+		A5F4CDD422684F5200398268 /* XHVideoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHVideoConfig.h; sourceTree = "<group>"; };
+		A5F4CDD522684F5200398268 /* XHVoipP2PManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHVoipP2PManager.h; sourceTree = "<group>"; };
+		A5F4CDD622684F5200398268 /* XHClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHClient.h; sourceTree = "<group>"; };
+		A5F4CDD722684F5200398268 /* XHLoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLoginManager.h; sourceTree = "<group>"; };
+		A5F4CDD822684F5200398268 /* LoopTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoopTest.h; sourceTree = "<group>"; };
+		A5F4CDD922684F5200398268 /* XHLiveManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLiveManager.h; sourceTree = "<group>"; };
+		A5F4CDDA22684F5200398268 /* XHWhitePanel2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHWhitePanel2.h; sourceTree = "<group>"; };
+		A5F4CDDB22684F5200398268 /* XHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHConstants.h; sourceTree = "<group>"; };
+		A5F4CDDC22684F5200398268 /* XHWhitePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHWhitePanel.h; sourceTree = "<group>"; };
+		A5F4CDDD22684F5200398268 /* XHGroupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHGroupManager.h; sourceTree = "<group>"; };
+		A5F4CDDE22684F5200398268 /* XHMeetingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHMeetingManager.h; sourceTree = "<group>"; };
+		A5F4CDDF22684F5200398268 /* XHChatroomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHChatroomManager.h; sourceTree = "<group>"; };
+		A5F4CDE022684F5200398268 /* libstarRTC.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstarRTC.a; sourceTree = "<group>"; };
+		A5F4CDE122684F5200398268 /* XHVoipManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHVoipManager.h; sourceTree = "<group>"; };
+		A5F4CDE222684F5200398268 /* XHChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHChatManager.h; sourceTree = "<group>"; };
+		A5F4CDE322684F5200398268 /* EchoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EchoTest.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -643,10 +660,10 @@
 			files = (
 				A5E4C38620A96D5B00F7D34A /* Bugly.framework in Frameworks */,
 				84D494451FFB967500D151BE /* VideoToolbox.framework in Frameworks */,
-				A5B1B9BF20A04A9700EF4DEB /* libstarRTC.a in Frameworks */,
 				84E59DA21FEA01A800048219 /* libiconv.tbd in Frameworks */,
 				84E59DA01FEA019000048219 /* libstdc++.tbd in Frameworks */,
 				84E59D9E1FEA010E00048219 /* libc++.tbd in Frameworks */,
+				A5F4CDE422684F5200398268 /* libstarRTC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,6 +712,7 @@
 		7B570800207AFFED00857F30 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A5A39A08221D211400960461 /* InnerConnect */,
 				7B570806207AFFED00857F30 /* EMViewController.h */,
 				7B570802207AFFED00857F30 /* EMViewController.m */,
 				7B570803207AFFED00857F30 /* EMViewController.xib */,
@@ -1243,6 +1261,23 @@
 			path = IFChatCell;
 			sourceTree = "<group>";
 		};
+		A5650D45221FCBB100E9A655 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				A5650D46221FCBBA00E9A655 /* IFInnerManager */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		A5650D46221FCBBA00E9A655 /* IFInnerManager */ = {
+			isa = PBXGroup;
+			children = (
+				A5650D47221FCC0500E9A655 /* IFInnerManager.h */,
+				A5650D48221FCC0500E9A655 /* IFInnerManager.m */,
+			);
+			path = IFInnerManager;
+			sourceTree = "<group>";
+		};
 		A58C186620CE856B0036278A /* FMDB */ = {
 			isa = PBXGroup;
 			children = (
@@ -1373,6 +1408,7 @@
 		A58DFF12206CE2B30074DB7B /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				A5F4CDD322684F5200398268 /* IFYunSDK */,
 				7B5BF0AC221BED4A00F82A42 /* IQKeyboardManager */,
 				7B7D1F1521EC34AB0043F096 /* MJRefresh */,
 				7B7D1EC921EC2F320043F096 /* AFNetworking */,
@@ -1383,7 +1419,6 @@
 				A5DAA6732089B4F500A76FEA /* ILGLibrary */,
 				A58DFF5F206E084A0074DB7B /* MBProgressHUD */,
 				A58DFF1D206CE6A80074DB7B /* Masonry */,
-				A58DFF14206CE5520074DB7B /* IFYunSDK */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -1393,28 +1428,6 @@
 			children = (
 			);
 			path = Resource;
-			sourceTree = "<group>";
-		};
-		A58DFF14206CE5520074DB7B /* IFYunSDK */ = {
-			isa = PBXGroup;
-			children = (
-				84C31CF5217586620008408C /* XHWhitePanel2.h */,
-				A5276B592112EFE400D348AB /* XHWhitePanel.h */,
-				84A4164F20A2CDDE00BF9059 /* EchoTest.h */,
-				84A4164E20A2CDDD00BF9059 /* LoopTest.h */,
-				A5B1B9BE20A04A9700EF4DEB /* libstarRTC.a */,
-				84A4163720A01C7900BF9059 /* XHChatManager.h */,
-				84A4163920A01C7900BF9059 /* XHChatroomManager.h */,
-				84A4163A20A01C7900BF9059 /* XHClient.h */,
-				84A4163820A01C7900BF9059 /* XHConstants.h */,
-				84A4163C20A01C7900BF9059 /* XHGroupManager.h */,
-				84A4163B20A01C7900BF9059 /* XHLiveManager.h */,
-				84A4163D20A01C7A00BF9059 /* XHLoginManager.h */,
-				84A4163E20A01C7A00BF9059 /* XHMeetingManager.h */,
-				84A4163520A01C7900BF9059 /* XHVideoConfig.h */,
-				84A4163420A01C7900BF9059 /* XHVoipManager.h */,
-			);
-			path = IFYunSDK;
 			sourceTree = "<group>";
 		};
 		A58DFF1D206CE6A80074DB7B /* Masonry */ = {
@@ -1543,6 +1556,7 @@
 		A58DFF54206D03AD0074DB7B /* VideoSetting */ = {
 			isa = PBXGroup;
 			children = (
+				A5650D45221FCBB100E9A655 /* Manager */,
 				7B570800207AFFED00857F30 /* ViewController */,
 				7B570807207AFFED00857F30 /* Model */,
 				7B570809207AFFED00857F30 /* Tools */,
@@ -1632,6 +1646,21 @@
 				A5DAA68C2089C88900A76FEA /* IFListViewCell.m */,
 			);
 			path = IFListView;
+			sourceTree = "<group>";
+		};
+		A5A39A08221D211400960461 /* InnerConnect */ = {
+			isa = PBXGroup;
+			children = (
+				A5A39A09221D2A7A00960461 /* IFInnerHomeVC.h */,
+				A5A39A0A221D2A7A00960461 /* IFInnerHomeVC.m */,
+				A5A39A0B221D2A7A00960461 /* IFInnerHomeVC.xib */,
+				A5A39A0E221D335600960461 /* IFInnerCallVC.h */,
+				A5A39A0F221D335600960461 /* IFInnerCallVC.m */,
+				A5A39A10221D335600960461 /* IFInnerCallVC.xib */,
+				A5650D3F221D4A1F00E9A655 /* IFInnerVideoVC.h */,
+				A5650D40221D4A1F00E9A655 /* IFInnerVideoVC.m */,
+			);
+			path = InnerConnect;
 			sourceTree = "<group>";
 		};
 		A5B92F022071D65E003456D0 /* IFChatView */ = {
@@ -1800,6 +1829,29 @@
 			path = IFListViewForVideo;
 			sourceTree = "<group>";
 		};
+		A5F4CDD322684F5200398268 /* IFYunSDK */ = {
+			isa = PBXGroup;
+			children = (
+				A5F4CDD422684F5200398268 /* XHVideoConfig.h */,
+				A5F4CDD522684F5200398268 /* XHVoipP2PManager.h */,
+				A5F4CDD622684F5200398268 /* XHClient.h */,
+				A5F4CDD722684F5200398268 /* XHLoginManager.h */,
+				A5F4CDD822684F5200398268 /* LoopTest.h */,
+				A5F4CDD922684F5200398268 /* XHLiveManager.h */,
+				A5F4CDDA22684F5200398268 /* XHWhitePanel2.h */,
+				A5F4CDDB22684F5200398268 /* XHConstants.h */,
+				A5F4CDDC22684F5200398268 /* XHWhitePanel.h */,
+				A5F4CDDD22684F5200398268 /* XHGroupManager.h */,
+				A5F4CDDE22684F5200398268 /* XHMeetingManager.h */,
+				A5F4CDDF22684F5200398268 /* XHChatroomManager.h */,
+				A5F4CDE022684F5200398268 /* libstarRTC.a */,
+				A5F4CDE122684F5200398268 /* XHVoipManager.h */,
+				A5F4CDE222684F5200398268 /* XHChatManager.h */,
+				A5F4CDE322684F5200398268 /* EchoTest.h */,
+			);
+			path = IFYunSDK;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1899,6 +1951,7 @@
 				7B570812207B08C900857F30 /* VideoTestSpeedVC.xib in Resources */,
 				7B3A866720747DFD005D7CE4 /* CircleTestVC.xib in Resources */,
 				A5DAA6792089B50B00A76FEA /* DeviceModel.plist in Resources */,
+				A5A39A0D221D2A7A00960461 /* IFInnerHomeVC.xib in Resources */,
 				7B57080B207AFFED00857F30 /* EMViewController.xib in Resources */,
 				7B7D1EC821EC297C0043F096 /* SpeechChatListCell.xib in Resources */,
 				7BD47D71206E2EF70000E9A1 /* ReceiverVoipVideoVC.xib in Resources */,
@@ -1906,6 +1959,7 @@
 				7BB1142521E44D63007668E1 /* SpeechChatListVC.xib in Resources */,
 				7B62782B20872F0800FE0841 /* VoipListVC.xib in Resources */,
 				7B627834208731DA00FE0841 /* VoipListTableViewCell.xib in Resources */,
+				A5A39A12221D335600960461 /* IFInnerCallVC.xib in Resources */,
 				7BE9149921EEC2D500FEEBD7 /* SpeechMessageCell.xib in Resources */,
 				7BE44CDC2088367100EEDF47 /* VoipVideoVC.xib in Resources */,
 				A58DFF1B206CE63F0074DB7B /* Main.storyboard in Resources */,
@@ -2048,6 +2102,7 @@
 				7B7D1F0021EC2F320043F096 /* AFSecurityPolicy.m in Sources */,
 				7B7D1EFE21EC2F320043F096 /* AFURLRequestSerialization.m in Sources */,
 				A5E15F9020900EE600A6EA85 /* IFVideoListView.m in Sources */,
+				A5650D49221FCC0500E9A655 /* IFInnerManager.m in Sources */,
 				A5CA18C321E5CC1700790711 /* IFSourceListVC.m in Sources */,
 				7BCE7C0E20C52E92003A3FFF /* AboutUsVC.m in Sources */,
 				A57FA72820902625006CE93C /* IFVideoListCell.m in Sources */,
@@ -2067,10 +2122,12 @@
 				7B7D1EF821EC2F320043F096 /* UIWebView+AFNetworking.m in Sources */,
 				8412C49320189AC60061F7A9 /* videoReadyViewController.m in Sources */,
 				845799B11FE7D85600560EC2 /* C2CViewController.m in Sources */,
+				A5A39A11221D335600960461 /* IFInnerCallVC.m in Sources */,
 				7B7D1F5221EC34AB0043F096 /* MJRefreshAutoGifFooter.m in Sources */,
 				A5E15F8C208F12C800A6EA85 /* IFGroupMemberCell.m in Sources */,
 				A58DFF4E206CF8A30074DB7B /* IFHomePageVC.m in Sources */,
 				845799BC1FE7D85600560EC2 /* main.m in Sources */,
+				A5650D42221D4A1F00E9A655 /* IFInnerVideoVC.m in Sources */,
 				7B7D1EF521EC2F320043F096 /* UIImageView+AFNetworking.m in Sources */,
 				7B7D1F4C21EC34AB0043F096 /* NSBundle+MJRefresh.m in Sources */,
 				7B62782A20872F0800FE0841 /* VoipListVC.m in Sources */,
@@ -2088,6 +2145,7 @@
 				7B7D1F5421EC34AB0043F096 /* MJRefreshNormalHeader.m in Sources */,
 				7B75E69221EF181B00252C8A /* AssignToObject.m in Sources */,
 				7BE9149C21EEC63400FEEBD7 /* SpeechMessageModel.m in Sources */,
+				A5A39A0C221D2A7A00960461 /* IFInnerHomeVC.m in Sources */,
 				A58DFF41206CE6A80074DB7B /* NSArray+MASAdditions.m in Sources */,
 				A5DAA6812089B52400A76FEA /* ILGSFHFKeychainUtils.m in Sources */,
 				A5B92F11207381F9003456D0 /* IFMutilMeetingVC.m in Sources */,
@@ -2283,6 +2341,7 @@
 					"$(PROJECT_DIR)/IMDemo/Model",
 					"$(PROJECT_DIR)/IMDemo/Lib/IFYunSDK",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.starrtc.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1a12bb0a-ac10-4660-be53-e33a924d6585";
@@ -2313,6 +2372,7 @@
 					"$(PROJECT_DIR)/IMDemo/Model",
 					"$(PROJECT_DIR)/IMDemo/Lib/IFYunSDK",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.starrtc.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "5d57e511-cc36-45ad-8b82-8bc86ab12d0d";
