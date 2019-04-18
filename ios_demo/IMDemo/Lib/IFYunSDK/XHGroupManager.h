@@ -92,4 +92,18 @@
  */
 - (void)sendMessage:(NSString *)message toGroup:(NSString *)groupID atUsers:(NSArray<NSString*> *)atUsers completion:(void(^)(NSError *error))completion;
 
+/**
+ * 查询群列表
+ * @param completion 结果回调
+ */
+-(void)queryGroupList:(void(^)(NSString * listInfo, NSError *error))completion;
+
+/**
+ *  查询群信息（免打扰状态+成员列表）
+ * @param groupID 查询的群ID
+ * @param completion 结果回调
+ */
+-(void)queryGroupInfo:(NSString *) groupID
+           completion:(void(^)(NSString * listInfo, NSError *error))completion;
+
 @end

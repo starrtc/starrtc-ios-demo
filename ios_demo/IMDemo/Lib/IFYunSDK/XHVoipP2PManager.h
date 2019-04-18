@@ -101,6 +101,12 @@
  */
 - (XHCameraDirection)switchCamera;
 
+/**
+ 返回切换后的摄像头方向
+ @return 切换后的摄像头方向
+ */
+- (XHCameraDirection)switchCamera:(NSInteger)cameraId;
+
 /*
  *设置主方和对方的视频画面
  @param selfPreview 预览画面
@@ -163,13 +169,7 @@
 - (void)setVideoEnable:(BOOL) enable;
 
 
-//// ~~~~~~~~~~~~~~~~~~~test for echoCancellation~~~~~~~~~~~~
-//-(void)setEchoCancellation:(BOOL)needEchoCancellation;
-//
-//-(void)insert_AudioData:(Byte *)data
-//                    len:(UInt32)len;
-////-(int)get_AudioData:(Byte *)readData;
-//-(Byte*)get_AudioData:(int *)readLength;
+
 @end
 
 

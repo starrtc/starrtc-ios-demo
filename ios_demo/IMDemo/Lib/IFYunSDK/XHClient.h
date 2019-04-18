@@ -14,7 +14,12 @@
 #import "XHLiveManager.h"
 #import "XHVoipP2PManager.h"
 
+ static NSString *SERVER_TYPE_PUBLIC = @"PUBLIC";
+ static NSString *SERVER_TYPE_CUSTOM = @"CUSTOM";
+
 @interface XHSDKConfig:NSObject
+
+@property (nonatomic, strong) NSString *serverType;
 /* 应用ID*/
 @property (nonatomic, strong) NSString *agentID;
 /* 登陆服务*/
@@ -27,8 +32,22 @@
 @property (nonatomic, strong) NSString *liveSrcScheduleURL;
 /* 下载服务*/
 @property (nonatomic, strong) NSString *liveVdnScheduleURL;
+///* voip服务*/
+//@property (nonatomic, strong) NSString *voipScheduleURL;
+
+// 私有
+/* 消息服务*/
+@property (nonatomic, strong) NSString *imServerURL;
+/* 聊天室服务*/
+@property (nonatomic, strong) NSString *chatRoomServerURL;
+/* 上传服务*/
+@property (nonatomic, strong) NSString *liveSrcServerURL;
+/* 下载服务*/
+@property (nonatomic, strong) NSString *liveVdnServerURL;
 /* voip服务*/
 @property (nonatomic, strong) NSString *voipServerURL;
+
+
 @end
 
 @protocol XHClientDelegate <NSObject>

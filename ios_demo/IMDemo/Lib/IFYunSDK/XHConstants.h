@@ -200,4 +200,9 @@ typedef NS_ENUM(NSInteger,XHDeviceDirectionEnum)
     STAR_DEVICE_DIRECTION_HOME_LEFT,
     STAR_DEVICE_DIRECTION_HOME_TOP
 };
+
+static  NSString *AUTHKEY_PUBLIC                      = @"AUTHKEY-PUBLIC";
+static  NSString *AUTHKEY_FREE                        = @"AUTHKEY-FREE";
+static  NSString *APPID_FREE                          = @"APPID-FREE";
+
 #endif /* XHConstants_h */

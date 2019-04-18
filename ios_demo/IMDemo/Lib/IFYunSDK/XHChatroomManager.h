@@ -147,4 +147,18 @@
  */
 - (void)sendMessage:(NSString *)message toID:(NSString *)toID  completion:(void(^)(NSError *error))completion;
 
+/**
+ * 查询聊天室列表
+ * @param completion 回调
+ */
+- (void)queryChatroomList:(void(^)(NSString *listInfo, NSError *error))completion;
+
+/**
+ * 从聊天室列表删除
+ * @param chatroomId 聊天室ID
+ * @param completion 结果回调
+ */
+- (void)deleteFromChatroomList:(NSString *) chatroomId
+                    completion:(void(^)(NSError *error))completion;
+
 @end

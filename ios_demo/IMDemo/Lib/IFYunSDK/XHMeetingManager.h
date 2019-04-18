@@ -211,6 +211,22 @@
  */
 - (void)setVideoEnable:(BOOL) enable;
 
+
+/**
+ * 查询会议室列表
+ * @param completion 结果回调
+ */
+-(void)queryMeetingList:(void(^)(NSError *error))completion;
+
+/**
+ * 从会议室列表删除
+ * @param meetingId 会议室ID
+ * @param completion 结果回调
+ */
+-(void)deleteFromMeetingList:(NSString *)meetingId
+    completion:(void(^)(NSError *error))completion;
+
+
 @end
 
 

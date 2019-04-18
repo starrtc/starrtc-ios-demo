@@ -339,6 +339,21 @@
  */
 - (void)setVideoEnable:(BOOL) enable;
 
+
+/**
+ * 查询直播列表
+ * @param completion 结果回调
+ */
+- (void)queryLiveList:(void(^)(NSString *listInfo, NSError *error))completion;
+
+/**
+ * 从直播列表删除
+ * @param liveId 直播ID
+ * @param completion 结果回调
+ */
+- (void)deleteFromLiveList:(NSString *)liveId
+                completion:(void(^)(NSError *error))completion;
+
 @end
 
 
