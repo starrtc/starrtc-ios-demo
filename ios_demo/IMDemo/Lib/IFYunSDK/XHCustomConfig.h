@@ -12,30 +12,47 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+static NSString *SERVER_TYPE_PUBLIC = @"PUBLIC";
+static NSString *SERVER_TYPE_CUSTOM = @"CUSTOM";
+
 @interface XHCustomConfig : NSObject
 
-@property (nonatomic, assign)   NSString *appId;
-@property (nonatomic, assign)   NSString * loginServerUrl;
-@property (nonatomic, assign)   NSString *imScheduleUrl;
-@property (nonatomic, assign)   NSString *liveSrcScheduleUrl;
-@property (nonatomic, assign)   NSString * liveVdnScheduleUrl;
-@property (nonatomic, assign)   NSString * chatroomScheduleUrl;
-@property (nonatomic, assign)   NSString * voipServerUrl;
-@property (nonatomic, assign)   NSString * imServerUrl;;
-@property (nonatomic, assign)   NSString * chatroomServerUrl;
-@property (nonatomic, assign)   NSString * liveSrcServerUrl;
-@property (nonatomic, assign)   NSString * liveVdnServerUrl;
+@property (nonatomic, strong) NSString *serverType;
+/* 应用ID*/
+@property (nonatomic, strong) NSString *agentID;
+/* 登陆服务*/
+@property (nonatomic, strong) NSString *starLoginURL;
+/* 消息服务*/
+@property (nonatomic, strong) NSString *imScheduleURL;
+/* 聊天室服务*/
+@property (nonatomic, strong) NSString *chatRoomScheduleURL;
+/* 上传服务*/
+@property (nonatomic, strong) NSString *liveSrcScheduleURL;
+/* 下载服务*/
+@property (nonatomic, strong) NSString *liveVdnScheduleURL;
+///* voip服务*/
+@property (nonatomic, strong) NSString *voipScheduleURL;
+
+// 私有
+/* 消息服务*/
+@property (nonatomic, strong) NSString *imServerURL;
+/* 聊天室服务*/
+@property (nonatomic, strong) NSString *chatRoomServerURL;
+/* 上传服务*/
+@property (nonatomic, strong) NSString *liveSrcServerURL;
+/* 下载服务*/
+@property (nonatomic, strong) NSString *liveVdnServerURL;
+/* voip服务*/
+@property (nonatomic, strong) NSString *voipServerURL;
 
 //  正常SDK登录
--(void)initSDK:(NSString *)userId
-         appId:appId;
+-(void)initSDK:(NSString *)userId;
 
 // 暂时没用
 -(void)initSDKWithoutAudioCheck:(NSString *)userId;
 
 // 开放版SDK初始化
--(void)initSDKForFree:(NSString *)userId
-                appId:(NSString *)appId;
+-(void)initSDKForFree:(NSString *)userId;
 
 
 @end
