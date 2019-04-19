@@ -41,7 +41,7 @@
  * @param authKey 从服务器获取的授权码
  * @param completion 结果回调
  */
-- (void)login:(NSString *)account authKey:(NSString *)authKey completion:(void(^)(NSError *error))completion;
+- (void)login:(NSString *)authKey completion:(void(^)(NSError *error))completion;
 
 /**
  * 公有云，免登陆时调用 测试用
