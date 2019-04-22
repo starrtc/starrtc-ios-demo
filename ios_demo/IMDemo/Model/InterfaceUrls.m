@@ -40,7 +40,7 @@
     }];
 }
 - (void)demoRequestMeetingList {
-    NSString *urlStr =  [NSString stringWithFormat:@"%@%@%@",[self absolutePath:@"/meeting/list"],@"?appid=",[XHClient sharedClient].config.agentID];
+    NSString *urlStr =  [NSString stringWithFormat:@"%@%@%@",[self absolutePath:@"/meeting/list"],@"?appid=",[AppConfig shareConfig].appId];
     
     [self get:urlStr callback:^(id result, NSError *error) {
         if (_delegate && [_delegate respondsToSelector:@selector(getMeetingListResponse:)])
@@ -97,7 +97,7 @@
                 ID:(NSString *)ID
            creator:(NSString *)creator
 {
-    NSString *urlStr =  [NSString stringWithFormat:@"%@?appid=%@&ID=%@&Name=%@&Creator=%@",[self absolutePath:@"/live/store"], [XHClient sharedClient].config.agentID, ID, [self URLEncodeString:name], [self URLEncodeString:creator]];
+    NSString *urlStr =  [NSString stringWithFormat:@"%@?appid=%@&ID=%@&Name=%@&Creator=%@",[self absolutePath:@"/live/store"], [AppConfig shareConfig].appId, ID, [self URLEncodeString:name], [self URLEncodeString:creator]];
     
     [self get:urlStr callback:^(id result, NSError *error) {
         
@@ -108,7 +108,7 @@
                   ID:(NSString *)ID
              creator:(NSString *)creator
 {
-    NSString *urlStr =  [NSString stringWithFormat:@"%@?appid=%@&ID=%@&Name=%@&Creator=%@",[self absolutePath:@"/class/store"], [XHClient sharedClient].config.agentID, ID, [self URLEncodeString:name], [self URLEncodeString:creator]];
+    NSString *urlStr =  [NSString stringWithFormat:@"%@?appid=%@&ID=%@&Name=%@&Creator=%@",[self absolutePath:@"/class/store"], [AppConfig shareConfig].appId, ID, [self URLEncodeString:name], [self URLEncodeString:creator]];
     
     [self get:urlStr callback:^(id result, NSError *error) {
         
@@ -119,7 +119,7 @@
 - (void)demoRequestLiveList
 {
     //1.创建一个web路径
-    NSString *urlStr =  [NSString stringWithFormat:@"%@%@%@",[self absolutePath:@"/live/list"],@"?appid=",[XHClient sharedClient].config.agentID];
+    NSString *urlStr =  [NSString stringWithFormat:@"%@%@%@",[self absolutePath:@"/live/list"],@"?appid=",[AppConfig shareConfig].appId];
     
     [self get:urlStr callback:^(id result, NSError *error) {
         if (_delegate && [_delegate respondsToSelector:@selector(getLiveListResponse:)])
@@ -135,7 +135,7 @@
                creator:(NSString *)creator
 {
 //    [name url]
-    NSString *urlStr =  [NSString stringWithFormat:@"%@?appid=%@&ID=%@&Name=%@&Creator=%@",[self absolutePath:@"/chat/store"], [XHClient sharedClient].config.agentID, ID, [self URLEncodeString:name], [self URLEncodeString:creator]];
+    NSString *urlStr =  [NSString stringWithFormat:@"%@?appid=%@&ID=%@&Name=%@&Creator=%@",[self absolutePath:@"/chat/store"], [AppConfig shareConfig].appId, ID, [self URLEncodeString:name], [self URLEncodeString:creator]];
     
     [self get:urlStr callback:^(id result, NSError *error) {
         
@@ -143,7 +143,7 @@
 }
 //聊天室列表
 - (void)demoRequestChatroomList {
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@%@",[self absolutePath:@"/chat/list"],@"?appid=",[XHClient sharedClient].config.agentID];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@%@",[self absolutePath:@"/chat/list"],@"?appid=",[AppConfig shareConfig].appId];
     [self get:urlStr callback:^(id result, NSError *error) {
         if (_delegate && [_delegate respondsToSelector:@selector(getChatRoomListResponse:)])
         {
@@ -156,7 +156,7 @@
  //群列表
 - (void)demoRequestGroupList
 {
-    NSString *urlStr=  [NSString stringWithFormat:@"%@%@%@",[self absolutePath:@"/group/list_all"],@"?appid=",[XHClient sharedClient].config.agentID];
+    NSString *urlStr=  [NSString stringWithFormat:@"%@%@%@",[self absolutePath:@"/group/list_all"],@"?appid=",[AppConfig shareConfig].appId];
     [self get:urlStr callback:^(id result, NSError *error) {
         if (_delegate && [_delegate respondsToSelector:@selector(getMessageGroupListResponse:)])
         {
@@ -167,7 +167,7 @@
 
 - (void)requestSourceList
 {
-    NSString *urlStr=  [NSString stringWithFormat:@"%@%@%@",[BASE_URL stringByAppendingString:@"/class/list"],@"?appid=",[XHClient sharedClient].config.agentID];
+    NSString *urlStr=  [NSString stringWithFormat:@"%@%@%@",[BASE_URL stringByAppendingString:@"/class/list"],@"?appid=",[AppConfig shareConfig].appId];
     [self get:urlStr callback:^(id result, NSError *error) {
         if (_delegate && [_delegate respondsToSelector:@selector(getMessageGroupListResponse:)])
         {
@@ -179,7 +179,7 @@
 //群成员列表
 - (void)demoRequestGroupMembers:(NSString *)groupID; {
     NSString *urlStr =  [NSString stringWithFormat:@"%@%@%@%@%@",[self absolutePath:@"/group/members"],
-                         @"?appid=", [XHClient sharedClient].config.agentID, @"&groupId=",groupID];
+                         @"?appid=", [AppConfig shareConfig].appId, @"&groupId=",groupID];
     [self get:urlStr callback:^(id result, NSError *error) {
         if (_delegate && [_delegate respondsToSelector:@selector(getMessageGroupMemberResponse:)])
         {

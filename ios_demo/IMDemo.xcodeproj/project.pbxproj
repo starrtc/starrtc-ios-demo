@@ -651,6 +651,7 @@
 		A5F4CDE122684F5200398268 /* XHVoipManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHVoipManager.h; sourceTree = "<group>"; };
 		A5F4CDE222684F5200398268 /* XHChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHChatManager.h; sourceTree = "<group>"; };
 		A5F4CDE322684F5200398268 /* EchoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EchoTest.h; sourceTree = "<group>"; };
+		A5F4CDEE2269944A00398268 /* XHCustomConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHCustomConfig.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1832,6 +1833,7 @@
 		A5F4CDD322684F5200398268 /* IFYunSDK */ = {
 			isa = PBXGroup;
 			children = (
+				A5F4CDEE2269944A00398268 /* XHCustomConfig.h */,
 				A5F4CDD422684F5200398268 /* XHVideoConfig.h */,
 				A5F4CDD522684F5200398268 /* XHVoipP2PManager.h */,
 				A5F4CDD622684F5200398268 /* XHClient.h */,
@@ -2324,7 +2326,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 555BFZT2K6;
+				DEVELOPMENT_TEAM = 9R93J6UJQ6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2345,7 +2347,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.starrtc.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1a12bb0a-ac10-4660-be53-e33a924d6585";
-				PROVISIONING_PROFILE_SPECIFIER = "com.*";
+				PROVISIONING_PROFILE_SPECIFIER = PopoYanJing;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2357,7 +2359,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 555BFZT2K6;
+				DEVELOPMENT_TEAM = 9R93J6UJQ6;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2376,7 +2378,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.starrtc.live;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "5d57e511-cc36-45ad-8b82-8bc86ab12d0d";
-				PROVISIONING_PROFILE_SPECIFIER = "com.*";
+				PROVISIONING_PROFILE_SPECIFIER = PopoYanJing;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, IFServiceType) {
+    IFServiceTypePublic, //公有云
+    IFServiceTypePrivate //私有云
+};
+
 @interface AppConfig : NSObject
 
 @property (nonatomic, strong) NSString *host;
@@ -26,5 +31,10 @@
 
 - (BOOL)liveEnable;
 - (void)checkAppConfig;
+
+//切换sdk部署服务类型，私有云或公有云
++ (void)switchSDKServiceType;
+//sdk服务类型
++ (IFServiceType)SDKServiceType;
 
 @end

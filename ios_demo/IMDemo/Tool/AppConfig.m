@@ -34,17 +34,32 @@
 {
     self = [super init];
     if (self) {
-        self.host = @"https://api.starrtc.com/public";
+        NSString *messageHost = @"ips2.starrtc.com:9904";
+        NSString *chatroomHost = @"ips2.starrtc.com:9907";
+        NSString *uploadHost = @"ips2.starrtc.com:9929";
+        NSString *downloadHost = @"ips2.starrtc.com:9926";
+        NSString *voipHost = @"voip2.starrtc.com:10086";
+        if ([AppConfig SDKServiceType] == IFServiceTypePrivate) {
+            messageHost = @"aisse.f3322.org:19903";
+            chatroomHost = @"aisse.f3322.org:19906";
+            uploadHost = @"aisse.f3322.org:19931";
+            downloadHost = @"aisse.f3322.org:19928";
+            voipHost = @"aisse.f3322.org:10086";
+        }
+        
+        self.messageHost = messageHost;
+        self.chatHost = chatroomHost;
+        self.uploadHost = uploadHost;
+        self.downloadHost = downloadHost;
+        self.voipHost = voipHost;
         self.userId = UserId;
         self.appId = IFHAppId;
-        self.messageHost = [XHClient sharedClient].config.imScheduleURL;
-        self.chatHost = [XHClient sharedClient].config.chatRoomScheduleURL;
+        self.host = @"https://api.starrtc.com/public";
+        self.loginHost = @"ips2.starrtc.com:9920";
+        
         self.videoEnabled = YES;
         self.audioEnabled = YES;
-        self.loginHost = [XHClient sharedClient].config.starLoginURL;
-        self.uploadHost = [XHClient sharedClient].config.liveSrcScheduleURL;
-        self.voipHost = [XHClient sharedClient].config.voipServerURL;
-        self.downloadHost = [XHClient sharedClient].config.liveVdnScheduleURL;
+        
         NSDictionary * parametersDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppConfigParameters"];
         if (parametersDic) {
             [self setValuesForKeysWithDictionary:parametersDic];
@@ -123,6 +138,35 @@
 - (void)saveParametersToLocal{
     NSDictionary *parameters = [self objectToDictionary];
     [[NSUserDefaults standardUserDefaults] setObject:parameters forKey:@"AppConfigParameters"];
+}
+
+static NSString * const kIFSDKServiceTypeKey = @"kIFSDKServiceTypeKey";
++ (void)switchSDKServiceType
+{
+    IFServiceType type = IFServiceTypePublic;
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults objectForKey:kIFSDKServiceTypeKey]) {
+        IFServiceType tmpType = [[userDefaults objectForKey:kIFSDKServiceTypeKey] integerValue];
+        if (tmpType == IFServiceTypePublic) {
+            type = IFServiceTypePrivate;
+        } else {
+            type = IFServiceTypePublic;
+        }
+    }
+    
+    [userDefaults setObject:@(type) forKey:kIFSDKServiceTypeKey];
+    [userDefaults synchronize];
+}
+
++ (IFServiceType)SDKServiceType
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults objectForKey:kIFSDKServiceTypeKey]) {
+        return [[userDefaults objectForKey:kIFSDKServiceTypeKey] integerValue];
+    } else {
+        return IFServiceTypePublic;
+    }
 }
 
 @end

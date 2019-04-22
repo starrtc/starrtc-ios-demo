@@ -54,7 +54,7 @@
 - (void)requetRefreshAudioList{
 //    ID=%@&Name=%@&Creator=%@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:1];
-    [parameters setObject:[XHClient sharedClient].config.agentID forKey:@"appid"];
+    [parameters setObject:[AppConfig shareConfig].appId forKey:@"appid"];
     [IFNetworkingInterfaceHandle requestAudioListWithParameters:parameters success:^(id  _Nullable responseObject) {
         [self.tableView.mj_header endRefreshing];
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];

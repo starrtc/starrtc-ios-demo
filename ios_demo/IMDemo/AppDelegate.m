@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "XHClient.h"
+#import "XHCustomConfig.h"
 #import "InterfaceUrls.h"
 #import <Bugly/Bugly.h>
 #import "IQKeyboardManager.h"
@@ -21,29 +21,11 @@
     // Override point for customization after application launch.
     [[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:YES];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
+    
     [[AppConfig shareConfig] checkAppConfig];
     
-    XHSDKConfig * config = [[XHSDKConfig alloc] init];
-    config.agentID = [AppConfig shareConfig].appId;  //必填项
-    if ([[AppConfig shareConfig].chatHost length] > 0) {
-        config.chatRoomScheduleURL = [AppConfig shareConfig].chatHost;
-    }
-    if ([[AppConfig shareConfig].loginHost length] > 0) {
-        config.starLoginURL = [AppConfig shareConfig].loginHost;
-    }
-    if ([[AppConfig shareConfig].messageHost length] > 0) {
-        config.imScheduleURL = [AppConfig shareConfig].messageHost;
-    }
-    if ([[AppConfig shareConfig].voipHost length] > 0) {
-        config.voipServerURL = [AppConfig shareConfig].voipHost;
-    }
-    if ([[AppConfig shareConfig].uploadHost length] > 0) {
-        config.liveSrcScheduleURL = [AppConfig shareConfig].uploadHost;
-    }
-    if ([[AppConfig shareConfig].downloadHost length] > 0) {
-        config.liveVdnScheduleURL = [AppConfig shareConfig].downloadHost;
-    }
-    [[XHClient sharedClient] initSDKWithConfiguration:config];
+    [self setupForIFSDK];
+    
     [Bugly startWithAppId:@"9b09df1886"];
     
     return YES;
@@ -74,5 +56,58 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+
+#pragma mark - other
+
+- (void)setupForIFSDK {
+    XHCustomConfig *config = [[XHCustomConfig alloc] init];
+    config.agentID = [AppConfig shareConfig].appId;  //必填项
+    
+    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+        config.serverType = SERVER_TYPE_PUBLIC;
+
+        if ([[AppConfig shareConfig].loginHost length] > 0) {
+            config.starLoginURL = [AppConfig shareConfig].loginHost;
+        }
+        
+        if ([[AppConfig shareConfig].chatHost length] > 0) {
+            config.chatRoomScheduleURL = [AppConfig shareConfig].chatHost;
+        }
+        if ([[AppConfig shareConfig].messageHost length] > 0) {
+            config.imScheduleURL = [AppConfig shareConfig].messageHost;
+        }
+        if ([[AppConfig shareConfig].voipHost length] > 0) {
+            config.voipScheduleURL = [AppConfig shareConfig].voipHost;
+        }
+        if ([[AppConfig shareConfig].uploadHost length] > 0) {
+            config.liveSrcScheduleURL = [AppConfig shareConfig].uploadHost;
+        }
+        if ([[AppConfig shareConfig].downloadHost length] > 0) {
+            config.liveVdnScheduleURL = [AppConfig shareConfig].downloadHost;
+        }
+        
+        [config initSDK:UserId];
+    } else {
+        config.serverType = SERVER_TYPE_CUSTOM;
+
+        if ([[AppConfig shareConfig].messageHost length] > 0) {
+            config.imServerURL = [AppConfig shareConfig].messageHost;
+        }
+        if ([[AppConfig shareConfig].chatHost length] > 0) {
+            config.chatRoomServerURL = [AppConfig shareConfig].chatHost;
+        }
+        if ([[AppConfig shareConfig].voipHost length] > 0) {
+            config.voipServerURL = [AppConfig shareConfig].voipHost;
+        }
+        if ([[AppConfig shareConfig].uploadHost length] > 0) {
+            config.liveSrcServerURL = [AppConfig shareConfig].uploadHost;
+        }
+        if ([[AppConfig shareConfig].downloadHost length] > 0) {
+            config.liveVdnServerURL = [AppConfig shareConfig].downloadHost;
+        }
+        
+        [config initSDKForFree:UserId];
+    }
+}
 
 @end

@@ -19,6 +19,19 @@
 @property (weak, nonatomic) IBOutlet UITextField *downloadTextField;
 @property (weak, nonatomic) IBOutlet UITextField *voipTextField;
 
+@property (weak, nonatomic) IBOutlet UILabel *messageTitleL;
+@property (weak, nonatomic) IBOutlet UILabel *chatroomTitleL;
+@property (weak, nonatomic) IBOutlet UILabel *uploadTitleL;
+@property (weak, nonatomic) IBOutlet UILabel *downloadTitleL;
+@property (weak, nonatomic) IBOutlet UILabel *voipTitleL;
+
+@property (weak, nonatomic) IBOutlet UIButton *serviceBtn;
+
+@property (weak, nonatomic) IBOutlet UIView *yewuView;
+@property (weak, nonatomic) IBOutlet UIView *appidView;
+@property (weak, nonatomic) IBOutlet UIView *loginView;
+
+@property (assign, nonatomic) IFServiceType serviceTypeForTmp;
 @end
 
 @implementation SystemSettingVC
@@ -31,6 +44,13 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditTextField:)];
     [self.view addGestureRecognizer:tap];
     // Do any additional setup after loading the view from its nib.
+    
+    self.serviceTypeForTmp = [AppConfig SDKServiceType];
+    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+        [self.serviceBtn setTitle:@"公有云" forState:UIControlStateNormal];
+    } else {
+        [self.serviceBtn setTitle:@"私有部署" forState:UIControlStateNormal];
+    }
 }
 - (void)addDelegate{
     self.yewuTextField.delegate = self;
@@ -44,7 +64,8 @@
     self.voipTextField.delegate = self;
 }
 
-- (void)initTextField{
+- (void)initTextField
+{
     self.yewuTextField.text = [AppConfig shareConfig].host;
     self.userIdTextField.text = [AppConfig shareConfig].userId;
     self.appIdTextField.text = [AppConfig shareConfig].appId;
@@ -54,24 +75,8 @@
     self.uploadTextField.text = [AppConfig shareConfig].uploadHost;
     self.downloadTextField.text = [AppConfig shareConfig].downloadHost;
     self.voipTextField.text = [AppConfig shareConfig].voipHost;
-//    if (parameters) {
-//        self.appIdTextField.text = [parameters objectForKey:@"agentID"];
-//        self.loginTextField.text = [parameters objectForKey:@"starLoginURL"];
-//        self.messageTextField.text = [parameters objectForKey:@"imScheduleURL"];
-//        self.chatTextField.text = [parameters objectForKey:@"chatRoomScheduleURL"];
-//        self.uploadTextField.text = [parameters objectForKey:@"liveSrcScheduleURL"];
-//        self.downloadTextField.text = [parameters objectForKey:@"liveVdnScheduleURL"];
-//        self.voipTextField.text = [parameters objectForKey:@"voipServerURL"];
-//    } else {
-//        self.appIdTextField.text = [XHClient sharedClient].config.agentID;
-//        self.loginTextField.text = [XHClient sharedClient].config.starLoginURL;
-//        self.messageTextField.text = [XHClient sharedClient].config.imScheduleURL;
-//        self.chatTextField.text = [XHClient sharedClient].config.chatRoomScheduleURL;
-//        self.uploadTextField.text = [XHClient sharedClient].config.liveSrcScheduleURL;
-//        self.downloadTextField.text = [XHClient sharedClient].config.liveVdnScheduleURL;
-//        self.voipTextField.text = [XHClient sharedClient].config.voipServerURL;
-//    }
 }
+
 - (void)endEditTextField:(UIGestureRecognizer*)ges{
     [self.view endEditing:YES];
 }
@@ -85,6 +90,9 @@
 }
 */
 - (IBAction)saveButtonClicked:(UIButton *)sender {
+    if (self.serviceTypeForTmp != [AppConfig SDKServiceType]) {
+        [AppConfig switchSDKServiceType];
+    }
     
     NSMutableDictionary *appParameters = [NSMutableDictionary dictionaryWithCapacity:1];
     [appParameters setObject:self.yewuTextField.text forKey:@"host"];
@@ -107,4 +115,55 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+
+
+#pragma mark - event
+
+- (IBAction)switchService:(id)sender {
+    __weak typeof(self) weakSelf = self;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *privateAction = [UIAlertAction actionWithTitle:@"私有部署" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [weakSelf handleServiceSwitch:IFServiceTypePrivate];
+    }];
+    UIAlertAction *publicAction = [UIAlertAction actionWithTitle:@"公有云" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [weakSelf handleServiceSwitch:IFServiceTypePublic];
+    }];
+    [alertController addAction:privateAction];
+    [alertController addAction:publicAction];
+}
+
+
+#pragma mark - other
+// To do ... : 处理UI以及数据
+- (void)handleServiceSwitch:(IFServiceType)serviceType
+{
+    self.serviceTypeForTmp = serviceType;
+    
+    if (serviceType == IFServiceTypePublic) {
+        [self.serviceBtn setTitle:@"公有云" forState:UIControlStateNormal];
+
+        self.appidView.hidden = NO;
+        self.yewuView.hidden = NO;
+        self.loginView.hidden = NO;
+        
+        self.messageTitleL.text = @"消息调度";
+        self.chatroomTitleL.text = @"聊天室调度";
+        self.uploadTitleL.text = @"LiveSrc调度";
+        self.downloadTitleL.text = @"LiveVdn调度";
+        self.voipTitleL.text = @"VOIP调度";
+    } else {
+        [self.serviceBtn setTitle:@"私有部署" forState:UIControlStateNormal];
+        
+        self.appidView.hidden = YES;
+        self.yewuView.hidden = YES;
+        self.loginView.hidden = YES;
+        
+        self.messageTitleL.text = @"消息服务";
+        self.chatroomTitleL.text = @"聊天室服务";
+        self.uploadTitleL.text = @"LiveSrc服务";
+        self.downloadTitleL.text = @"LiveVdn服务";
+        self.voipTitleL.text = @"VOIP服务";
+    }
+}
+
 @end
