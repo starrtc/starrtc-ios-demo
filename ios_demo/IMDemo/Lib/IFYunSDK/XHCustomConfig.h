@@ -46,13 +46,13 @@ static NSString *SERVER_TYPE_CUSTOM = @"CUSTOM";
 @property (nonatomic, strong) NSString *voipServerURL;
 
 //  正常SDK登录
--(void)initSDK:(NSString *)userId;
+-(void)sdkInit:(NSString *)userId;
 
 // 暂时没用
--(void)initSDKWithoutAudioCheck:(NSString *)userId;
+-(void)sdkInitWithoutAudioCheck:(NSString *)userId;
 
 // 开放版SDK初始化
--(void)initSDKForFree:(NSString *)userId;
+-(void)sdkInitForFree:(NSString *)userId;
 
 
 @end

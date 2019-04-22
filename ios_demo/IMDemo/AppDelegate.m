@@ -86,7 +86,7 @@
             config.liveVdnScheduleURL = [AppConfig shareConfig].downloadHost;
         }
         
-        [config initSDK:UserId];
+        [config sdkInit:UserId];
     } else {
         config.serverType = SERVER_TYPE_CUSTOM;
 
@@ -106,7 +106,7 @@
             config.liveVdnServerURL = [AppConfig shareConfig].downloadHost;
         }
         
-        [config initSDKForFree:UserId];
+        [config sdkInitForFree:UserId];
     }
 }
 
