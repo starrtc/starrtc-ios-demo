@@ -66,15 +66,17 @@
 
 - (void)initTextField
 {
-    self.yewuTextField.text = [AppConfig shareConfig].host;
-    self.userIdTextField.text = [AppConfig shareConfig].userId;
-    self.appIdTextField.text = [AppConfig shareConfig].appId;
-    self.loginTextField.text = [AppConfig shareConfig].loginHost;
-    self.messageTextField.text = [AppConfig shareConfig].messageHost;
-    self.chatTextField.text = [AppConfig shareConfig].chatHost;
-    self.uploadTextField.text = [AppConfig shareConfig].uploadHost;
-    self.downloadTextField.text = [AppConfig shareConfig].downloadHost;
-    self.voipTextField.text = [AppConfig shareConfig].voipHost;
+    AppConfig *config = [AppConfig appConfig:self.serviceTypeForTmp];
+    
+    self.yewuTextField.text = config.host;
+    self.userIdTextField.text = config.userId;
+    self.appIdTextField.text = config.appId;
+    self.loginTextField.text = config.loginHost;
+    self.messageTextField.text = config.messageHost;
+    self.chatTextField.text = config.chatHost;
+    self.uploadTextField.text = config.uploadHost;
+    self.downloadTextField.text = config.downloadHost;
+    self.voipTextField.text = config.voipHost;
 }
 
 - (void)endEditTextField:(UIGestureRecognizer*)ges{
@@ -104,9 +106,17 @@
     [appParameters setObject:self.voipTextField.text forKey:@"voipHost"];
     [appParameters setObject:self.appIdTextField.text forKey:@"appId"];
     [appParameters setObject:self.userIdTextField.text forKey:@"userId"];
-    [[NSUserDefaults standardUserDefaults] setObject:appParameters forKey:@"AppConfigParameters"];
+    
+    if (self.serviceTypeForTmp == IFServiceTypePublic) {
+        [AppConfig saveSystemSettingsForPublic:appParameters];
+    } else {
+        [AppConfig saveSystemSettingsForPrivate:appParameters];
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
     [UIWindow ilg_makeToast:@"保存成功，重新启动APP后生效"];
 }
+
 #pragma mark UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
@@ -136,10 +146,10 @@
 
 
 #pragma mark - other
-// To do ... : 处理UI以及数据
 - (void)handleServiceSwitch:(IFServiceType)serviceType
 {
     self.serviceTypeForTmp = serviceType;
+    [self initTextField];
     
     if (serviceType == IFServiceTypePublic) {
         [self.serviceBtn setTitle:@"公有云" forState:UIControlStateNormal];

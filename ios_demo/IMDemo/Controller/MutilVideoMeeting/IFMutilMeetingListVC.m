@@ -40,7 +40,7 @@
     m_interfaceUrls = [[InterfaceUrls alloc] init];
     m_interfaceUrls.delegate = self;
     [UIView showProgressWithText:@"加载中..."];
-    [m_interfaceUrls demoRequestMeetingList];
+    [self refreshList];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -63,26 +63,28 @@
     XHCustomConfig *config = [[XHCustomConfig alloc] init];
     config.agentID = [AppConfig shareConfig].appId;  //必填项
     
-    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+    IFServiceType type = [AppConfig SDKServiceType];
+    AppConfig *appConfig = [AppConfig appConfig:type];
+    if (type == IFServiceTypePublic) {
         config.serverType = SERVER_TYPE_PUBLIC;
         
-        config.starLoginURL = [AppConfig shareConfig].loginHost;
-        config.imScheduleURL = [AppConfig shareConfig].messageHost;
-        config.chatRoomScheduleURL = [AppConfig shareConfig].chatHost;
-        config.liveSrcScheduleURL = [AppConfig shareConfig].uploadHost;
-        config.liveVdnScheduleURL = [AppConfig shareConfig].downloadHost;
-        config.voipScheduleURL = [AppConfig shareConfig].voipHost;
+        config.starLoginURL = appConfig.loginHost;
+        config.imScheduleURL = appConfig.messageHost;
+        config.chatRoomScheduleURL = appConfig.chatHost;
+        config.liveSrcScheduleURL = appConfig.uploadHost;
+        config.liveVdnScheduleURL = appConfig.downloadHost;
+        config.voipScheduleURL = appConfig.voipHost;
 
         [config sdkInit:UserId];
         
     } else {
         config.serverType = SERVER_TYPE_CUSTOM;
 
-        config.imServerURL = [AppConfig shareConfig].messageHost;
-        config.chatRoomServerURL = [AppConfig shareConfig].chatHost;
-        config.liveSrcServerURL = [AppConfig shareConfig].uploadHost;
-        config.liveVdnServerURL = [AppConfig shareConfig].downloadHost;
-        config.voipServerURL = [AppConfig shareConfig].voipHost;
+        config.imServerURL = appConfig.messageHost;
+        config.chatRoomServerURL = appConfig.chatHost;
+        config.liveSrcServerURL = appConfig.uploadHost;
+        config.liveVdnServerURL = appConfig.downloadHost;
+        config.voipServerURL = appConfig.voipHost;
 
         [config sdkInitForFree:UserId];
     }

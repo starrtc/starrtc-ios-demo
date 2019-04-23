@@ -222,6 +222,13 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 
 #pragma mark - deledate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 2) {
+        return 0;
+    }
+    return 44;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
@@ -264,14 +271,14 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     }
 }
 
+
+#pragma mark - event
+
 - (void)handleEventForServerSet
 {
     SystemSettingVC *system = [[SystemSettingVC alloc] initWithNibName:@"SystemSettingVC" bundle:[NSBundle mainBundle]];
     [self.navigationController pushViewController:system animated:YES];
 }
-
-
-#pragma mark - event
 
 - (void)handleEventForLoopTest
 {
@@ -377,212 +384,6 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     [self.hwEncodeSwitch setOn:_videoSetParameters.hwEncodeEnable];
     [self.openGLSwitch setOn:_videoSetParameters.openGLEnable];
     [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
-}
-
-- (IBAction)encodeFormat:(UIButton *)sender {
-//    [UIWindow ilg_makeToast:@"开发中...."];
-    
-}
-
-- (void)shareLogsAtDirectory:(NSString*)path delegate:(UIViewController*)delegate {
-    //分享的url
-    NSURL *urlToShare = [NSURL fileURLWithPath:path];
-    //在这里呢 如果想分享图片 就把图片添加进去  文字什么的通上
-    NSArray *activityItems = @[urlToShare];
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
-    //不出现在活动项目
-    activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeCopyToPasteboard,UIActivityTypeAssignToContact,UIActivityTypeSaveToCameraRoll];
-    [delegate presentViewController:activityVC animated:YES completion:nil];
-    // 分享之后的回调
-    activityVC.completionWithItemsHandler = ^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
-        if (completed) {
-            NSLog(@"completed");
-            //分享 成功
-        } else  {
-            NSLog(@"cancled");
-            //分享 取消
-        }
-    };
-}
-
-///pcm转WAV
-- (NSString*)pcm2WAV
-{
-    NSString *pcmPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/xbMedia"];
-    
-    NSString *wavPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/xbMedia.wav"];
-    char *pcmPath_c = [pcmPath UTF8String];
-    char *wavPath_c = [wavPath UTF8String];
-    convertPcm2Wav(pcmPath_c, wavPath_c, 1, 16000);
-    return wavPath;
-    
-    //进入沙盒找到xbMedia.wav即可
-}
-
-// pcm 转wav
-//wav头的结构如下所示：
-
-typedef  struct  {
-    
-    char        fccID[4];
-    
-    int32_t      dwSize;
-    
-    char        fccType[4];
-    
-} HEADER;
-
-typedef  struct  {
-    
-    char        fccID[4];
-    
-    int32_t      dwSize;
-    
-    int16_t      wFormatTag;
-    
-    int16_t      wChannels;
-    
-    int32_t      dwSamplesPerSec;
-    
-    int32_t      dwAvgBytesPerSec;
-    
-    int16_t      wBlockAlign;
-    
-    int16_t      uiBitsPerSample;
-    
-}FMT;
-
-typedef  struct  {
-    
-    char        fccID[4];
-    
-    int32_t      dwSize;
-    
-}DATA;
-
-/*
- int convertPcm2Wav(char *src_file, char *dst_file, int channels, int sample_rate)
- 请问这个方法怎么用?参数都是什么意思啊
- 
- 赞  回复
- code书童： @不吃鸡爪 pcm文件路径，wav文件路径，channels为通道数，手机设备一般是单身道，传1即可，sample_rate为pcm文件的采样率，有44100，16000，8000，具体传什么看你录音时候设置的采样率。
- */
-
-int convertPcm2Wav(char *src_file, char *dst_file, int channels, int sample_rate)
-
-{
-    int bits = 16;
-    
-    //以下是为了建立.wav头而准备的变量
-    
-    HEADER  pcmHEADER;
-    
-    FMT  pcmFMT;
-    
-    DATA  pcmDATA;
-    
-    unsigned  short  m_pcmData;
-    
-    FILE  *fp,*fpCpy;
-    
-    if((fp=fopen(src_file,  "rb"))  ==  NULL) //读取文件
-        
-    {
-        
-        printf("open pcm file %s error\n", src_file);
-        
-        return -1;
-        
-    }
-    
-    if((fpCpy=fopen(dst_file,  "wb+"))  ==  NULL) //为转换建立一个新文件
-        
-    {
-        
-        printf("create wav file error\n");
-        
-        return -1;
-        
-    }
-    
-    //以下是创建wav头的HEADER;但.dwsize未定，因为不知道Data的长度。
-    
-    strncpy(pcmHEADER.fccID,"RIFF",4);
-    
-    strncpy(pcmHEADER.fccType,"WAVE",4);
-    
-    fseek(fpCpy,sizeof(HEADER),1); //跳过HEADER的长度，以便下面继续写入wav文件的数据;
-    
-    //以上是创建wav头的HEADER;
-    
-    if(ferror(fpCpy))
-        
-    {
-        
-        printf("error\n");
-        
-    }
-    
-    //以下是创建wav头的FMT;
-    
-    pcmFMT.dwSamplesPerSec=sample_rate;
-    
-    pcmFMT.dwAvgBytesPerSec=pcmFMT.dwSamplesPerSec*sizeof(m_pcmData);
-    
-    pcmFMT.uiBitsPerSample=bits;
-    
-    strncpy(pcmFMT.fccID,"fmt  ", 4);
-    
-    pcmFMT.dwSize=16;
-    
-    pcmFMT.wBlockAlign=2;
-    
-    pcmFMT.wChannels=channels;
-    
-    pcmFMT.wFormatTag=1;
-    
-    //以上是创建wav头的FMT;
-    
-    fwrite(&pcmFMT,sizeof(FMT),1,fpCpy); //将FMT写入.wav文件;
-    
-    //以下是创建wav头的DATA;  但由于DATA.dwsize未知所以不能写入.wav文件
-    
-    strncpy(pcmDATA.fccID,"data", 4);
-    
-    pcmDATA.dwSize=0; //给pcmDATA.dwsize  0以便于下面给它赋值
-    
-    fseek(fpCpy,sizeof(DATA),1); //跳过DATA的长度，以便以后再写入wav头的DATA;
-    
-    fread(&m_pcmData,sizeof(int16_t),1,fp); //从.pcm中读入数据
-    
-    while(!feof(fp)) //在.pcm文件结束前将他的数据转化并赋给.wav;
-        
-    {
-        
-        pcmDATA.dwSize+=2; //计算数据的长度；每读入一个数据，长度就加一；
-        
-        fwrite(&m_pcmData,sizeof(int16_t),1,fpCpy); //将数据写入.wav文件;
-        
-        fread(&m_pcmData,sizeof(int16_t),1,fp); //从.pcm中读入数据
-        
-    }
-    
-    fclose(fp); //关闭文件
-    
-    pcmHEADER.dwSize = 0;  //根据pcmDATA.dwsize得出pcmHEADER.dwsize的值
-    
-    rewind(fpCpy); //将fpCpy变为.wav的头，以便于写入HEADER和DATA;
-    
-    fwrite(&pcmHEADER,sizeof(HEADER),1,fpCpy); //写入HEADER
-    
-    fseek(fpCpy,sizeof(FMT),1); //跳过FMT,因为FMT已经写入
-    
-    fwrite(&pcmDATA,sizeof(DATA),1,fpCpy);  //写入DATA;
-    
-    fclose(fpCpy);  //关闭文件
-    
-    return 0;
-    
 }
 
 @end

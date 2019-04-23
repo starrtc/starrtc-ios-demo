@@ -13,6 +13,9 @@
 #define Platform @"iOS"
 #define ConfigUpdateTime @"2018-06-18 09:00"
 
+static NSString * const kAppConfigParametersPublicKey = @"AppConfigParameters";
+static NSString * const kAppConfigParametersPrivateKey = @"AppConfigParametersPrivate";
+
 @interface AppConfig ()
 {
     BOOL _liveEnable;
@@ -21,16 +24,16 @@
 
 @implementation AppConfig
 
-+ (instancetype)shareConfig{
++ (instancetype)shareConfig {
     static AppConfig *appConfigManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        appConfigManager = [[self alloc] init];
+        appConfigManager = [[self alloc] initWithType:[AppConfig SDKServiceType]];
     });
     return appConfigManager;
 }
 
-- (instancetype)init
+- (instancetype)initWithType:(IFServiceType)type
 {
     self = [super init];
     if (self) {
@@ -39,7 +42,7 @@
         NSString *uploadHost = @"ips2.starrtc.com:9929";
         NSString *downloadHost = @"ips2.starrtc.com:9926";
         NSString *voipHost = @"voip2.starrtc.com:10086";
-        if ([AppConfig SDKServiceType] == IFServiceTypePrivate) {
+        if (type == IFServiceTypePrivate) {
             messageHost = @"aisse.f3322.org:19903";
             chatroomHost = @"aisse.f3322.org:19906";
             uploadHost = @"aisse.f3322.org:19931";
@@ -60,12 +63,12 @@
         self.videoEnabled = YES;
         self.audioEnabled = YES;
         
-        NSDictionary * parametersDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppConfigParameters"];
-        if (parametersDic) {
-            [self setValuesForKeysWithDictionary:parametersDic];
-        } else {
-            _liveEnable = NO;
-        }
+//        NSDictionary * parametersDic = [[NSUserDefaults standardUserDefaults] objectForKey:kAppConfigParametersPublicKey];
+//        if (parametersDic) {
+//            [self setValuesForKeysWithDictionary:parametersDic];
+//        } else {
+//            _liveEnable = NO;
+//        }
     }
     return self;
 }
@@ -140,6 +143,34 @@
     [[NSUserDefaults standardUserDefaults] setObject:parameters forKey:@"AppConfigParameters"];
 }
 
++ (void)saveSystemSettingsForPublic:(NSDictionary *)params {
+    [[NSUserDefaults standardUserDefaults] setObject:params forKey:kAppConfigParametersPublicKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++ (void)saveSystemSettingsForPrivate:(NSDictionary *)params {
+    [[NSUserDefaults standardUserDefaults] setObject:params forKey:kAppConfigParametersPrivateKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (AppConfig *)appConfig:(IFServiceType)type {
+    AppConfig *appConfig = [[AppConfig alloc] initWithType:type];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (type == IFServiceTypePublic) {
+        NSDictionary *params = [userDefaults objectForKey:kAppConfigParametersPublicKey];
+        if (params) {
+            [appConfig setValuesForKeysWithDictionary:params];
+        }
+    } else {
+        NSDictionary *params = [userDefaults objectForKey:kAppConfigParametersPrivateKey];
+        if (params) {
+            [appConfig setValuesForKeysWithDictionary:params];
+        }
+    }
+    
+    return appConfig;
+}
+
 static NSString * const kIFSDKServiceTypeKey = @"kIFSDKServiceTypeKey";
 + (void)switchSDKServiceType
 {
@@ -153,6 +184,8 @@ static NSString * const kIFSDKServiceTypeKey = @"kIFSDKServiceTypeKey";
         } else {
             type = IFServiceTypePublic;
         }
+    } else {
+        type = IFServiceTypePrivate;
     }
     
     [userDefaults setObject:@(type) forKey:kIFSDKServiceTypeKey];
