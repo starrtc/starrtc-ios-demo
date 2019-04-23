@@ -65,47 +65,25 @@
     
     if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
         config.serverType = SERVER_TYPE_PUBLIC;
+        
+        config.starLoginURL = [AppConfig shareConfig].loginHost;
+        config.imScheduleURL = [AppConfig shareConfig].messageHost;
+        config.chatRoomScheduleURL = [AppConfig shareConfig].chatHost;
+        config.liveSrcScheduleURL = [AppConfig shareConfig].uploadHost;
+        config.liveVdnScheduleURL = [AppConfig shareConfig].downloadHost;
+        config.voipScheduleURL = [AppConfig shareConfig].voipHost;
 
-        if ([[AppConfig shareConfig].loginHost length] > 0) {
-            config.starLoginURL = [AppConfig shareConfig].loginHost;
-        }
-        
-        if ([[AppConfig shareConfig].chatHost length] > 0) {
-            config.chatRoomScheduleURL = [AppConfig shareConfig].chatHost;
-        }
-        if ([[AppConfig shareConfig].messageHost length] > 0) {
-            config.imScheduleURL = [AppConfig shareConfig].messageHost;
-        }
-        if ([[AppConfig shareConfig].voipHost length] > 0) {
-            config.voipScheduleURL = [AppConfig shareConfig].voipHost;
-        }
-        if ([[AppConfig shareConfig].uploadHost length] > 0) {
-            config.liveSrcScheduleURL = [AppConfig shareConfig].uploadHost;
-        }
-        if ([[AppConfig shareConfig].downloadHost length] > 0) {
-            config.liveVdnScheduleURL = [AppConfig shareConfig].downloadHost;
-        }
-        
         [config sdkInit:UserId];
+        
     } else {
         config.serverType = SERVER_TYPE_CUSTOM;
 
-        if ([[AppConfig shareConfig].messageHost length] > 0) {
-            config.imServerURL = [AppConfig shareConfig].messageHost;
-        }
-        if ([[AppConfig shareConfig].chatHost length] > 0) {
-            config.chatRoomServerURL = [AppConfig shareConfig].chatHost;
-        }
-        if ([[AppConfig shareConfig].voipHost length] > 0) {
-            config.voipServerURL = [AppConfig shareConfig].voipHost;
-        }
-        if ([[AppConfig shareConfig].uploadHost length] > 0) {
-            config.liveSrcServerURL = [AppConfig shareConfig].uploadHost;
-        }
-        if ([[AppConfig shareConfig].downloadHost length] > 0) {
-            config.liveVdnServerURL = [AppConfig shareConfig].downloadHost;
-        }
-        
+        config.imServerURL = [AppConfig shareConfig].messageHost;
+        config.chatRoomServerURL = [AppConfig shareConfig].chatHost;
+        config.liveSrcServerURL = [AppConfig shareConfig].uploadHost;
+        config.liveVdnServerURL = [AppConfig shareConfig].downloadHost;
+        config.voipServerURL = [AppConfig shareConfig].voipHost;
+
         [config sdkInitForFree:UserId];
     }
 }

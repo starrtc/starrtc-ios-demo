@@ -202,6 +202,8 @@
 		A5B92F0E20736CEE003456D0 /* IFMutilMeetingListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B92F0D20736CEE003456D0 /* IFMutilMeetingListVC.m */; };
 		A5B92F11207381F9003456D0 /* IFMutilMeetingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B92F10207381F9003456D0 /* IFMutilMeetingVC.m */; };
 		A5B92F142073821D003456D0 /* IFLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B92F132073821D003456D0 /* IFLiveVC.m */; };
+		A5C71DB0226E986D001B4306 /* VideoSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5C71DAF226E986D001B4306 /* VideoSettings.storyboard */; };
+		A5C71DB3226EA6DF001B4306 /* IFBaseTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C71DB2226EA6DF001B4306 /* IFBaseTableVC.m */; };
 		A5CA18C121E5CC1700790711 /* IFSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CA18BB21E5CC1600790711 /* IFSourceVC.m */; };
 		A5CA18C221E5CC1700790711 /* IFCreateSourceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CA18BF21E5CC1600790711 /* IFCreateSourceVC.m */; };
 		A5CA18C321E5CC1700790711 /* IFSourceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CA18C021E5CC1600790711 /* IFSourceListVC.m */; };
@@ -602,6 +604,9 @@
 		A5B92F10207381F9003456D0 /* IFMutilMeetingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFMutilMeetingVC.m; sourceTree = "<group>"; };
 		A5B92F122073821D003456D0 /* IFLiveVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFLiveVC.h; sourceTree = "<group>"; };
 		A5B92F132073821D003456D0 /* IFLiveVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFLiveVC.m; sourceTree = "<group>"; };
+		A5C71DAF226E986D001B4306 /* VideoSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VideoSettings.storyboard; sourceTree = "<group>"; };
+		A5C71DB1226EA6DF001B4306 /* IFBaseTableVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFBaseTableVC.h; sourceTree = "<group>"; };
+		A5C71DB2226EA6DF001B4306 /* IFBaseTableVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFBaseTableVC.m; sourceTree = "<group>"; };
 		A5CA18BB21E5CC1600790711 /* IFSourceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFSourceVC.m; sourceTree = "<group>"; };
 		A5CA18BC21E5CC1600790711 /* IFSourceListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFSourceListVC.h; sourceTree = "<group>"; };
 		A5CA18BD21E5CC1600790711 /* IFCreateSourceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFCreateSourceVC.h; sourceTree = "<group>"; };
@@ -729,6 +734,7 @@
 				7BAB8F0C21F5AD58002AB0A3 /* SystemSettingVC.h */,
 				7BAB8F0D21F5AD58002AB0A3 /* SystemSettingVC.m */,
 				7BAB8F0E21F5AD58002AB0A3 /* SystemSettingVC.xib */,
+				A5C71DAF226E986D001B4306 /* VideoSettings.storyboard */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1478,6 +1484,8 @@
 				A58DFF4A206CF86A0074DB7B /* IFBaseVC.m */,
 				A549CB67207B0C510045A2E1 /* IFCreateBaseVC.h */,
 				A549CB68207B0C510045A2E1 /* IFCreateBaseVC.m */,
+				A5C71DB1226EA6DF001B4306 /* IFBaseTableVC.h */,
+				A5C71DB2226EA6DF001B4306 /* IFBaseTableVC.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1957,6 +1965,7 @@
 				7B57080B207AFFED00857F30 /* EMViewController.xib in Resources */,
 				7B7D1EC821EC297C0043F096 /* SpeechChatListCell.xib in Resources */,
 				7BD47D71206E2EF70000E9A1 /* ReceiverVoipVideoVC.xib in Resources */,
+				A5C71DB0226E986D001B4306 /* VideoSettings.storyboard in Resources */,
 				7BD47D6C206E2ED50000E9A1 /* SenderVoipVideoVC.xib in Resources */,
 				7BB1142521E44D63007668E1 /* SpeechChatListVC.xib in Resources */,
 				7B62782B20872F0800FE0841 /* VoipListVC.xib in Resources */,
@@ -2162,6 +2171,7 @@
 				845799AE1FE7D85600560EC2 /* AppDelegate.m in Sources */,
 				7B7D1F5721EC34AB0043F096 /* MJRefreshFooter.m in Sources */,
 				7B5BF0DA221BED4B00F82A42 /* IQUIView+Hierarchy.m in Sources */,
+				A5C71DB3226EA6DF001B4306 /* IFBaseTableVC.m in Sources */,
 				8412C49420189AC60061F7A9 /* voipControllerView.m in Sources */,
 				7B7D1F5521EC34AB0043F096 /* MJRefreshStateHeader.m in Sources */,
 				7BC4C2D021ED783E00809204 /* SpeechChatMenuView.m in Sources */,

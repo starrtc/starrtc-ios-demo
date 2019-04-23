@@ -153,7 +153,13 @@
 }
 
 - (void)refreshList {
-    [m_interfaceUrls demoRequestLiveList];
+    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+        [m_interfaceUrls demoRequestLiveList];
+    } else {
+        [[XHClient sharedClient].liveManager queryLiveList:^(NSString *listInfo, NSError *error) {
+            
+        }];
+    }
 }
 
 @end

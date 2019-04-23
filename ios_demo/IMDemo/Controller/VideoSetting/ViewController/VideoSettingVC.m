@@ -16,14 +16,30 @@
 
 #import "IFInnerHomeVC.h"
 
-@interface VideoSettingVC ()
+typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
+    IFVideoSettingTypeServerConfig = 1001,
+    IFVideoSettingTypeLoopTest = 1002,
+    IFVideoSettingTypeThirdStreamTest = 1003,
+    IFVideoSettingTypeInnerTest = 1004, //内网直连测试
+    IFVideoSettingTypeResolutionSet = 1007, //分辨率设置
+    IFVideoSettingTypeBigPictureSet = 1008, //大图帧率码率设置
+    IFVideoSettingTypeSmallPictureSet = 1009, //小图帧率码率设置
+    IFVideoSettingTypeVideoEncodeSet = 1010, //视频编码设置
+    IFVideoSettingTypeAudioEncodeSet = 1011, //音频编码设置
+    IFVideoSettingTypeUploadLog = 1020, //上传日志
+    IFVideoSettingTypeAbout = 1021, //关于
+    
+};
 
+@interface VideoSettingVC ()
 {
     VideoSetParameters * _videoSetParameters;
 }
+
+@property (nonatomic, strong) UIAlertController *corpAlertController;
+
 @property (weak, nonatomic) IBOutlet UISwitch *hwEncodeSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *openGLSwitch;
-@property (nonatomic, strong) UIAlertController * corpAlertController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *top;
 @property (weak, nonatomic) IBOutlet UIButton *corpSetButton;
 
@@ -45,14 +61,20 @@
     }
 }
 
-- (void)setupVideoDefaultParameters{
-    _videoSetParameters = [VideoSetParameters locaParameters];
-    [self.hwEncodeSwitch setOn:_videoSetParameters.hwEncodeEnable];
-    [self.openGLSwitch setOn:_videoSetParameters.openGLEnable];
-    [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+- (void)leftButtonClicked:(UIButton *)button{
+    [super leftButtonClicked:button];
+    [_videoSetParameters saveParametersToLocal];
+    [[XHClient sharedClient] setVideoConfig:_videoSetParameters];
 }
 
-- (UIAlertController*)corpAlertController{
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - UI
+- (UIAlertController *)corpAlertController {
     if (!_corpAlertController) {
         _corpAlertController = [UIAlertController alertControllerWithTitle:@"设置分辨率" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
@@ -80,12 +102,12 @@
             [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction4 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_480BW_480BH_SMALL_NONE] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+            
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_480BW_480BH_SMALL_NONE;
             [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction5 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_480BW_480BH_120SW_120SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+            
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_480BW_480BH_120SW_120SH;
             [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
         }];
@@ -166,7 +188,7 @@
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_BIG_NOCROP_SMALL_NONE;
             [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
         }];
-   
+        
         [_corpAlertController addAction:alertAction];
         [_corpAlertController addAction:alertAction0];
         [_corpAlertController addAction:alertAction1];
@@ -197,74 +219,169 @@
     return _corpAlertController;
 }
 
-- (IBAction)crop:(UIButton *)sender {
+
+#pragma mark - deledate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    [self presentViewController:self.corpAlertController animated:YES completion:nil];
-    
+    switch (cell.tag) {
+        case IFVideoSettingTypeServerConfig:
+            [self handleEventForServerSet];
+            break;
+        case IFVideoSettingTypeLoopTest:
+            [self handleEventForLoopTest];
+            break;
+        case IFVideoSettingTypeThirdStreamTest:
+            [self handleEventForThirdStreamTest];
+            break;
+        case IFVideoSettingTypeInnerTest:
+            [self handleEventForInnerTest];
+            break;
+        case IFVideoSettingTypeResolutionSet:
+            [self handleEventForResolutionSet];
+            break;
+        case IFVideoSettingTypeBigPictureSet:
+            [self handleEventForBiPictureSet];
+            break;
+        case IFVideoSettingTypeSmallPictureSet:
+            [self handleEventForSmallPictureSet];
+            break;
+        case IFVideoSettingTypeVideoEncodeSet:
+            [self handleEventForVideoEncodeSet];
+            break;
+        case IFVideoSettingTypeAudioEncodeSet:
+            [self handleEventForAudioEncodeSet];
+            break;
+        case IFVideoSettingTypeUploadLog:
+            [self handleEventForUploadLog];
+            break;
+        case IFVideoSettingTypeAbout:
+            [self handleEventForAbout];
+            break;
+        default:
+            break;
+    }
 }
-- (IBAction)videoCricleTest:(UIButton *)sender {
-    
-    CircleTestVC *vc = [[CircleTestVC alloc] initWithNibName:@"CircleTestVC" bundle:[NSBundle mainBundle]];
-    [self.navigationController pushViewController:vc animated:YES];
-    
-}
-- (IBAction)serverSet:(UIButton *)sender {
+
+- (void)handleEventForServerSet
+{
     SystemSettingVC *system = [[SystemSettingVC alloc] initWithNibName:@"SystemSettingVC" bundle:[NSBundle mainBundle]];
     [self.navigationController pushViewController:system animated:YES];
 }
-- (IBAction)videoEnabled:(UISwitch *)sender {
-    [AppConfig shareConfig].videoEnabled = !sender.isOn;
-    
-}
-- (IBAction)audioEnable:(UISwitch *)sender {
-    [AppConfig shareConfig].audioEnabled = !sender.isOn;
-    
-}
-- (IBAction)openGL:(UISwitch *)sender {
-    _videoSetParameters.openGLEnable = sender.isOn;
-    
-}
-- (IBAction)hardEncode:(UISwitch *)sender {
-    
-    _videoSetParameters.hwEncodeEnable = sender.isOn;
-}
-- (IBAction)aboutUSButtonClicked:(UIButton *)sender {
-    AboutUsVC * vc = [AboutUsVC new];
+
+
+#pragma mark - event
+
+- (void)handleEventForLoopTest
+{
+    CircleTestVC *vc = [[CircleTestVC alloc] initWithNibName:@"CircleTestVC" bundle:[NSBundle mainBundle]];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleEventForThirdStreamTest
+{
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (void)handleEventForInnerTest
+{
+    IFInnerHomeVC *vc = [[IFInnerHomeVC alloc] initWithNibName:NSStringFromClass([IFInnerHomeVC class]) bundle:[NSBundle mainBundle]];
     
+    [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
 
-
-- (IBAction)encodeFormat:(UIButton *)sender {
-//    [UIWindow ilg_makeToast:@"开发中...."];
-    
+- (void)handleEventForResolutionSet
+{
+    [self presentViewController:self.corpAlertController animated:YES completion:nil];
 }
 
-- (void)leftButtonClicked:(UIButton *)button{
-    [super leftButtonClicked:button];
-    [_videoSetParameters saveParametersToLocal];
-    [[XHClient sharedClient] setVideoConfig:_videoSetParameters];
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)handleEventForBiPictureSet
+{
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
 }
 
-/**
- 三次点击发送日志
- 
- @param sender 手势
- */
--(void)handleLogTap:(UIGestureRecognizer *)sender{
+- (void)handleEventForSmallPictureSet
+{
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (void)handleEventForVideoEncodeSet
+{
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (void)handleEventForAudioEncodeSet
+{
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (void)handleEventForUploadLog
+{
     QGSandboxViewerVC *vc = [[QGSandboxViewerVC alloc] initWithHomeDirectory];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-// 内网直连测试
-- (IBAction)innerConnect:(id)sender {
-    IFInnerHomeVC *vc = [[IFInnerHomeVC alloc] initWithNibName:NSStringFromClass([IFInnerHomeVC class]) bundle:[NSBundle mainBundle]];
+- (void)handleEventForAbout
+{
+    AboutUsVC *vc = [AboutUsVC new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+- (IBAction)audioEnable:(UISwitch *)sender {
+    [AppConfig shareConfig].audioEnabled = !sender.isOn;
+}
+
+- (IBAction)videoEnabled:(UISwitch *)sender {
+    [AppConfig shareConfig].videoEnabled = !sender.isOn;
+}
+
+- (IBAction)autoAdjustFrameAndBit:(UISwitch *)sender {
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (IBAction)hardEncode:(UISwitch *)sender {
+    _videoSetParameters.hwEncodeEnable = sender.isOn;
+}
+
+- (IBAction)openGL:(UISwitch *)sender {
+    _videoSetParameters.openGLEnable = sender.isOn;
+}
+
+- (IBAction)switchForOpenSL:(UISwitch *)sender {
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (IBAction)switchForVoipP2P:(UISwitch *)sender {
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (IBAction)switchForAudioHandle:(UISwitch *)sender {
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (IBAction)switchForLowAECHandle:(UISwitch *)sender {
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (IBAction)switchForLogWindow:(UISwitch *)sender {
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+
+#pragma mark - other
+
+- (void)setupVideoDefaultParameters {
+    _videoSetParameters = [VideoSetParameters locaParameters];
+    [self.hwEncodeSwitch setOn:_videoSetParameters.hwEncodeEnable];
+    [self.openGLSwitch setOn:_videoSetParameters.openGLEnable];
+    [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+}
+
+- (IBAction)encodeFormat:(UIButton *)sender {
+//    [UIWindow ilg_makeToast:@"开发中...."];
     
-    [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)shareLogsAtDirectory:(NSString*)path delegate:(UIViewController*)delegate {
@@ -302,10 +419,7 @@
     //进入沙盒找到xbMedia.wav即可
 }
 
-
-
 // pcm 转wav
-
 //wav头的结构如下所示：
 
 typedef  struct  {
@@ -470,15 +584,5 @@ int convertPcm2Wav(char *src_file, char *dst_file, int channels, int sample_rate
     return 0;
     
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

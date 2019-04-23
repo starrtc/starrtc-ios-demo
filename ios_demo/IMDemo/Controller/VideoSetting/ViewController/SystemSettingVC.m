@@ -130,6 +130,8 @@
     }];
     [alertController addAction:privateAction];
     [alertController addAction:publicAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 

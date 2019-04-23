@@ -112,7 +112,9 @@
 #pragma mark 点击事件
 
 - (IBAction)setButtonClicked:(UIButton *)sender {
-    VideoSettingVC * vc = [[VideoSettingVC alloc] init];
+    UIStoryboard *board = [UIStoryboard storyboardWithName:@"VideoSettings" bundle:nil];
+    VideoSettingVC * vc = [board instantiateViewControllerWithIdentifier:@"VideoSettingVC"];
+//    VideoSettingVC * vc = [[VideoSettingVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (IBAction)imButtonClicked:(UIButton *)sender {

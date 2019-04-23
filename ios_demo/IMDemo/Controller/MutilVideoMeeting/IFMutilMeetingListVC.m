@@ -157,7 +157,13 @@
 }
 
 - (void)refreshList {
-    [m_interfaceUrls demoRequestMeetingList];
+    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+        [m_interfaceUrls demoRequestMeetingList];
+    } else {
+        [[XHClient sharedClient].meetingManager queryMeetingList:^(NSError *error) {
+            
+        }];
+    }
 }
 
 @end
