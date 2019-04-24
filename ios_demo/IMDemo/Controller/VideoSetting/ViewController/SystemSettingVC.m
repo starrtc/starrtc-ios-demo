@@ -40,18 +40,17 @@
     [super viewDidLoad];
     self.navigationItem.title = @"系统设置";
     [self addDelegate];
+    
+    self.serviceTypeForTmp = [AppConfig SDKServiceType];
+
+    [self adjustUI:self.serviceTypeForTmp];
     [self initTextField];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditTextField:)];
     [self.view addGestureRecognizer:tap];
     // Do any additional setup after loading the view from its nib.
-    
-    self.serviceTypeForTmp = [AppConfig SDKServiceType];
-    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-        [self.serviceBtn setTitle:@"公有云" forState:UIControlStateNormal];
-    } else {
-        [self.serviceBtn setTitle:@"私有部署" forState:UIControlStateNormal];
-    }
 }
+
 - (void)addDelegate{
     self.yewuTextField.delegate = self;
     self.userIdTextField.delegate = self;
@@ -151,9 +150,14 @@
     self.serviceTypeForTmp = serviceType;
     [self initTextField];
     
+    [self adjustUI:serviceType];
+}
+
+- (void)adjustUI:(IFServiceType)serviceType
+{
     if (serviceType == IFServiceTypePublic) {
         [self.serviceBtn setTitle:@"公有云" forState:UIControlStateNormal];
-
+        
         self.appidView.hidden = NO;
         self.yewuView.hidden = NO;
         self.loginView.hidden = NO;

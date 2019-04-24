@@ -73,7 +73,6 @@
     [super viewDidLayoutSubviews];
     
     [self setupLiveEnable:[AppConfig shareConfig].liveEnable];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
