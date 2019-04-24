@@ -213,10 +213,24 @@
 
 
 /**
+ * 保存到列表
+ * @param userId 用户名
+ * @param type  类型
+ * @param meetingId  ID
+ * @param info  消息
+ * @param completion  回调
+ */
+-(void)saveToList:(NSString *)userId
+             type:(NSInteger) type
+        meetingId:(NSString *) meetingId
+             info:(NSString *)info
+       completion:(void(^)(NSError *error))completion;
+
+/**
  * 查询会议室列表
  * @param completion 结果回调
  */
--(void)queryMeetingList:(void(^)(NSError *error))completion;
+-(void)queryMeetingList:(void(^)(NSString *listInfo,NSError *error))completion;
 
 /**
  * 从会议室列表删除

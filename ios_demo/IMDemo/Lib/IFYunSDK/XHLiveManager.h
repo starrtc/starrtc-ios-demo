@@ -339,6 +339,21 @@
  */
 - (void)setVideoEnable:(BOOL) enable;
 
+/**
+ * 保存到列表
+ * @param userId 用户名
+ * @param type  类型
+ * @param liveId  ID
+ * @param info  消息
+ * @param completion  回调
+ */
+-(void)saveToList:(NSString *)userId
+             type:(NSInteger) type
+       liveId:(NSString *) liveId
+             info:(NSString *)info
+       completion:(void(^)(NSError *error))completion;
+
+
 
 /**
  * 查询直播列表

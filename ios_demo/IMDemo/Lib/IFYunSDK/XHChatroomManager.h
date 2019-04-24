@@ -147,6 +147,22 @@
  */
 - (void)sendMessage:(NSString *)message toID:(NSString *)toID  completion:(void(^)(NSError *error))completion;
 
+
+/**
+ * 保存到列表
+ * @param userId 用户名
+ * @param type  类型
+ * @param chatroomID  ID
+ * @param info  消息
+ * @param completion  回调
+ */
+-(void)saveToList:(NSString *)userId
+             type:(NSInteger) type
+       chatroomID:(NSString *) chatroomID
+             info:(NSString *)info
+       completion:(void(^)(NSError *error))completion;
+
+
 /**
  * 查询聊天室列表
  * @param completion 回调
