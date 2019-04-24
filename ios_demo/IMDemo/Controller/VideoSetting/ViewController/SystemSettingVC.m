@@ -65,7 +65,7 @@
 
 - (void)initTextField
 {
-    AppConfig *config = [AppConfig appConfig:self.serviceTypeForTmp];
+    AppConfig *config = [AppConfig appConfigForLocal:self.serviceTypeForTmp];
     
     self.yewuTextField.text = config.host;
     self.userIdTextField.text = config.userId;

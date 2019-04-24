@@ -64,7 +64,7 @@
     config.agentID = [AppConfig shareConfig].appId;  //必填项
     
     IFServiceType type = [AppConfig SDKServiceType];
-    AppConfig *appConfig = [AppConfig appConfig:type];
+    AppConfig *appConfig = [AppConfig appConfigForLocal:type];
     if (type == IFServiceTypePublic) {
         config.serverType = SERVER_TYPE_PUBLIC;
         

@@ -29,8 +29,7 @@ typedef NS_ENUM(NSInteger, IFServiceType) {
 @property (nonatomic, assign) BOOL videoEnabled;
 
 + (instancetype)shareConfig;
-
-+ (AppConfig *)appConfig:(IFServiceType)type;
++ (AppConfig *)appConfigForLocal:(IFServiceType)type;
 + (void)saveSystemSettingsForPublic:(NSDictionary *)params;
 + (void)saveSystemSettingsForPrivate:(NSDictionary *)params;
 

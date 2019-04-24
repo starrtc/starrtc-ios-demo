@@ -126,7 +126,7 @@ static NSString * const kAppConfigParametersPrivateKey = @"AppConfigParametersPr
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (AppConfig *)appConfig:(IFServiceType)type {
++ (AppConfig *)appConfigForLocal:(IFServiceType)type {
     return [[AppConfig alloc] initWithType:type];
 }
 

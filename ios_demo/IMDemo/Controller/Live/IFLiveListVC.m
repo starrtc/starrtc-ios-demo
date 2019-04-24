@@ -36,8 +36,8 @@
     
     m_interfaceUrls = [[InterfaceUrls alloc] init];
     m_interfaceUrls.delegate = self;
-    [UIView showProgressWithText:@"加载中..."];
-    [m_interfaceUrls demoRequestLiveList];
+
+    [self refreshList];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -153,11 +153,14 @@
 }
 
 - (void)refreshList {
+    [UIView showProgressWithText:@"加载中..."];
+
     if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
         [m_interfaceUrls demoRequestLiveList];
     } else {
         [[XHClient sharedClient].liveManager queryLiveList:^(NSString *listInfo, NSError *error) {
-            
+            [UIView hiddenProgress];
+
         }];
     }
 }

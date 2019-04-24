@@ -36,10 +36,9 @@
 
     _listArr = [NSMutableArray array];
     
-    
     m_interfaceUrls = [[InterfaceUrls alloc] init];
     m_interfaceUrls.delegate = self;
-    [UIView showProgressWithText:@"加载中..."];
+    
     [self refreshList];
 }
 
@@ -157,11 +156,13 @@
 }
 
 - (void)refreshList {
+    [UIView showProgressWithText:@"加载中..."];
+
     if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
         [m_interfaceUrls demoRequestMeetingList];
     } else {
-        [[XHClient sharedClient].meetingManager queryMeetingList:^(NSError *error) {
-            
+        [[XHClient sharedClient].meetingManager queryMeetingList:^(NSString *listInfo, NSError *error) {
+            [UIView hiddenProgress];
         }];
     }
 }

@@ -81,7 +81,6 @@
 		7B7D1F5B21EC34AB0043F096 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7D1F4321EC34AB0043F096 /* MJRefreshComponent.m */; };
 		7B7DFA652071C21100619936 /* IMHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DFA642071C21100619936 /* IMHelp.m */; };
 		7B7DFA682071CD9200619936 /* IMUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DFA672071CD9200619936 /* IMUserInfo.m */; };
-		7B81C1A621EF34E900C9CBD9 /* UIView+layerXib.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B81C1A521EF34E900C9CBD9 /* UIView+layerXib.m */; };
 		7B81C1A921EF352000C9CBD9 /* UIView+utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B81C1A721EF352000C9CBD9 /* UIView+utils.m */; };
 		7B8247EE206E1A6D00513F41 /* VoipReadyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8247EC206E1A6D00513F41 /* VoipReadyVC.m */; };
 		7B8F12A120A18AB200E7C30F /* VoipHistoryManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B8F12A020A18AB200E7C30F /* VoipHistoryManage.m */; };
@@ -383,8 +382,6 @@
 		7B7DFA642071C21100619936 /* IMHelp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMHelp.m; sourceTree = "<group>"; };
 		7B7DFA662071CD9200619936 /* IMUserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMUserInfo.h; sourceTree = "<group>"; };
 		7B7DFA672071CD9200619936 /* IMUserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMUserInfo.m; sourceTree = "<group>"; };
-		7B81C1A421EF34E900C9CBD9 /* UIView+layerXib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+layerXib.h"; sourceTree = "<group>"; };
-		7B81C1A521EF34E900C9CBD9 /* UIView+layerXib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+layerXib.m"; sourceTree = "<group>"; };
 		7B81C1A721EF352000C9CBD9 /* UIView+utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+utils.m"; sourceTree = "<group>"; };
 		7B81C1A821EF352000C9CBD9 /* UIView+utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+utils.h"; sourceTree = "<group>"; };
 		7B8247EB206E1A6D00513F41 /* VoipReadyVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoipReadyVC.h; sourceTree = "<group>"; };
@@ -1397,8 +1394,6 @@
 		A58DFF11206CE29A0074DB7B /* Tool */ = {
 			isa = PBXGroup;
 			children = (
-				7B81C1A421EF34E900C9CBD9 /* UIView+layerXib.h */,
-				7B81C1A521EF34E900C9CBD9 /* UIView+layerXib.m */,
 				7B7D1F0121EC31A00043F096 /* IFNetWorking */,
 				A58C188120CE87A50036278A /* Manager */,
 				A58DFF58206E07FD0074DB7B /* Category */,
@@ -1406,8 +1401,6 @@
 				7B75E69021EF181A00252C8A /* AssignToObject.m */,
 				7BB49CEB20B7DCE200480D49 /* AppConfig.h */,
 				7BB49CEC20B7DCE200480D49 /* AppConfig.m */,
-				7B81C1A821EF352000C9CBD9 /* UIView+utils.h */,
-				7B81C1A721EF352000C9CBD9 /* UIView+utils.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1614,13 +1607,8 @@
 		A58DFF58206E07FD0074DB7B /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				A5C71DB4227009EC001B4306 /* UIView */,
 				A58DFF67206E08DC0074DB7B /* UIColor */,
-				A58DFF5B206E081C0074DB7B /* UIView+ILGKit.h */,
-				A58DFF5A206E081C0074DB7B /* UIView+ILGKit.m */,
-				A58DFF5C206E081D0074DB7B /* UIView+Toast.h */,
-				A58DFF59206E081C0074DB7B /* UIView+Toast.m */,
-				7BA8AB62206D0953007CA939 /* UIView+layerXib.h */,
-				7BA8AB63206D0953007CA939 /* UIView+layerXib.m */,
 				7BD33BFF20CA7D5900038402 /* UIImage+utils.h */,
 				7BD33C0020CA7D5900038402 /* UIImage+utils.m */,
 			);
@@ -1679,6 +1667,21 @@
 				A5B92F072071D731003456D0 /* IFChatView.m */,
 			);
 			path = IFChatView;
+			sourceTree = "<group>";
+		};
+		A5C71DB4227009EC001B4306 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				7B81C1A821EF352000C9CBD9 /* UIView+utils.h */,
+				7B81C1A721EF352000C9CBD9 /* UIView+utils.m */,
+				A58DFF5B206E081C0074DB7B /* UIView+ILGKit.h */,
+				A58DFF5A206E081C0074DB7B /* UIView+ILGKit.m */,
+				A58DFF5C206E081D0074DB7B /* UIView+Toast.h */,
+				A58DFF59206E081C0074DB7B /* UIView+Toast.m */,
+				7BA8AB62206D0953007CA939 /* UIView+layerXib.h */,
+				7BA8AB63206D0953007CA939 /* UIView+layerXib.m */,
+			);
+			path = UIView;
 			sourceTree = "<group>";
 		};
 		A5CA18BA21E5CC1600790711 /* SmallSource */ = {
@@ -2093,7 +2096,6 @@
 				A5B92F0B20736538003456D0 /* IFLiveListVC.m in Sources */,
 				A5CA18C721E5CCBC00790711 /* IFLiveMessage.m in Sources */,
 				7B5BF0D3221BED4A00F82A42 /* IQUIView+IQKeyboardToolbar.m in Sources */,
-				7B81C1A621EF34E900C9CBD9 /* UIView+layerXib.m in Sources */,
 				A58DFF6E206E414A0074DB7B /* IFListView.m in Sources */,
 				7BD47D6B206E2ED50000E9A1 /* SenderVoipVideoVC.m in Sources */,
 				A58C188020CE85830036278A /* ILGFMDBManager.m in Sources */,

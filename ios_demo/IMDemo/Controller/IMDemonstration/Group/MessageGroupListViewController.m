@@ -39,7 +39,6 @@
     m_interfaceUrls = [[InterfaceUrls alloc] init];
     m_interfaceUrls.delegate = self;
     
-    [UIView showProgressWithText:@"加载中..."];
     [self refreshChatroomList];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshChatroomList) name:@"IFGroupListRefreshNotif" object:nil];
@@ -86,13 +85,16 @@
 }
 
 - (void)refreshChatroomList {
+    [UIView showProgressWithText:@"加载中..."];
+
     if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [m_interfaceUrls demoRequestGroupList];
         });
     } else {
         [[XHClient sharedClient].groupManager queryGroupList:^(NSString *listInfo, NSError *error) {
-            
+            [UIView hiddenProgress];
+
         }];
     }
 }

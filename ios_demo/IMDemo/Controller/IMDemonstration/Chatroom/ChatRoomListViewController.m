@@ -37,8 +37,8 @@
     // 请求会议室列表
     m_interfaceUrls = [[InterfaceUrls alloc] init];
     m_interfaceUrls.delegate = self;
-    [UIView showProgressWithText:@"加载中..."];
-    [m_interfaceUrls demoRequestChatroomList];
+
+    [self refreshChatroomList];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshChatroomList) name:@"IFChatroomListRefreshNotif" object:nil];
 }
@@ -165,13 +165,16 @@
 }
 
 - (void)refreshChatroomList {
+    [UIView showProgressWithText:@"加载中..."];
+
     if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [m_interfaceUrls demoRequestChatroomList];
         });
     } else {
         [[XHClient sharedClient].roomManager queryChatroomList:^(NSString *listInfo, NSError *error) {
-            
+            [UIView hiddenProgress];
+
         }];
     }
 }
