@@ -126,6 +126,7 @@
 {
     NSDictionary *parameters = [self objectToDictionary];
     [[NSUserDefaults standardUserDefaults] setObject:parameters forKey:@"VideoSetParameters"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{

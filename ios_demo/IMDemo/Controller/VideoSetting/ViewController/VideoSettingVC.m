@@ -43,6 +43,23 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *top;
 @property (weak, nonatomic) IBOutlet UIButton *corpSetButton;
 
+@property (weak, nonatomic) IBOutlet UISwitch *audioEnableSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *videoEnableSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *resolutionL;
+@property (weak, nonatomic) IBOutlet UILabel *bigPictureFrameAndBitL;
+@property (weak, nonatomic) IBOutlet UILabel *smallPictureFrameAndBitL;
+@property (weak, nonatomic) IBOutlet UILabel *videoEncodeFormL;
+@property (weak, nonatomic) IBOutlet UILabel *audioEncodeFormL;
+@property (weak, nonatomic) IBOutlet UISwitch *autoAdjustFrameAndBitSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *hardEncodeSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *openGLEnableSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *openSLEnableSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *voipP2PModelSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *audioHandleSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *lowLevelAECHandleSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *logEnableSwitch;
+
+
 @end
 
 @implementation VideoSettingVC
@@ -345,7 +362,7 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 }
 
 - (IBAction)autoAdjustFrameAndBit:(UISwitch *)sender {
-    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+    _videoSetParameters.dynamicBitrateAndFPSEnable = sender.on;
 }
 
 - (IBAction)hardEncode:(UISwitch *)sender {
@@ -361,7 +378,7 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 }
 
 - (IBAction)switchForVoipP2P:(UISwitch *)sender {
-    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+    _videoSetParameters.voipP2PEnable = sender.on;
 }
 
 - (IBAction)switchForAudioHandle:(UISwitch *)sender {
@@ -381,9 +398,25 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 
 - (void)setupVideoDefaultParameters {
     _videoSetParameters = [VideoSetParameters locaParameters];
-    [self.hwEncodeSwitch setOn:_videoSetParameters.hwEncodeEnable];
+    
+    [self.audioEnableSwitch setOn:!_videoSetParameters.audioEnable];
+    [self.videoEnableSwitch setOn:!_videoSetParameters.videoEnable];
+    
+    self.resolutionL.text = _videoSetParameters.currentResolutionText;
+    self.bigPictureFrameAndBitL.text = @"";
+    self.smallPictureFrameAndBitL.text = @"";
+    self.videoEncodeFormL.text = @"";
+    self.audioEncodeFormL.text = @"";
+    
+    [self.autoAdjustFrameAndBitSwitch setOn:_videoSetParameters.dynamicBitrateAndFPSEnable];
+    [self.hardEncodeSwitch setOn:_videoSetParameters.hwEncodeEnable];
     [self.openGLSwitch setOn:_videoSetParameters.openGLEnable];
-    [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+    [self.openSLEnableSwitch setOn:NO];
+    [self.voipP2PModelSwitch setOn:_videoSetParameters.voipP2PEnable];
+    [self.audioHandleSwitch setOn:NO];
+    [self.lowLevelAECHandleSwitch setOn:NO];
+    
+    [self.logEnableSwitch setOn:YES];
 }
 
 @end

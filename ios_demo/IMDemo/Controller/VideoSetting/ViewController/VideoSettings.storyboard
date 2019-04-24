@@ -566,7 +566,7 @@
                                         <rect key="frame" x="0.0" y="836" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nG6-5k-YeI" id="voK-Go-Alm">
-                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传日志" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="663-hq-l95" userLabel="titleL">
@@ -594,7 +594,7 @@
                                         <rect key="frame" x="0.0" y="880" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fhj-Lo-5pe" id="cBx-2c-h3O">
-                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关于" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v09-81-XND" userLabel="titleL">
@@ -626,6 +626,23 @@
                             <outlet property="delegate" destination="H9Z-J0-aFn" id="Prv-U7-ZuF"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="audioEnableSwitch" destination="qba-GT-qAB" id="9ds-Gz-JZd"/>
+                        <outlet property="audioEncodeFormL" destination="bBE-WJ-6Qh" id="m3f-DL-gle"/>
+                        <outlet property="audioHandleSwitch" destination="Rq1-M1-9be" id="dJl-x7-bXu"/>
+                        <outlet property="autoAdjustFrameAndBitSwitch" destination="3xI-wM-F1j" id="eNW-Gq-Yf5"/>
+                        <outlet property="bigPictureFrameAndBitL" destination="zXL-LU-yED" id="RjC-Mc-DeH"/>
+                        <outlet property="hardEncodeSwitch" destination="vNu-Dk-wtZ" id="GGM-qK-rt5"/>
+                        <outlet property="logEnableSwitch" destination="SHv-8w-Z4M" id="Hp2-mO-J4J"/>
+                        <outlet property="lowLevelAECHandleSwitch" destination="dy3-tK-w4o" id="GZB-pb-dk7"/>
+                        <outlet property="openGLEnableSwitch" destination="OCh-1F-cFZ" id="Qhk-CL-cnO"/>
+                        <outlet property="openSLEnableSwitch" destination="H4G-IV-beN" id="Njd-gQ-qLb"/>
+                        <outlet property="resolutionL" destination="kPx-x3-uM1" id="2mV-q1-guI"/>
+                        <outlet property="smallPictureFrameAndBitL" destination="2Fi-M3-ZW0" id="mz6-ig-dUH"/>
+                        <outlet property="videoEnableSwitch" destination="Bx9-nr-1c9" id="D9J-rV-1Lu"/>
+                        <outlet property="videoEncodeFormL" destination="p2a-8E-Rwg" id="5wk-w2-Xvy"/>
+                        <outlet property="voipP2PModelSwitch" destination="3Zc-xo-pNP" id="DQ3-rb-lNc"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ito-C4-otE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -62,7 +62,13 @@
                 [weakSelf.view ilg_makeToast:[NSString stringWithFormat:@"创建会议失败：%@", error.localizedDescription] position:ILGToastPositionCenter];
                 
             } else {
-                [[[InterfaceUrls alloc] init] reportMeeting:name ID:meetingID creator:[IMUserInfo shareInstance].userID];
+                if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+                    [[[InterfaceUrls alloc] init] reportMeeting:name ID:meetingID creator:[IMUserInfo shareInstance].userID];
+                } else {
+                    [[XHClient sharedClient].meetingManager saveToList:UserId type:meetingItem.meetingType meetingId:meetingID info:name completion:^(NSError *error) {
+                        
+                    }];
+                }
                 
                 IFMutilMeetingVC *receive = [[IFMutilMeetingVC alloc] initWithType:IFMutilMeetingVCTypeCreate];
                 receive.meetingId = meetingID;
