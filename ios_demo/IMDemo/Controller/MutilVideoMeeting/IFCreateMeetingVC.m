@@ -12,6 +12,8 @@
 
 #import "InterfaceUrls.h"
 
+#import "XHCustomConfig.h"
+
 @interface IFCreateMeetingVC ()
 
 @end
@@ -65,7 +67,7 @@
                 if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
                     [[[InterfaceUrls alloc] init] reportMeeting:name ID:meetingID creator:[IMUserInfo shareInstance].userID];
                 } else {
-                    [[XHClient sharedClient].meetingManager saveToList:UserId type:meetingItem.meetingType meetingId:meetingID info:name completion:^(NSError *error) {
+                    [[XHClient sharedClient].meetingManager saveToList:UserId type:CHATROOM_LIST_TYPE_MEETING meetingId:meetingID info:name completion:^(NSError *error) {
                         
                     }];
                 }

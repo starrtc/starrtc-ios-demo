@@ -72,10 +72,15 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     logTapGesture.numberOfTouchesRequired =1;
     [self.view addGestureRecognizer:logTapGesture];
     // Do any additional setup after loading the view from its nib.
-    [self setupVideoDefaultParameters];
     if ([UIDevice currentDevice].systemVersion.doubleValue < 11.0) {
         self.top.constant = 64;
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self setupVideoDefaultParameters];
 }
 
 - (void)leftButtonClicked:(UIButton *)button{
@@ -410,8 +415,8 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     
     [self.autoAdjustFrameAndBitSwitch setOn:_videoSetParameters.dynamicBitrateAndFPSEnable];
     [self.hardEncodeSwitch setOn:_videoSetParameters.hwEncodeEnable];
-    [self.openGLSwitch setOn:_videoSetParameters.openGLEnable];
-    [self.openSLEnableSwitch setOn:NO];
+    [self.openGLSwitch setOn:_videoSetParameters.openGLEnable animated:NO];
+    [self.openSLEnableSwitch setOn:NO animated:NO];
     [self.voipP2PModelSwitch setOn:_videoSetParameters.voipP2PEnable];
     [self.audioHandleSwitch setOn:NO];
     [self.lowLevelAECHandleSwitch setOn:NO];

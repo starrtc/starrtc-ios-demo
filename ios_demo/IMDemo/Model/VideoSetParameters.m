@@ -19,7 +19,6 @@
         [parameters setValuesForKeysWithDictionary:parametersDic];
         //记得注释掉
     }
-     parameters.hwEncodeEnable = NO;
     return parameters;
 }
 
@@ -115,10 +114,19 @@
 }
 - (NSDictionary*)objectToDictionary
 {
-    NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithCapacity:5];
+    NSMutableDictionary * dic = [NSMutableDictionary dictionary];
     [dic setObject:[NSNumber numberWithInteger:self.resolution] forKey:@"resolution"];
     [dic setObject:[NSNumber numberWithBool:self.openGLEnable] forKey:@"openGLEnable"];
     [dic setObject:[NSNumber numberWithBool:self.hwEncodeEnable] forKey:@"hwEncodeEnable"];
+    [dic setObject:@(self.videoEnable) forKey:@"videoEnable"];
+    [dic setObject:@(self.audioEnable) forKey:@"audioEnable"];
+    [dic setObject:@(self.dynamicBitrateAndFPSEnable) forKey:@"dynamicBitrateAndFPSEnable"];
+    [dic setObject:@(self.voipP2PEnable) forKey:@"voipP2PEnable"];
+    [dic setObject:@(self.bigVideoBitrate) forKey:@"bigVideoBitrate"];
+    [dic setObject:@(self.bigVideoFPS) forKey:@"bigVideoFPS"];
+    [dic setObject:@(self.smallVideoBitrate) forKey:@"smallVideoBitrate"];
+    [dic setObject:@(self.smallVideoFPS) forKey:@"smallVideoFPS"];
+    
     return dic;
 }
 
