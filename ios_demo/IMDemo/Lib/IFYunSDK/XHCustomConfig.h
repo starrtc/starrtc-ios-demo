@@ -14,6 +14,13 @@
 
 static NSString *SERVER_TYPE_PUBLIC = @"PUBLIC";
 static NSString *SERVER_TYPE_CUSTOM = @"CUSTOM";
+static  int CHATROOM_LIST_TYPE_CHATROOM = 0;
+static  int CHATROOM_LIST_TYPE_LIVE = 1;
+static  int CHATROOM_LIST_TYPE_LIVEPUSH = 2;
+static  int CHATROOM_LIST_TYPE_MEETING = 3;
+static  int CHATROOM_LIST_TYPE_MEETING_PUSH = 4;
+static  int CHATROOM_LIST_TYPE_CLASS = 5;
+static  int CHATROOM_LIST_TYPE_CLASS_PUSH = 6;
 
 @interface XHCustomConfig : NSObject
 
