@@ -6,8 +6,8 @@
 //  Copyright © 2018年  Admin. All rights reserved.
 //
 
-#import "IFBaseTableVC.h"
+#import "IFBaseVC.h"
 
-@interface VideoSettingVC : IFBaseTableVC
+@interface VideoSettingVC : IFBaseVC
 
 @end

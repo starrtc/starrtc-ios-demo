@@ -73,34 +73,9 @@
 #pragma mark InterfaceUrlsdelegate
 - (void)getMeetingListResponse:(id)respnseContent {
     NSDictionary *dict = respnseContent;
-    int status = [[dict objectForKey:@"status"] intValue];
-    if(status == 1) {
-        [_listArr removeAllObjects];
-        NSArray *listArr = [dict objectForKey:@"data"];
-        
-        for (int index = 0; index < listArr.count; index++) {
-            NSMutableDictionary *subDic = listArr[index];
-            
-            IFMeetingItem *item = [[IFMeetingItem alloc] init];
-//            item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
-            item.userIcon = @"meeting_list_icon";
-            item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
-            item.meetingName = subDic[@"Name"];
-            item.creatorName = subDic[@"Creator"];
-            item.meetingID = subDic[@"ID"];
-
-            [_listArr addObject:item];
-        }
-        
-        [_listView.tableView reloadData];
-    }
-    
-    if ([_listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
-        if (_listView.tableView.refreshControl && _listView.tableView.refreshControl.refreshing) {
-            [_listView.tableView.refreshControl endRefreshing];
-        }
-    }
-    [UIView hiddenProgress];
+//    int status = [[dict objectForKey:@"status"] intValue];
+    NSArray *listArr = [dict objectForKey:@"data"];
+    [self refreshListDidEnd:listArr];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
@@ -161,9 +136,47 @@
     if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
         [m_interfaceUrls demoRequestMeetingList];
     } else {
+        __weak typeof(self) weakSelf = self;
         [[XHClient sharedClient].meetingManager queryMeetingList:^(NSString *listInfo, NSError *error) {
-            [UIView hiddenProgress];
+            NSData *jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
+            NSArray *listArr = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                               options:NSJSONReadingMutableContainers
+                                                                 error:nil];
+            [weakSelf refreshListDidEnd:listArr];
         }];
+    }
+}
+
+- (void)refreshListDidEnd:(NSArray *)listArr {
+    if (listArr.count != 0) {
+        [_listArr removeAllObjects];
+
+        if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+            for (int index = 0; index < listArr.count; index++) {
+                NSMutableDictionary *subDic = listArr[index];
+                
+                IFMeetingItem *item = [[IFMeetingItem alloc] init];
+                //            item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
+                item.userIcon = @"meeting_list_icon";
+                item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
+                item.meetingName = subDic[@"Name"];
+                item.creatorName = subDic[@"Creator"];
+                item.meetingID = subDic[@"ID"];
+                
+                [_listArr addObject:item];
+            }
+        } else {
+            
+        }
+        
+        [_listView.tableView reloadData];
+    }
+    
+    [UIView hiddenProgress];
+    if ([_listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
+        if (_listView.tableView.refreshControl && _listView.tableView.refreshControl.refreshing) {
+            [_listView.tableView.refreshControl endRefreshing];
+        }
     }
 }
 

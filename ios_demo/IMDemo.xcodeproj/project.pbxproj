@@ -159,6 +159,8 @@
 		A54D214820B81D5100E89114 /* IFVideoChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A54D214620B81D5100E89114 /* IFVideoChatCell.m */; };
 		A5650D42221D4A1F00E9A655 /* IFInnerVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A5650D40221D4A1F00E9A655 /* IFInnerVideoVC.m */; };
 		A5650D49221FCC0500E9A655 /* IFInnerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5650D48221FCC0500E9A655 /* IFInnerManager.m */; };
+		A56A4B97227139E300469616 /* NSString+ILGLib.m in Sources */ = {isa = PBXBuildFile; fileRef = A56A4B96227139E300469616 /* NSString+ILGLib.m */; };
+		A56A4B9A22713A1000469616 /* NSDictionary+ILGLib.m in Sources */ = {isa = PBXBuildFile; fileRef = A56A4B9922713A1000469616 /* NSDictionary+ILGLib.m */; };
 		A57FA72820902625006CE93C /* IFVideoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A57FA72720902625006CE93C /* IFVideoListCell.m */; };
 		A58C187620CE856B0036278A /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = A58C186720CE856B0036278A /* README.markdown */; };
 		A58C187820CE856B0036278A /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A58C186C20CE856B0036278A /* FMDatabaseQueue.m */; };
@@ -518,6 +520,11 @@
 		A5650D40221D4A1F00E9A655 /* IFInnerVideoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFInnerVideoVC.m; sourceTree = "<group>"; };
 		A5650D47221FCC0500E9A655 /* IFInnerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFInnerManager.h; sourceTree = "<group>"; };
 		A5650D48221FCC0500E9A655 /* IFInnerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFInnerManager.m; sourceTree = "<group>"; };
+		A56A4B95227139E300469616 /* NSString+ILGLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+ILGLib.h"; sourceTree = "<group>"; };
+		A56A4B96227139E300469616 /* NSString+ILGLib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+ILGLib.m"; sourceTree = "<group>"; };
+		A56A4B9822713A1000469616 /* NSDictionary+ILGLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ILGLib.h"; sourceTree = "<group>"; };
+		A56A4B9922713A1000469616 /* NSDictionary+ILGLib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ILGLib.m"; sourceTree = "<group>"; };
+		A56A4B9B22713AD500469616 /* ILGLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ILGLibrary.h; sourceTree = "<group>"; };
 		A57FA72620902625006CE93C /* IFVideoListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFVideoListCell.h; sourceTree = "<group>"; };
 		A57FA72720902625006CE93C /* IFVideoListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFVideoListCell.m; sourceTree = "<group>"; };
 		A58C186720CE856B0036278A /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
@@ -1355,6 +1362,10 @@
 			children = (
 				A58C188820CE99980036278A /* NSDate+ILGLib.h */,
 				A58C188920CE99980036278A /* NSDate+ILGLib.m */,
+				A56A4B95227139E300469616 /* NSString+ILGLib.h */,
+				A56A4B96227139E300469616 /* NSString+ILGLib.m */,
+				A56A4B9822713A1000469616 /* NSDictionary+ILGLib.h */,
+				A56A4B9922713A1000469616 /* NSDictionary+ILGLib.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1730,6 +1741,7 @@
 				A58C187D20CE85830036278A /* ILGFMDBManager */,
 				A5DAA67A2089B52400A76FEA /* ILGLocalData */,
 				A5DAA6742089B50B00A76FEA /* ILGDevice */,
+				A56A4B9B22713AD500469616 /* ILGLibrary.h */,
 			);
 			path = ILGLibrary;
 			sourceTree = "<group>";
@@ -2031,6 +2043,7 @@
 				7BE9149F21EED57400FEEBD7 /* SpeechMemberModel.m in Sources */,
 				A549CB69207B0C510045A2E1 /* IFCreateBaseVC.m in Sources */,
 				7B7D1EFF21EC2F320043F096 /* AFNetworkReachabilityManager.m in Sources */,
+				A56A4B97227139E300469616 /* NSString+ILGLib.m in Sources */,
 				7B7D1F5A21EC34AB0043F096 /* MJRefreshAutoFooter.m in Sources */,
 				A58DFF6A206E08DC0074DB7B /* UIColor+Category.m in Sources */,
 				7BB1142421E44D63007668E1 /* SpeechChatListVC.m in Sources */,
@@ -2130,6 +2143,7 @@
 				A58C188A20CE99980036278A /* NSDate+ILGLib.m in Sources */,
 				7B7D1EF721EC2F320043F096 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				7B7D1EFA21EC2F320043F096 /* AFImageDownloader.m in Sources */,
+				A56A4B9A22713A1000469616 /* NSDictionary+ILGLib.m in Sources */,
 				A5DAA6722088660600A76FEA /* IFCreateSessionView.m in Sources */,
 				7B0E4E2A20AEB52800030D98 /* IFNetworkFailView.m in Sources */,
 				7B7D1EF821EC2F320043F096 /* UIWebView+AFNetworking.m in Sources */,

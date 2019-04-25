@@ -67,19 +67,24 @@
                 if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
                     [[[InterfaceUrls alloc] init] reportMeeting:name ID:meetingID creator:[IMUserInfo shareInstance].userID];
                 } else {
-                    [[XHClient sharedClient].meetingManager saveToList:UserId type:CHATROOM_LIST_TYPE_MEETING meetingId:meetingID info:name completion:^(NSError *error) {
+                    NSDictionary *infoDic = @{@"id":meetingID,
+                                           @"creator":UserId,
+                                           @"name":meetingItem.meetingName
+                                           };
+                    NSString *infoStr = [infoDic ilg_jsonString];
+                    [[XHClient sharedClient].meetingManager saveToList:UserId type:CHATROOM_LIST_TYPE_MEETING meetingId:meetingID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
                         
                     }];
                 }
                 
-                IFMutilMeetingVC *receive = [[IFMutilMeetingVC alloc] initWithType:IFMutilMeetingVCTypeCreate];
-                receive.meetingId = meetingID;
-                receive.meetingName = name;
-
-                NSMutableArray *vcArr = self.navigationController.viewControllers.mutableCopy;
-                [vcArr removeLastObject];
-                [vcArr addObject:receive];
-                [self.navigationController setViewControllers:vcArr];
+//                IFMutilMeetingVC *receive = [[IFMutilMeetingVC alloc] initWithType:IFMutilMeetingVCTypeCreate];
+//                receive.meetingId = meetingID;
+//                receive.meetingName = name;
+//
+//                NSMutableArray *vcArr = self.navigationController.viewControllers.mutableCopy;
+//                [vcArr removeLastObject];
+//                [vcArr addObject:receive];
+//                [self.navigationController setViewControllers:vcArr];
             }
         }];
     }
