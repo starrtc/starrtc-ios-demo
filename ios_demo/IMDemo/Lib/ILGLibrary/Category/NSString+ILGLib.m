@@ -26,7 +26,7 @@
 
 - (NSString *)ilg_URLEncode {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!*'();:,.@&=+$/?%#[]_-{}|\""]];
+        return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"]];
     } else {
         return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     }

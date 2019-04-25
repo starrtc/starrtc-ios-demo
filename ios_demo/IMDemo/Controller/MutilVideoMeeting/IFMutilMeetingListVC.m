@@ -21,24 +21,19 @@
 @end
 
 @implementation IFMutilMeetingListVC
-
 {
-    InterfaceUrls             *m_interfaceUrls;
+    InterfaceUrls *m_interfaceUrls;
     
-    NSMutableArray            *_listArr;
+    NSMutableArray *_listArr;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self initData];
     
     [self createUI];
 
-    _listArr = [NSMutableArray array];
-    
-    m_interfaceUrls = [[InterfaceUrls alloc] init];
-    m_interfaceUrls.delegate = self;
-    
     [self refreshList];
 }
 
@@ -46,6 +41,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark - Data
+
+- (void)initData {
+    _listArr = [NSMutableArray array];
+    
+    m_interfaceUrls = [[InterfaceUrls alloc] init];
+    m_interfaceUrls.delegate = self;
+}
+
 
 #pragma mark - UI
 
@@ -69,6 +75,7 @@
     }
 }
 
+
 #pragma mark - Delegate
 #pragma mark InterfaceUrlsdelegate
 - (void)getMeetingListResponse:(id)respnseContent {
@@ -78,22 +85,14 @@
     [self refreshListDidEnd:listArr];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     return 1;
 }
 
-/**
- * 设置table的行数
- */
-- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     return _listArr.count;
 }
 
-/**
- * 设置table每一行的数据
- */
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -125,12 +124,15 @@
 
 
 #pragma mark - Event
-- (void)createBtnDidClicked {
+
+- (void)createBtnDidClicked
+{
     IFCreateMeetingVC *vc = [[IFCreateMeetingVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)refreshList {
+- (void)refreshList
+{
     [UIView showProgressWithText:@"加载中..."];
 
     if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
@@ -138,25 +140,30 @@
     } else {
         __weak typeof(self) weakSelf = self;
         [[XHClient sharedClient].meetingManager queryMeetingList:^(NSString *listInfo, NSError *error) {
-            NSData *jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
-            NSArray *listArr = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                               options:NSJSONReadingMutableContainers
-                                                                 error:nil];
+            NSArray *listArr = nil;
+            if (listInfo) {
+                NSData *jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
+                listArr = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                          options:NSJSONReadingMutableContainers
+                                                            error:nil];
+            }
+            
             [weakSelf refreshListDidEnd:listArr];
         }];
     }
 }
 
-- (void)refreshListDidEnd:(NSArray *)listArr {
+- (void)refreshListDidEnd:(NSArray *)listArr
+{
     if (listArr.count != 0) {
         [_listArr removeAllObjects];
 
         if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
             for (int index = 0; index < listArr.count; index++) {
-                NSMutableDictionary *subDic = listArr[index];
+                NSDictionary *subDic = listArr[index];
                 
                 IFMeetingItem *item = [[IFMeetingItem alloc] init];
-                //            item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
+//                item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
                 item.userIcon = @"meeting_list_icon";
                 item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
                 item.meetingName = subDic[@"Name"];
@@ -166,7 +173,28 @@
                 [_listArr addObject:item];
             }
         } else {
-            
+            for (int index = 0; index < listArr.count; index++) {
+                NSString *str = listArr[index];
+                NSString *strDecoded = [str ilg_URLDecode];
+                NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
+                NSError *error = nil;
+                NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                   options:NSJSONReadingMutableContainers
+                                                                     error:&error];
+                if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
+                    continue;
+                }
+                
+                IFMeetingItem *item = [[IFMeetingItem alloc] init];
+//                item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
+                item.userIcon = @"meeting_list_icon";
+                item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
+                item.meetingName = subDic[@"name"];
+                item.creatorName = subDic[@"creator"];
+                item.meetingID = subDic[@"id"];
+                
+                [_listArr addObject:item];
+            }
         }
         
         [_listView.tableView reloadData];

@@ -296,6 +296,9 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 
 #pragma mark - event
 
+- (IBAction)serverSetBtnClicked:(id)sender {
+    [self handleEventForServerSet];
+}
 - (void)handleEventForServerSet
 {
     SystemSettingVC *system = [[SystemSettingVC alloc] initWithNibName:@"SystemSettingVC" bundle:[NSBundle mainBundle]];
