@@ -316,6 +316,7 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 }
 
 - (IBAction)switchForLogWindow:(UISwitch *)sender {
+    _videoSetParameters.logEnable = sender.on;
     [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
 }
 
@@ -329,12 +330,12 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     [self.videoEnableSwitch setOn:!_videoSetParameters.videoEnable];
     [self.autoAdjustFrameAndBitSwitch setOn:_videoSetParameters.dynamicBitrateAndFPSEnable];
     [self.hardEncodeSwitch setOn:_videoSetParameters.hwEncodeEnable];
-    [self.openGLEnableSwitch setOn:_videoSetParameters.openGLEnable animated:NO];
-    [self.openSLEnableSwitch setOn:NO animated:NO];
+    [self.openGLEnableSwitch setOn:_videoSetParameters.openGLEnable];
+    [self.openSLEnableSwitch setOn:NO];
     [self.voipP2PModelSwitch setOn:_videoSetParameters.voipP2PEnable];
     [self.audioHandleSwitch setOn:NO];
     [self.lowLevelAECHandleSwitch setOn:NO];
-    [self.logEnableSwitch setOn:YES];
+    [self.logEnableSwitch setOn:_videoSetParameters.logEnable];
     
     [self.resolutionSetButton setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
     [self.bigPictureSetBtn setTitle:@">" forState:UIControlStateNormal];
