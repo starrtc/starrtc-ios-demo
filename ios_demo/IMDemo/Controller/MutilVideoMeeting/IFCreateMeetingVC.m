@@ -77,14 +77,14 @@
                     }];
                 }
                 
-//                IFMutilMeetingVC *receive = [[IFMutilMeetingVC alloc] initWithType:IFMutilMeetingVCTypeCreate];
-//                receive.meetingId = meetingID;
-//                receive.meetingName = name;
-//
-//                NSMutableArray *vcArr = self.navigationController.viewControllers.mutableCopy;
-//                [vcArr removeLastObject];
-//                [vcArr addObject:receive];
-//                [self.navigationController setViewControllers:vcArr];
+                IFMutilMeetingVC *receive = [[IFMutilMeetingVC alloc] initWithType:IFMutilMeetingVCTypeCreate];
+                receive.meetingId = meetingID;
+                receive.meetingName = name;
+
+                NSMutableArray *vcArr = self.navigationController.viewControllers.mutableCopy;
+                [vcArr removeLastObject];
+                [vcArr addObject:receive];
+                [self.navigationController setViewControllers:vcArr];
             }
         }];
     }

@@ -14,6 +14,8 @@
 #import "IFListView.h"
 #import "IFListViewCell.h"
 
+#import "XHCustomConfig.h"
+
 @interface ChatRoomListViewController ()
 
 @end
@@ -172,7 +174,7 @@
             [m_interfaceUrls demoRequestChatroomList];
         });
     } else {
-        [[XHClient sharedClient].roomManager queryChatroomList:^(NSString *listInfo, NSError *error) {
+        [[XHClient sharedClient].roomManager queryChatroomList:@"" type:[NSString stringWithFormat:@"%d", CHATROOM_LIST_TYPE_CHATROOM] completion:^(NSString *listInfo, NSError *error) {
             [UIView hiddenProgress];
 
         }];

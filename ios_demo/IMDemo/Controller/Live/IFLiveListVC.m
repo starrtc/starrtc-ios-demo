@@ -15,6 +15,7 @@
 #import "IFListViewCell.h"
 
 #import "InterfaceUrls.h"
+#import "XHCustomConfig.h"
 
 @interface IFLiveListVC () <InterfaceUrlsdelegate>
 @property (nonatomic, strong) NSMutableArray *listArr;
@@ -143,13 +144,13 @@
 
 - (void)refreshList
 {
-    [UIView showProgressWithText:@"加载中..."];
+    [self.view showProgressWithText:@"加载中..."];
     
     if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
         [_m_interfaceUrls demoRequestLiveList];
     } else {
         __weak typeof(self) weakSelf = self;
-        [[XHClient sharedClient].liveManager queryLiveList:^(NSString *listInfo, NSError *error) {
+        [[XHClient sharedClient].liveManager queryLiveList:@"" type:[NSString stringWithFormat:@"%d", CHATROOM_LIST_TYPE_LIVE] completion:^(NSString *listInfo, NSError *error) {
             NSArray *listArr = nil;
             if (listInfo) {
                 NSData *jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
@@ -210,7 +211,7 @@
         [_listView.tableView reloadData];
     }
     
-    [UIView hiddenProgress];
+    [self.view hideProgress];
     if ([_listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
         if (_listView.tableView.refreshControl && _listView.tableView.refreshControl.refreshing) {
             [_listView.tableView.refreshControl endRefreshing];

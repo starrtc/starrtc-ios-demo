@@ -156,7 +156,7 @@
 - (void)adjustUI:(IFServiceType)serviceType
 {
     if (serviceType == IFServiceTypePublic) {
-        [self.serviceBtn setTitle:@"公有云" forState:UIControlStateNormal];
+        [self.serviceBtn setTitle:@"公有云 >" forState:UIControlStateNormal];
         
         self.appidView.hidden = NO;
         self.yewuView.hidden = NO;
@@ -168,7 +168,7 @@
         self.downloadTitleL.text = @"LiveVdn调度";
         self.voipTitleL.text = @"VOIP调度";
     } else {
-        [self.serviceBtn setTitle:@"私有部署" forState:UIControlStateNormal];
+        [self.serviceBtn setTitle:@"私有部署 >" forState:UIControlStateNormal];
         
         self.appidView.hidden = YES;
         self.yewuView.hidden = YES;

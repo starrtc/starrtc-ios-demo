@@ -24,6 +24,8 @@ typedef NS_ENUM(int, ILGToastPosition) {
 @property (nonatomic, assign) CGFloat bottom;
 @property (nonatomic, assign) CGFloat k;
 
+- (void)showProgressWithText:(NSString *)text;
+- (void)hideProgress;
 + (void)showProgressWithText:(NSString*)text;
 + (void)hiddenProgress;
 + (void)ilg_makeToast:(NSString *)message;

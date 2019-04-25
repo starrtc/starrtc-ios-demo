@@ -83,10 +83,18 @@
     hud.detailsLabel.text = text;
 }
 
-
 + (void)hiddenProgress {
     [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
 }
+
+- (void)showProgressWithText:(NSString *)text {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
+    hud.detailsLabel.text = text;
+}
+- (void)hideProgress {
+    [MBProgressHUD hideHUDForView:self animated:YES];
+}
+
 + (void)ilg_makeToast:(NSString *)message {
     [[UIApplication sharedApplication].keyWindow ilg_makeToast:message position:ILGToastPositionCenter];
 }
