@@ -357,9 +357,14 @@
 
 /**
  * 查询直播列表
+ * @param userId 用户ID
+ * @param type 类型
  * @param completion 结果回调
+ *
  */
-- (void)queryLiveList:(void(^)(NSString *listInfo, NSError *error))completion;
+- (void)queryLiveList:(NSString *)userId
+                 type:(NSString *)type
+           completion:(void(^)(NSString *listInfo, NSError *error))completion;
 
 /**
  * 从直播列表删除

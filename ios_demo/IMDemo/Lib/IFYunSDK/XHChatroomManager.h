@@ -165,9 +165,13 @@
 
 /**
  * 查询聊天室列表
+ * @param userId 用户名
+ * @param type  类型
  * @param completion 回调
  */
-- (void)queryChatroomList:(void(^)(NSString *listInfo, NSError *error))completion;
+- (void)queryChatroomList:(NSString *)userId
+                     type:(NSString *) type
+               completion:(void(^)(NSString *listInfo, NSError *error))completion;
 
 /**
  * 从聊天室列表删除
