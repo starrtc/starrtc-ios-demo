@@ -13,8 +13,9 @@
 #import "CircleTestVC.h"
 #import "QGSandboxViewerVC.h"
 #import "SystemSettingVC.h"
-
 #import "IFInnerHomeVC.h"
+
+#import "IFFrameAndBitSetView.h"
 
 typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     IFVideoSettingTypeServerConfig = 1001,
@@ -31,7 +32,7 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     
 };
 
-@interface VideoSettingVC ()
+@interface VideoSettingVC () <IFFrameAndBitSetViewDelegate>
 {
     VideoSetParameters * _videoSetParameters;
 }
@@ -240,6 +241,22 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 }
 
 
+#pragma mark - delegate
+
+- (void)frameAndBitDidChanged:(IFFrameAndBitSetViewType)type frame:(int)frame bit:(int)bit {
+    if (type == IFFrameAndBitSetViewTypeBig) {
+        _videoSetParameters.bigVideoFPS = frame;
+        _videoSetParameters.bigVideoBitrate = bit;
+        
+        [self.bigPictureSetBtn setTitle:[NSString stringWithFormat:@"(%d/%d)", frame, bit] forState:UIControlStateNormal];
+    } else {
+        _videoSetParameters.smallVideoFPS = frame;
+        _videoSetParameters.smallVideoBitrate = bit;
+        
+        [self.smallPictureSetBtn setTitle:[NSString stringWithFormat:@"(%d/%d)", frame, bit] forState:UIControlStateNormal];
+    }
+}
+
 #pragma mark - event
 
 - (IBAction)serverSetBtnClicked:(id)sender {
@@ -332,6 +349,9 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 
 - (void)setupVideoDefaultParameters {
     _videoSetParameters = [VideoSetParameters locaParameters];
+    NSString *bitPicSetStr = [NSString stringWithFormat:@"(%d/%d) >", _videoSetParameters.bigVideoFPS, _videoSetParameters.bigVideoBitrate];
+    NSString *smallPicSetStr = [NSString stringWithFormat:@"(%d/%d) >", _videoSetParameters.smallVideoFPS, _videoSetParameters.smallVideoBitrate];
+
     
     [self.audioEnableSwitch setOn:!_videoSetParameters.audioEnable];
     [self.videoEnableSwitch setOn:!_videoSetParameters.videoEnable];
@@ -345,8 +365,8 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     [self.logEnableSwitch setOn:_videoSetParameters.logEnable];
     
     [self.resolutionSetButton setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
-    [self.bigPictureSetBtn setTitle:@">" forState:UIControlStateNormal];
-    [self.smallPictureSetBtn setTitle:@">" forState:UIControlStateNormal];
+    [self.bigPictureSetBtn setTitle:bitPicSetStr forState:UIControlStateNormal];
+    [self.smallPictureSetBtn setTitle:smallPicSetStr forState:UIControlStateNormal];
     [self.videoFormSetBtn setTitle:@">" forState:UIControlStateNormal];
     [self.audioFormSetBtn setTitle:@">" forState:UIControlStateNormal];
 }
@@ -382,12 +402,12 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 
 - (void)handleEventForBiPictureSet
 {
-    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+    [self.view addSubview:[self frameAndBitSetView:IFFrameAndBitSetViewTypeBig maxFrameValue:20 maxBitValue:2000]];
 }
 
 - (void)handleEventForSmallPictureSet
 {
-    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+    [self.view addSubview:[self frameAndBitSetView:IFFrameAndBitSetViewTypeSmall maxFrameValue:15 maxBitValue:200]];
 }
 
 - (void)handleEventForVideoEncodeSet
@@ -447,6 +467,32 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 {
     AboutUsVC *vc = [AboutUsVC new];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - other
+
+- (IFFrameAndBitSetView *)frameAndBitSetView:(IFFrameAndBitSetViewType)type maxFrameValue:(NSInteger)maxFrameValue maxBitValue:(NSInteger)maxBitValue {
+    IFFrameAndBitSetView *view = [IFFrameAndBitSetView viewFromXIBWithType:type];
+    view.frame = self.view.bounds;
+    view.frameSlider.maximumValue = maxFrameValue;
+    view.bitSlider.maximumValue = maxBitValue;
+    view.delegate = self;
+    
+    int frameValue = 0;
+    int bitValue = 0;
+    if (type == IFFrameAndBitSetViewTypeBig) {
+        frameValue = _videoSetParameters.bigVideoFPS;
+        bitValue = _videoSetParameters.bigVideoBitrate;
+    } else {
+        frameValue = _videoSetParameters.smallVideoFPS;
+        bitValue = _videoSetParameters.smallVideoBitrate;
+    }
+    view.frameSlider.value = frameValue;
+    view.bitSlider.value = bitValue;
+    view.frameL.text = [NSString stringWithFormat:@"帧率:%d", frameValue];
+    view.bitL.text = [NSString stringWithFormat:@"码率:%d", bitValue];
+    
+    return view;
 }
 
 @end

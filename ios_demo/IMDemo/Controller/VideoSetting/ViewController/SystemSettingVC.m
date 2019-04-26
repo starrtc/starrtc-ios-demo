@@ -148,9 +148,10 @@
 - (void)handleServiceSwitch:(IFServiceType)serviceType
 {
     self.serviceTypeForTmp = serviceType;
-    [self initTextField];
     
     [self adjustUI:serviceType];
+
+    [self initTextField];
 }
 
 - (void)adjustUI:(IFServiceType)serviceType

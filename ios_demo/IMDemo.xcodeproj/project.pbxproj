@@ -161,6 +161,8 @@
 		A5650D49221FCC0500E9A655 /* IFInnerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5650D48221FCC0500E9A655 /* IFInnerManager.m */; };
 		A56A4B97227139E300469616 /* NSString+ILGLib.m in Sources */ = {isa = PBXBuildFile; fileRef = A56A4B96227139E300469616 /* NSString+ILGLib.m */; };
 		A56A4B9A22713A1000469616 /* NSDictionary+ILGLib.m in Sources */ = {isa = PBXBuildFile; fileRef = A56A4B9922713A1000469616 /* NSDictionary+ILGLib.m */; };
+		A56A4B9F2272F49800469616 /* IFFrameAndBitSetView.m in Sources */ = {isa = PBXBuildFile; fileRef = A56A4B9E2272F49800469616 /* IFFrameAndBitSetView.m */; };
+		A56A4BA12272F4B100469616 /* IFFrameAndBitSetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A56A4BA02272F4B100469616 /* IFFrameAndBitSetView.xib */; };
 		A57FA72820902625006CE93C /* IFVideoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A57FA72720902625006CE93C /* IFVideoListCell.m */; };
 		A58C187620CE856B0036278A /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = A58C186720CE856B0036278A /* README.markdown */; };
 		A58C187820CE856B0036278A /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A58C186C20CE856B0036278A /* FMDatabaseQueue.m */; };
@@ -525,6 +527,9 @@
 		A56A4B9822713A1000469616 /* NSDictionary+ILGLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ILGLib.h"; sourceTree = "<group>"; };
 		A56A4B9922713A1000469616 /* NSDictionary+ILGLib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ILGLib.m"; sourceTree = "<group>"; };
 		A56A4B9B22713AD500469616 /* ILGLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ILGLibrary.h; sourceTree = "<group>"; };
+		A56A4B9D2272F49800469616 /* IFFrameAndBitSetView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFFrameAndBitSetView.h; sourceTree = "<group>"; };
+		A56A4B9E2272F49800469616 /* IFFrameAndBitSetView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFFrameAndBitSetView.m; sourceTree = "<group>"; };
+		A56A4BA02272F4B100469616 /* IFFrameAndBitSetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IFFrameAndBitSetView.xib; sourceTree = "<group>"; };
 		A57FA72620902625006CE93C /* IFVideoListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFVideoListCell.h; sourceTree = "<group>"; };
 		A57FA72720902625006CE93C /* IFVideoListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFVideoListCell.m; sourceTree = "<group>"; };
 		A58C186720CE856B0036278A /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
@@ -741,27 +746,6 @@
 				A5C71DAF226E986D001B4306 /* VideoSettings.storyboard */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		7B570807207AFFED00857F30 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		7B570808207AFFED00857F30 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		7B570809207AFFED00857F30 /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tools;
 			sourceTree = "<group>";
 		};
 		7B5BF0AC221BED4A00F82A42 /* IQKeyboardManager */ = {
@@ -1289,6 +1273,16 @@
 			path = IFInnerManager;
 			sourceTree = "<group>";
 		};
+		A56A4B9C2272F41200469616 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A56A4B9D2272F49800469616 /* IFFrameAndBitSetView.h */,
+				A56A4B9E2272F49800469616 /* IFFrameAndBitSetView.m */,
+				A56A4BA02272F4B100469616 /* IFFrameAndBitSetView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A58C186620CE856B0036278A /* FMDB */ = {
 			isa = PBXGroup;
 			children = (
@@ -1571,9 +1565,7 @@
 			children = (
 				A5650D45221FCBB100E9A655 /* Manager */,
 				7B570800207AFFED00857F30 /* ViewController */,
-				7B570807207AFFED00857F30 /* Model */,
-				7B570809207AFFED00857F30 /* Tools */,
-				7B570808207AFFED00857F30 /* View */,
+				A56A4B9C2272F41200469616 /* View */,
 			);
 			path = VideoSetting;
 			sourceTree = "<group>";
@@ -1977,6 +1969,7 @@
 				7B3A866720747DFD005D7CE4 /* CircleTestVC.xib in Resources */,
 				A5DAA6792089B50B00A76FEA /* DeviceModel.plist in Resources */,
 				A5A39A0D221D2A7A00960461 /* IFInnerHomeVC.xib in Resources */,
+				A56A4BA12272F4B100469616 /* IFFrameAndBitSetView.xib in Resources */,
 				7B57080B207AFFED00857F30 /* EMViewController.xib in Resources */,
 				7B7D1EC821EC297C0043F096 /* SpeechChatListCell.xib in Resources */,
 				7BD47D71206E2EF70000E9A1 /* ReceiverVoipVideoVC.xib in Resources */,
@@ -2129,6 +2122,7 @@
 				7B7D1EFE21EC2F320043F096 /* AFURLRequestSerialization.m in Sources */,
 				A5E15F9020900EE600A6EA85 /* IFVideoListView.m in Sources */,
 				A5650D49221FCC0500E9A655 /* IFInnerManager.m in Sources */,
+				A56A4B9F2272F49800469616 /* IFFrameAndBitSetView.m in Sources */,
 				A5CA18C321E5CC1700790711 /* IFSourceListVC.m in Sources */,
 				7BCE7C0E20C52E92003A3FFF /* AboutUsVC.m in Sources */,
 				A57FA72820902625006CE93C /* IFVideoListCell.m in Sources */,
