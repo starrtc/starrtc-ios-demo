@@ -15,33 +15,27 @@
 #import "IFListViewCell.h"
 
 @interface MessageGroupListViewController () <UITableViewDataSource,UITableViewDelegate,InterfaceUrlsdelegate>
-
+@property (nonatomic, strong) IFListView *listView;
+@property (nonatomic, strong) NSMutableArray *listArr;
 @end
 
 @implementation MessageGroupListViewController
 {
-    UITableView               *_tableView;
-    InterfaceUrls             *m_interfaceUrls;
+    InterfaceUrls *m_interfaceUrls;
     
-    NSMutableArray            *m_GroupInfo;
     NSInteger selectItem;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self initData];
     
     [self createUI];
+
+    [self refreshList];
     
-    m_GroupInfo = [NSMutableArray array];
-    
-    // 请求群组列表
-    m_interfaceUrls = [[InterfaceUrls alloc] init];
-    m_interfaceUrls.delegate = self;
-    
-    [self refreshChatroomList];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshChatroomList) name:@"IFGroupListRefreshNotif" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList) name:@"IFGroupListRefreshNotif" object:nil];
 
 }
 
@@ -50,9 +44,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+#pragma mark - Data
+
+- (void)initData {
+    _listArr = [NSMutableArray array];
+    
+    // 请求群组列表
+    m_interfaceUrls = [[InterfaceUrls alloc] init];
+    m_interfaceUrls.delegate = self;
 }
+
 
 #pragma mark - UI
 
@@ -62,40 +63,17 @@
     CGRect frame = self.view.bounds;
     IFListView *listView = [[IFListView alloc] initWithDelegate:self frame:frame];
     [self.view addSubview:listView];
+    _listView = listView;
     
     [listView.tableView registerClass:[IFListViewCell class] forCellReuseIdentifier:@"TableSampleIdentifier"];
     listView.tableView.rowHeight = 95;
     [listView.button setTitle:@"创建群组" forState:UIControlStateNormal];
     [listView.button addTarget:self action:@selector(createGroupButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    _tableView = listView.tableView;
     
     if ([listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(refreshChatroomList) forControlEvents:UIControlEventValueChanged];
+        [refreshControl addTarget:self action:@selector(refreshList) forControlEvents:UIControlEventValueChanged];
         [listView.tableView setRefreshControl:refreshControl];
-    }
-}
-
-#pragma mark - Event
-
-- (void)createGroupButtonClicked:(UIButton *)button
-{
-    MessageGroupCreateViewController *vc = [[MessageGroupCreateViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)refreshChatroomList {
-    [UIView showProgressWithText:@"加载中..."];
-
-    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [m_interfaceUrls demoRequestGroupList];
-        });
-    } else {
-        [[XHClient sharedClient].groupManager queryGroupList:^(NSString *listInfo, NSError *error) {
-            [UIView hiddenProgress];
-
-        }];
     }
 }
 
@@ -105,39 +83,21 @@
 - (void)getMessageGroupListResponse:(id)respnseContent {
     NSDictionary *dict = respnseContent;
     int status = [[dict objectForKey:@"status"] intValue];
-    
-    [m_GroupInfo removeAllObjects];
-    if(status == 1) {
-
-        NSDictionary *info = [dict objectForKey:@"data"];
-        for (NSMutableDictionary *dict in info) {
-            MessageGroupInfo *new_groupInfo = [[MessageGroupInfo alloc] init];
-            new_groupInfo.groupName =  [dict objectForKey:@"groupName"];
-            new_groupInfo.creator =  [dict objectForKey:@"creator"];
-            new_groupInfo.groupId =  [dict objectForKey:@"groupId"];
-            [m_GroupInfo addObject:new_groupInfo];
-        }
+    NSArray *listArr = [dict objectForKey:@"data"];
+    if (status == 1 && [listArr isKindOfClass:[NSArray class]]) {
+        [self refreshListDidEnd:listArr];
+    } else {
+        [self refreshListDidEnd:nil];
     }
-    
-    if ([_tableView respondsToSelector:@selector(setRefreshControl:)]) {
-        if (_tableView.refreshControl && _tableView.refreshControl.refreshing) {
-            [_tableView.refreshControl endRefreshing];
-        }
-    }
-    [UIView hiddenProgress];
-    [_tableView reloadData];
 }
 
 #pragma mark tableView
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return m_GroupInfo.count;
+- (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
+    return _listArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -150,11 +110,11 @@
     
     
     NSUInteger row = [indexPath row];
-    MessageGroupInfo* one_chatinfo = [m_GroupInfo objectAtIndex:row];
-    cell.topL.text = one_chatinfo.groupName;
-    cell.bottomL.text = [NSString stringWithFormat:@"创建者:%@", one_chatinfo.creator];
-    cell.bgImageView.backgroundColor = [[IMUserInfo shareInstance] listIconColor:[NSString stringWithFormat:@"%@%@", one_chatinfo.groupName, one_chatinfo.creator]];
-    [cell.iconBtn setImage:[UIImage imageNamed:@"im_groupList_icon"] forState:UIControlStateNormal];
+    IFGroupItem *item = [_listArr objectAtIndex:row];
+    cell.topL.text = item.groupName;
+    cell.bottomL.text = [NSString stringWithFormat:@"创建者:%@", item.creatorId];
+    cell.bgImageView.backgroundColor = [[IMUserInfo shareInstance] listIconColor:[NSString stringWithFormat:@"%@%@", item.groupName, item.creatorId]];
+    [cell.iconBtn setImage:[UIImage imageNamed:item.userIcon] forState:UIControlStateNormal];
     return cell;
 }
 
@@ -165,16 +125,94 @@
     
     MessageGroupViewController *receive = [[MessageGroupViewController alloc] init];
     receive.USER_TYPE = @"GROUP_ID";
-    MessageGroupInfo* one_groupinfo = [m_GroupInfo objectAtIndex:selectItem];
-    receive.m_Group_ID = one_groupinfo.groupId;
-    receive.m_Group_Name = one_groupinfo.groupName;
-    receive.creatorID = one_groupinfo.creator;
+    IFGroupItem* item = [_listArr objectAtIndex:selectItem];
+    receive.m_Group_ID = item.groupId;
+    receive.m_Group_Name = item.groupName;
+    receive.creatorID = item.creatorId;
     [self.navigationController pushViewController:receive animated:YES];
+}
+
+
+#pragma mark - Event
+
+- (void)createGroupButtonClicked:(UIButton *)button
+{
+    MessageGroupCreateViewController *vc = [[MessageGroupCreateViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)refreshList
+{
+    [self.view showProgressWithText:@"加载中..."];
+    
+    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+        [m_interfaceUrls demoRequestGroupList];
+    } else {
+        __weak typeof(self) weakSelf = self;
+        [[XHClient sharedClient].groupManager queryGroupList:^(NSString *listInfo, NSError *error) {
+            NSArray *listArr = nil;
+            if (listInfo) {
+                NSData *jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
+                listArr = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                          options:NSJSONReadingMutableContainers
+                                                            error:nil];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf refreshListDidEnd:listArr];
+            });
+        }];
+    }
+}
+
+- (void)refreshListDidEnd:(NSArray *)listArr
+{
+    if (listArr.count != 0) {
+        [_listArr removeAllObjects];
+        
+        if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+            for (int index = 0; index < listArr.count; index++) {
+                NSDictionary *subDic = listArr[index];
+                
+                IFGroupItem *item = [[IFGroupItem alloc] init];
+                item.userIcon = @"im_groupList_icon";
+                item.groupName = subDic[@"groupName"];
+                item.creatorId = subDic[@"creator"];
+                item.groupId = subDic[@"groupId"];
+                
+                [_listArr addObject:item];
+            }
+        } else {
+            for (int index = 0; index < listArr.count; index++) {
+                NSDictionary *subDic = listArr[index];
+                if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
+                    continue;
+                }
+                
+                IFGroupItem *item = [[IFGroupItem alloc] init];
+                item.userIcon = @"im_groupList_icon";
+                item.groupName = subDic[@"groupName"];
+                item.creatorId = subDic[@"creator"];
+                item.groupId = subDic[@"groupId"];
+                
+                [_listArr addObject:item];
+            }
+        }
+        
+        [_listView.tableView reloadData];
+    }
+    
+    [self.view hideProgress];
+    if ([_listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
+        if (_listView.tableView.refreshControl && _listView.tableView.refreshControl.refreshing) {
+            [_listView.tableView.refreshControl endRefreshing];
+        }
+    }
 }
 
 @end
 
 
-@implementation MessageGroupInfo
+@implementation IFGroupItem
 
 @end

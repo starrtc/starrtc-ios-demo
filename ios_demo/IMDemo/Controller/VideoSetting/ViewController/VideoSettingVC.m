@@ -73,6 +73,13 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     [self setupVideoDefaultParameters];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [_videoSetParameters saveParametersToLocal];
+    [[XHClient sharedClient] setVideoConfig:_videoSetParameters];
+}
+
 - (void)leftButtonClicked:(UIButton *)button{
     [super leftButtonClicked:button];
     [_videoSetParameters saveParametersToLocal];
@@ -385,13 +392,50 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 
 - (void)handleEventForVideoEncodeSet
 {
-    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+    [self.view ilg_makeToast:@"开发中..." position:ILGToastPositionBottom];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    NSArray *titles = @[@"H264", @"H265", @"MPEG1", @"取消"];
+    for (int index = 0; index < titles.count; index++) {
+        UIAlertActionStyle style = UIAlertActionStyleDefault;
+        if (index == titles.count - 1) {
+            style = UIAlertActionStyleCancel;
+        }
+        UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:style handler:^(UIAlertAction * _Nonnull action) {
+            if (action.style == UIAlertActionStyleDefault) {
+                //To do ：保存编码格式
+                [self.videoFormSetBtn setTitle:[NSString stringWithFormat:@"%@ >", action.title] forState:UIControlStateNormal];
+            }
+        }];
+        [alertController addAction:action];
+    }
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)handleEventForAudioEncodeSet
 {
-    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
-}
+    [self.view ilg_makeToast:@"开发中..." position:ILGToastPositionBottom];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    NSArray *titles = @[@"OPUS", @"AAC", @"MP2(MPEG Audio Layer-2)", @"取消"];
+    for (int index = 0; index < titles.count; index++) {
+        UIAlertActionStyle style = UIAlertActionStyleDefault;
+        if (index == titles.count - 1) {
+            style = UIAlertActionStyleCancel;
+        }
+        UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:style handler:^(UIAlertAction * _Nonnull action) {
+            if (action.style == UIAlertActionStyleDefault) {
+                //To do ：保存编码格式
+                [self.audioFormSetBtn setTitle:[NSString stringWithFormat:@"%@ >", action.title] forState:UIControlStateNormal];
+            }
+        }];
+        [alertController addAction:action];
+    }
+    
+    [self presentViewController:alertController animated:YES completion:nil];}
 
 - (void)handleEventForUploadLog
 {

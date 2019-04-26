@@ -16,10 +16,13 @@
 @end
 
 
-@interface MessageGroupInfo: NSObject
+@interface IFGroupItem: NSObject
 
-@property  NSString *  groupName;
-@property  NSString *  creator;
-@property  NSString *  groupId;
+@property (nonatomic, copy) NSString *userIcon;
+@property (nonatomic, copy) NSString *coverIcon;
+
+@property  NSString *groupId;
+@property  NSString *groupName;
+@property  NSString *creatorId;
 
 @end

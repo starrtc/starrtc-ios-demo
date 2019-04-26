@@ -156,7 +156,7 @@
  //群列表
 - (void)demoRequestGroupList
 {
-    NSString *urlStr=  [NSString stringWithFormat:@"%@%@%@",[self absolutePath:@"/group/list_all"],@"?appid=",[AppConfig shareConfig].appId];
+    NSString *urlStr=  [NSString stringWithFormat:@"%@%@%@%@%@",[self absolutePath:@"/group/list_all"],@"?appid=",[AppConfig shareConfig].appId, @"&userid=", UserId];
     [self get:urlStr callback:^(id result, NSError *error) {
         if (_delegate && [_delegate respondsToSelector:@selector(getMessageGroupListResponse:)])
         {
