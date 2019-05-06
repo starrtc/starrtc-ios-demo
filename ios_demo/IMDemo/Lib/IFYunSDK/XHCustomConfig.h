@@ -11,6 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "XHConstants.h"
 
 static NSString *SERVER_TYPE_PUBLIC = @"PUBLIC";
 static NSString *SERVER_TYPE_CUSTOM = @"CUSTOM";
@@ -60,6 +61,24 @@ static  int CHATROOM_LIST_TYPE_CLASS_PUSH = 6;
 
 // 开放版SDK初始化
 -(void)sdkInitForFree:(NSString *)userId;
+
+/**
+ * 设置音频编码格式
+ * @param type 音频编码格式
+ */
+-(void)setDefConfigAudioCodecType:(XHAudioCodecConfigEnum )type;
+
+/**
+ * 获取音频编码格式
+ * @return 音频编码格式
+ */
+-(XHAudioCodecConfigEnum ) getAudioCodecType;
+
+/**
+ * 设置视频编码格式
+ * @param type 视频编码格式
+ */
+-(void)setDefConfigVideoCodecType:(XHVideoCodecConfigEnum )type;
 
 
 @end

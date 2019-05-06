@@ -201,6 +201,36 @@ typedef NS_ENUM(NSInteger,XHDeviceDirectionEnum)
     STAR_DEVICE_DIRECTION_HOME_TOP
 };
 
+
+/**
+ * 视频编码格式配置
+ */
+typedef NS_ENUM(NSInteger,XHVideoCodecConfigEnum)
+{
+    IOS_STAR_STREAM_VIDEO_CODEC_H264,     //0
+    IOS_STAR_STREAM_VIDEO_CODEC_H265,     //1
+    IOS_STAR_STREAM_VIDEO_CODEC_MPEG1      //2
+};
+
+/**
+ * 音频编码格式配置
+ */
+typedef NS_ENUM(NSInteger,XHAudioCodecConfigEnum)
+{
+    IOS_STAR_STREAM_AUDIO_CODEC_OPUS,     //0
+    IOS_STAR_STREAM_AUDIO_CODEC_AAC,     //1
+    IOS_STAR_STREAM_AUDIO_CODEC_MP2      //2 MPEG Audio Layer-2
+};
+
+///**
+// * 视频频编码格式配置说明
+// */
+//public static final String[] XHVideoCodecConfigEnumName={
+//    "H264",
+//    "H265",
+//    "MPEG1"
+//};
+
 static  NSString *AUTHKEY_PUBLIC                      = @"AUTHKEY-PUBLIC";
 static  NSString *AUTHKEY_FREE                        = @"AUTHKEY-FREE";
 static  NSString *APPID_FREE                          = @"APPID-FREE";
