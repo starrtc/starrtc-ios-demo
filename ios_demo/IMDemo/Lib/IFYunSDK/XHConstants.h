@@ -222,14 +222,6 @@ typedef NS_ENUM(NSInteger,XHAudioCodecConfigEnum)
     IOS_STAR_STREAM_AUDIO_CODEC_MP2      //2 MPEG Audio Layer-2
 };
 
-///**
-// * 视频频编码格式配置说明
-// */
-//public static final String[] XHVideoCodecConfigEnumName={
-//    "H264",
-//    "H265",
-//    "MPEG1"
-//};
 
 static  NSString *AUTHKEY_PUBLIC                      = @"AUTHKEY-PUBLIC";
 static  NSString *AUTHKEY_FREE                        = @"AUTHKEY-FREE";

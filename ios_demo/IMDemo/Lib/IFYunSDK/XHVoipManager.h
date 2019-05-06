@@ -62,6 +62,12 @@
 -(void)onStop:(NSString *)code;
 
 
+/**
+ * 通话中错过的来电
+ * @fromID 对方ID
+ */
+-(void)onMiss:(NSString *)fromID;
+
 
 /**
  * 收到实时数据
