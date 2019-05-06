@@ -21,7 +21,8 @@
 @property (nonatomic, assign) int bigVideoFPS;  //大图帧率
 @property (nonatomic, assign) int smallVideoBitrate;  //小图码率
 @property (nonatomic, assign) int smallVideoFPS;  //小图帧率
-
+@property (nonatomic, assign) XHAudioCodecConfigEnum audioCodecType;
+@property (nonatomic, assign) XHVideoCodecConfigEnum videoCodecType;
 + (instancetype)defaultConfig;
 
 @end
