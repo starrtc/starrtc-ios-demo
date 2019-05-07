@@ -39,7 +39,7 @@
                     <rect key="frame" x="0.0" y="44" width="375" height="1133"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TNE-P4-MlQ">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="1155"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="825"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k1n-US-0X4" userLabel="View1">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -121,7 +121,7 @@
                                         <constraint firstItem="6gC-gj-Rbs" firstAttribute="leading" secondItem="ygw-zn-r9g" secondAttribute="leading" id="pRI-7W-0VW"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9et-Ff-qnl" userLabel="View3">
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9et-Ff-qnl" userLabel="View3">
                                     <rect key="frame" x="0.0" y="110" width="375" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vya-52-I3w">
@@ -162,7 +162,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XZL-dB-JeO" userLabel="View4">
-                                    <rect key="frame" x="0.0" y="165" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="110" width="375" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKK-8b-sKz">
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="55"/>
@@ -202,10 +202,10 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YLF-Uy-rpw" userLabel="View5">
-                                    <rect key="frame" x="0.0" y="220" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="165" width="375" height="55"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="禁止音频" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fV-sy-bSg">
-                                            <rect key="frame" x="12" y="17.333333333333314" width="69.333333333333329" height="20.333333333333329"/>
+                                            <rect key="frame" x="12" y="17.333333333333343" width="69.333333333333329" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -239,7 +239,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dio-xl-KTD" userLabel="View6">
-                                    <rect key="frame" x="0.0" y="275" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="220" width="375" height="55"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="禁止视频" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9Z-7N-0fa">
                                             <rect key="frame" x="12" y="17.333333333333314" width="69.333333333333329" height="20.333333333333329"/>
@@ -276,7 +276,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J6J-dc-5ab" userLabel="View7">
-                                    <rect key="frame" x="0.0" y="330" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="275" width="375" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rR-Ej-gFn">
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="55"/>
@@ -316,7 +316,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ihh-YS-bOF" userLabel="View8">
-                                    <rect key="frame" x="0.0" y="385" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="330" width="375" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FpI-EM-yKB">
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="55"/>
@@ -356,7 +356,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6L8-yY-uGA" userLabel="View9">
-                                    <rect key="frame" x="0.0" y="440" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="385" width="375" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJa-3p-cnS">
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="55"/>
@@ -396,7 +396,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uwh-Jw-WUG" userLabel="View10">
-                                    <rect key="frame" x="0.0" y="495" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="440" width="375" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFq-rO-L38">
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="55"/>
@@ -408,7 +408,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="视频编码格式设置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3k-vE-yzz">
-                                            <rect key="frame" x="12" y="17.333333333333371" width="138.66666666666666" height="20.333333333333329"/>
+                                            <rect key="frame" x="12" y="17.333333333333314" width="138.66666666666666" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -436,7 +436,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bOe-br-gjx" userLabel="View11">
-                                    <rect key="frame" x="0.0" y="550" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="495" width="375" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rND-5R-lgI">
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="55"/>
@@ -476,7 +476,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2X-Iz-Z9K" userLabel="View12">
-                                    <rect key="frame" x="0.0" y="605" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="550" width="375" height="55"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="动态调节帧率码率" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHs-Cw-bot">
                                             <rect key="frame" x="12" y="17.333333333333371" width="138.66666666666666" height="20.333333333333329"/>
@@ -513,7 +513,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2es-Gz-hqB" userLabel="View13">
-                                    <rect key="frame" x="0.0" y="660" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="605" width="375" height="55"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="硬编码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhU-Sg-6dG">
                                             <rect key="frame" x="12" y="17.333333333333371" width="52" height="20.333333333333329"/>
@@ -550,7 +550,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zA8-XN-h0Y" userLabel="View14">
-                                    <rect key="frame" x="0.0" y="715" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="660" width="375" height="55"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OpenGL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axj-Ip-R6m">
                                             <rect key="frame" x="12.000000000000004" y="17.333333333333371" width="63.333333333333343" height="20.333333333333329"/>
@@ -586,8 +586,8 @@
                                         <constraint firstItem="a1J-5r-aQZ" firstAttribute="centerY" secondItem="zA8-XN-h0Y" secondAttribute="centerY" id="vbi-C6-9cW"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBI-9U-xqw" userLabel="View15">
-                                    <rect key="frame" x="0.0" y="770" width="375" height="55"/>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBI-9U-xqw" userLabel="View15">
+                                    <rect key="frame" x="0.0" y="715" width="375" height="55"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OpenSL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cad-PO-VCo">
                                             <rect key="frame" x="12.000000000000004" y="17.333333333333371" width="61.333333333333343" height="20.333333333333329"/>
@@ -624,7 +624,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gLQ-Ww-6EQ" userLabel="View16">
-                                    <rect key="frame" x="0.0" y="825" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="715" width="375" height="55"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VOIP P2P模式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KaQ-qq-MYn">
                                             <rect key="frame" x="12.000000000000007" y="17.333333333333371" width="107.66666666666669" height="20.333333333333329"/>
@@ -660,8 +660,8 @@
                                         <constraint firstAttribute="bottom" secondItem="rDk-Ko-AEZ" secondAttribute="bottom" id="woP-nS-GH3"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pgg-gT-fIr" userLabel="View17">
-                                    <rect key="frame" x="0.0" y="880" width="375" height="55"/>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pgg-gT-fIr" userLabel="View17">
+                                    <rect key="frame" x="0.0" y="770" width="375" height="55"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="音频处理(AGC,NS,AEC)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y3u-j2-W3U">
                                             <rect key="frame" x="12" y="17.333333333333371" width="180.66666666666666" height="20.333333333333329"/>
@@ -697,8 +697,8 @@
                                         <constraint firstItem="2Fv-VN-2va" firstAttribute="leading" secondItem="pgg-gT-fIr" secondAttribute="leading" constant="12" id="odS-G8-o0L"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJX-eZ-e2P" userLabel="View18">
-                                    <rect key="frame" x="0.0" y="935" width="375" height="55"/>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJX-eZ-e2P" userLabel="View18">
+                                    <rect key="frame" x="0.0" y="770" width="375" height="55"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="低复杂度AEC处理" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oQ-ur-EcP">
                                             <rect key="frame" x="12" y="17.333333333333371" width="136.66666666666666" height="20.333333333333329"/>
@@ -734,11 +734,11 @@
                                         <constraint firstItem="9oQ-ur-EcP" firstAttribute="centerY" secondItem="sJX-eZ-e2P" secondAttribute="centerY" id="p3b-n0-AtJ"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAs-f5-toi" userLabel="View19">
-                                    <rect key="frame" x="0.0" y="990" width="375" height="55"/>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAs-f5-toi" userLabel="View19">
+                                    <rect key="frame" x="0.0" y="770" width="375" height="55"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日志浮窗" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGW-ZQ-lXE">
-                                            <rect key="frame" x="12" y="17.333333333333258" width="69.333333333333329" height="20.333333333333329"/>
+                                            <rect key="frame" x="12" y="17.333333333333371" width="69.333333333333329" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -771,8 +771,8 @@
                                         <constraint firstAttribute="height" constant="55" id="vf1-Nr-gqs"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NXj-tu-cKv" userLabel="View20">
-                                    <rect key="frame" x="0.0" y="1045" width="375" height="55"/>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NXj-tu-cKv" userLabel="View20">
+                                    <rect key="frame" x="0.0" y="770" width="375" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kse-cM-GCA">
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="55"/>
@@ -784,7 +784,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传日志" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMO-cc-DMw">
-                                            <rect key="frame" x="12" y="17.333333333333258" width="69.333333333333329" height="20.333333333333329"/>
+                                            <rect key="frame" x="12" y="17.333333333333371" width="69.333333333333329" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -812,7 +812,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Obg-aE-eDp" userLabel="View21">
-                                    <rect key="frame" x="0.0" y="1100" width="375" height="55"/>
+                                    <rect key="frame" x="0.0" y="770" width="375" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="25z-ax-CRq">
                                             <rect key="frame" x="0.0" y="0.0" width="355" height="55"/>
@@ -824,7 +824,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关于" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ts9-2y-eoi">
-                                            <rect key="frame" x="12" y="17.333333333333258" width="34.666666666666664" height="20.333333333333329"/>
+                                            <rect key="frame" x="12" y="17.333333333333371" width="34.666666666666664" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>

@@ -177,13 +177,25 @@
 }
 
 //群成员列表
-- (void)demoRequestGroupMembers:(NSString *)groupID; {
+- (void)demoRequestGroupMembers:(NSString *)groupID
+{
     NSString *urlStr =  [NSString stringWithFormat:@"%@%@%@%@%@",[self absolutePath:@"/group/members"],
                          @"?appid=", [AppConfig shareConfig].appId, @"&groupId=",groupID];
     [self get:urlStr callback:^(id result, NSError *error) {
         if (_delegate && [_delegate respondsToSelector:@selector(getMessageGroupMemberResponse:)])
         {
             [_delegate getMessageGroupMemberResponse:result];
+        }
+    }];
+}
+
+- (void)requestForThirdStreamList {
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@%@%@%@",[self absolutePath:@"/user/stream"],
+                         @"?appid=", [AppConfig shareConfig].appId, @"&userid=", UserId];
+    [self get:urlStr callback:^(id result, NSError *error) {
+        if (_delegate && [_delegate respondsToSelector:@selector(requestDidComplete:)])
+        {
+            [_delegate requestDidComplete:result];
         }
     }];
 }
