@@ -38,6 +38,7 @@
 - (void)createUI {
     self.title = @"创建会议室";
     
+    self.sessionView.isHasControl = NO;
     self.sessionView.alertTitle = @"专属会议的名称";
     self.sessionView.textFieldPlaceholder = @"输入会议名称";
     self.sessionView.funcBtnTitle = @"创建新会议";
@@ -57,7 +58,8 @@
         __weak typeof(self) weakSelf = self;
         XHMeetingItem *meetingItem = [[XHMeetingItem alloc] init];
         meetingItem.meetingName = name;
-        meetingItem.meetingType = self.sessionView.isPublic ? XHMeetingTypeGlobalPublic:XHMeetingTypeLoginPublic;
+//        meetingItem.meetingType = self.sessionView.isPublic ? XHMeetingTypeGlobalPublic:XHMeetingTypeLoginPublic;
+        meetingItem.meetingType = XHMeetingTypeGlobalPublic;
         [[XHClient sharedClient].meetingManager createMeeting:meetingItem completion:^(NSString *meetingID, NSError *error) {
             [UIView hiddenProgress];
             if (error) {
