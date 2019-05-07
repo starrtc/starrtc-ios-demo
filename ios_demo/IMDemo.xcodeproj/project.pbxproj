@@ -164,6 +164,8 @@
 		A56A4B9F2272F49800469616 /* IFFrameAndBitSetView.m in Sources */ = {isa = PBXBuildFile; fileRef = A56A4B9E2272F49800469616 /* IFFrameAndBitSetView.m */; };
 		A56A4BA12272F4B100469616 /* IFFrameAndBitSetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A56A4BA02272F4B100469616 /* IFFrameAndBitSetView.xib */; };
 		A57FA72820902625006CE93C /* IFVideoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A57FA72720902625006CE93C /* IFVideoListCell.m */; };
+		A588BFEA227E887600EBA23B /* IFThirdStreamTestListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A588BFE9227E887600EBA23B /* IFThirdStreamTestListVC.m */; };
+		A588BFED227E893800EBA23B /* IFThirdStreamCreateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A588BFEC227E893800EBA23B /* IFThirdStreamCreateVC.m */; };
 		A58C187620CE856B0036278A /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = A58C186720CE856B0036278A /* README.markdown */; };
 		A58C187820CE856B0036278A /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A58C186C20CE856B0036278A /* FMDatabaseQueue.m */; };
 		A58C187920CE856B0036278A /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A58C186F20CE856B0036278A /* FMDatabaseAdditions.m */; };
@@ -532,6 +534,10 @@
 		A56A4BA02272F4B100469616 /* IFFrameAndBitSetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IFFrameAndBitSetView.xib; sourceTree = "<group>"; };
 		A57FA72620902625006CE93C /* IFVideoListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFVideoListCell.h; sourceTree = "<group>"; };
 		A57FA72720902625006CE93C /* IFVideoListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFVideoListCell.m; sourceTree = "<group>"; };
+		A588BFE8227E887600EBA23B /* IFThirdStreamTestListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFThirdStreamTestListVC.h; sourceTree = "<group>"; };
+		A588BFE9227E887600EBA23B /* IFThirdStreamTestListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFThirdStreamTestListVC.m; sourceTree = "<group>"; };
+		A588BFEB227E893800EBA23B /* IFThirdStreamCreateVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFThirdStreamCreateVC.h; sourceTree = "<group>"; };
+		A588BFEC227E893800EBA23B /* IFThirdStreamCreateVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFThirdStreamCreateVC.m; sourceTree = "<group>"; };
 		A58C186720CE856B0036278A /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		A58C186B20CE856B0036278A /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		A58C186C20CE856B0036278A /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
@@ -727,6 +733,7 @@
 		7B570800207AFFED00857F30 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A588BFE7227E881900EBA23B /* ThirdStreamTest */,
 				A5A39A08221D211400960461 /* InnerConnect */,
 				7B570806207AFFED00857F30 /* EMViewController.h */,
 				7B570802207AFFED00857F30 /* EMViewController.m */,
@@ -1281,6 +1288,17 @@
 				A56A4BA02272F4B100469616 /* IFFrameAndBitSetView.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A588BFE7227E881900EBA23B /* ThirdStreamTest */ = {
+			isa = PBXGroup;
+			children = (
+				A588BFE8227E887600EBA23B /* IFThirdStreamTestListVC.h */,
+				A588BFE9227E887600EBA23B /* IFThirdStreamTestListVC.m */,
+				A588BFEB227E893800EBA23B /* IFThirdStreamCreateVC.h */,
+				A588BFEC227E893800EBA23B /* IFThirdStreamCreateVC.m */,
+			);
+			path = ThirdStreamTest;
 			sourceTree = "<group>";
 		};
 		A58C186620CE856B0036278A /* FMDB */ = {
@@ -2029,6 +2047,7 @@
 				A58DFF3C206CE6A80074DB7B /* MASConstraint.m in Sources */,
 				A5DAA6892089B65300A76FEA /* ILGImageCropViewController.m in Sources */,
 				84D4944F1FFF5CBC00D151BE /* MessageGroupListViewController.m in Sources */,
+				A588BFEA227E887600EBA23B /* IFThirdStreamTestListVC.m in Sources */,
 				7BC4C2E121EDC2D300809204 /* SpeechMemberCell.m in Sources */,
 				7B7D1F0F21EC31A00043F096 /* MD5Util.m in Sources */,
 				7B57080A207AFFED00857F30 /* EMViewController.m in Sources */,
@@ -2146,6 +2165,7 @@
 				A5A39A11221D335600960461 /* IFInnerCallVC.m in Sources */,
 				7B7D1F5221EC34AB0043F096 /* MJRefreshAutoGifFooter.m in Sources */,
 				A5E15F8C208F12C800A6EA85 /* IFGroupMemberCell.m in Sources */,
+				A588BFED227E893800EBA23B /* IFThirdStreamCreateVC.m in Sources */,
 				A58DFF4E206CF8A30074DB7B /* IFHomePageVC.m in Sources */,
 				845799BC1FE7D85600560EC2 /* main.m in Sources */,
 				A5650D42221D4A1F00E9A655 /* IFInnerVideoVC.m in Sources */,

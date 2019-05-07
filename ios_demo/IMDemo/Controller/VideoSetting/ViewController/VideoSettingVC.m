@@ -14,6 +14,7 @@
 #import "QGSandboxViewerVC.h"
 #import "SystemSettingVC.h"
 #import "IFInnerHomeVC.h"
+#import "IFThirdStreamTestListVC.h"
 
 #import "IFFrameAndBitSetView.h"
 
@@ -367,8 +368,26 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     [self.resolutionSetButton setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
     [self.bigPictureSetBtn setTitle:bitPicSetStr forState:UIControlStateNormal];
     [self.smallPictureSetBtn setTitle:smallPicSetStr forState:UIControlStateNormal];
-    [self.videoFormSetBtn setTitle:@">" forState:UIControlStateNormal];
-    [self.audioFormSetBtn setTitle:@">" forState:UIControlStateNormal];
+    
+    NSString *videoForm = @">";
+    if (_videoSetParameters.videoCodecType == IOS_STAR_STREAM_VIDEO_CODEC_H264) {
+        videoForm = [NSString stringWithFormat:@"H264 >"];
+    } else if (_videoSetParameters.videoCodecType == IOS_STAR_STREAM_VIDEO_CODEC_H265) {
+        videoForm = [NSString stringWithFormat:@"H265 >"];
+    } else if (_videoSetParameters.videoCodecType == IOS_STAR_STREAM_VIDEO_CODEC_MPEG1) {
+        videoForm = [NSString stringWithFormat:@"MPEG1 >"];
+    }
+    [self.videoFormSetBtn setTitle:videoForm forState:UIControlStateNormal];
+    
+    NSString *audioForm = @">";
+    if (_videoSetParameters.audioCodecType == IOS_STAR_STREAM_AUDIO_CODEC_OPUS) {
+        audioForm = [NSString stringWithFormat:@"OPUS >"];
+    } else if (_videoSetParameters.audioCodecType == IOS_STAR_STREAM_AUDIO_CODEC_AAC) {
+        audioForm = [NSString stringWithFormat:@"AAC >"];
+    } else if (_videoSetParameters.audioCodecType == IOS_STAR_STREAM_AUDIO_CODEC_MP2) {
+        audioForm = [NSString stringWithFormat:@"MP2(MPEG Audio Layer-2) >"];
+    }
+    [self.audioFormSetBtn setTitle:audioForm forState:UIControlStateNormal];
 }
 
 - (void)handleEventForServerSet
@@ -385,6 +404,8 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 
 - (void)handleEventForThirdStreamTest
 {
+    IFThirdStreamTestListVC *vc = [[IFThirdStreamTestListVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
     [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
 }
 
@@ -412,8 +433,6 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 
 - (void)handleEventForVideoEncodeSet
 {
-    [self.view ilg_makeToast:@"开发中..." position:ILGToastPositionBottom];
-    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     NSArray *titles = @[@"H264", @"H265", @"MPEG1", @"取消"];
@@ -424,7 +443,7 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
         }
         UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:style handler:^(UIAlertAction * _Nonnull action) {
             if (action.style == UIAlertActionStyleDefault) {
-                //To do ：保存编码格式
+                [self saveVideoEncode:action.title];
                 [self.videoFormSetBtn setTitle:[NSString stringWithFormat:@"%@ >", action.title] forState:UIControlStateNormal];
             }
         }];
@@ -432,6 +451,16 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     }
     
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)saveVideoEncode:(NSString *)title {
+    if ([title isEqualToString:@"H264"]) {
+        _videoSetParameters.videoCodecType = IOS_STAR_STREAM_VIDEO_CODEC_H264;
+    } else if ([title isEqualToString:@"H265"]) {
+        _videoSetParameters.videoCodecType = IOS_STAR_STREAM_VIDEO_CODEC_H265;
+    } else if ([title isEqualToString:@"MPEG1"]) {
+        _videoSetParameters.videoCodecType = IOS_STAR_STREAM_VIDEO_CODEC_MPEG1;
+    }
 }
 
 - (void)handleEventForAudioEncodeSet
@@ -448,14 +477,25 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
         }
         UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:style handler:^(UIAlertAction * _Nonnull action) {
             if (action.style == UIAlertActionStyleDefault) {
-                //To do ：保存编码格式
+                [self saveAudioEncode:action.title];
                 [self.audioFormSetBtn setTitle:[NSString stringWithFormat:@"%@ >", action.title] forState:UIControlStateNormal];
             }
         }];
         [alertController addAction:action];
     }
     
-    [self presentViewController:alertController animated:YES completion:nil];}
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)saveAudioEncode:(NSString *)title {
+    if ([title isEqualToString:@"OPUS"]) {
+        _videoSetParameters.audioCodecType = IOS_STAR_STREAM_AUDIO_CODEC_OPUS;
+    } else if ([title isEqualToString:@"AAC"]) {
+        _videoSetParameters.audioCodecType = IOS_STAR_STREAM_AUDIO_CODEC_AAC;
+    } else {
+        _videoSetParameters.audioCodecType = IOS_STAR_STREAM_AUDIO_CODEC_MP2;
+    }
+}
 
 - (void)handleEventForUploadLog
 {

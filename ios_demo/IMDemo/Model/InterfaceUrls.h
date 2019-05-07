@@ -17,6 +17,8 @@
 - (void)getChatRoomListResponse:(id)respnseContent;
 - (void)getMessageGroupListResponse:(id)respnseContent;
 - (void)getMessageGroupMemberResponse:(id)respnseContent;
+
+- (void)requestDidComplete:(id)respnseContent;
 @end
 
 @interface InterfaceUrls: NSObject
@@ -47,6 +49,9 @@
 
 //群成员列表
 -(void)demoRequestGroupMembers:(NSString *)groupID;
+
+//公有部署下第三方流列表
+- (void)requestForThirdStreamList;
 
 //获取authKey
 +(void)getAuthKey:(NSString * ) userID

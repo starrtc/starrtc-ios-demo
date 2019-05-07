@@ -512,9 +512,9 @@
 #pragma mark - Other
 
 - (void)insertNewMessage:(NSString *)text userId:(NSString *)userId {
-    NSDictionary *dict = [self dictionaryWithJsonString:text];
+//    NSDictionary *dict = [self dictionaryWithJsonString:text];
     IFLiveMessage *message = [[IFLiveMessage alloc] init];
-    message.msgText = [NSString stringWithFormat:@"%@:%@", userId, dict[@"text"]];
+    message.msgText = [NSString stringWithFormat:@"%@:%@", userId, text];
     message.msgType = 0;
     message.uid = userId;
     [self insertNewMessage:message];

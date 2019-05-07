@@ -127,6 +127,9 @@
     [dic setObject:@(self.smallVideoBitrate) forKey:@"smallVideoBitrate"];
     [dic setObject:@(self.smallVideoFPS) forKey:@"smallVideoFPS"];
     
+    [dic setObject:@(self.videoCodecType) forKey:@"videoCodecType"];
+    [dic setObject:@(self.audioCodecType) forKey:@"audioCodecType"];
+    
     [dic setObject:[NSNumber numberWithBool:self.logEnable] forKey:@"logEnable"];
     
     return dic;
