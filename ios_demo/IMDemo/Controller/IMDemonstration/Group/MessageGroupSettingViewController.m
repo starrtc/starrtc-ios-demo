@@ -14,6 +14,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *m_GroupMemberInfo;
 @property (nonatomic, strong) UICollectionView *collectionView;
+
+@property (nonatomic, assign) BOOL isMute;
 @end
 
 const int kSectionViewHeight = 55;
@@ -38,16 +40,36 @@ static NSString *kMuteKey = @"kMuteKey";
     // Do any additional setup after loading the view.
     [self createUI];
     
-    // 请求群成员名单
-    m_interfaceUrls = [[InterfaceUrls alloc] init];
-    m_interfaceUrls.delegate = self;
-    [m_interfaceUrls demoRequestGroupMembers:_groupID];
+    [self initData];
+    
+    [self requestForGroupInfo];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+- (void)initData {
+    m_interfaceUrls = [[InterfaceUrls alloc] init];
+    m_interfaceUrls.delegate = self;
+    
+    _m_GroupMemberInfo = [NSMutableArray array];
+}
+
+
+#pragma mark - getter
+
+- (BOOL)isMute {
+    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+        BOOL isOn = [[ILGLocalData userDefaultObject:kMuteKey] boolValue];
+        return isOn;
+    } else {
+        return _isMute;
+    }
+}
+
 
 #pragma mark - UI
 
@@ -146,41 +168,21 @@ static NSString *kMuteKey = @"kMuteKey";
     NSDictionary *dict = respnseContent;
     int status = [[dict objectForKey:@"status"] intValue];
     if(status == 1) {
-        _m_GroupMemberInfo = [[NSMutableArray alloc] init];
-        NSDictionary *info = [dict objectForKey:@"data"];
-        for (NSMutableDictionary *dict in info)
-        {
+        NSMutableArray *mutArr = [[NSMutableArray alloc] init];
+        NSArray *list = [dict objectForKey:@"data"];
+        
+        for (NSDictionary *dict in list) {
             NSString *newMemberID =  [dict objectForKey:@"userId"];
-            
-            [_m_GroupMemberInfo addObject:newMemberID];
+            [mutArr addObject:newMemberID];
         }
         if (self.isOwner) {
-            [_m_GroupMemberInfo addObject:@""];
+            [mutArr addObject:@""];
         }
         
-        int lineNum = 0;
-        if (_m_GroupMemberInfo.count%5 == 0) {
-            lineNum = (int)(_m_GroupMemberInfo.count/5);
-        } else {
-            lineNum = (int)(_m_GroupMemberInfo.count/5) + 1;
-        }
-        
-        CGFloat width = ([UIScreen mainScreen].bounds.size.width - (kCollectionInteritemSpace * 4) - 15*2) / 5.0;
-        CGFloat rowHeight = width/52*82;
-        
-        CGFloat tableHeaderViewHeight = kCollectionTopSpace + kCollectionBottomSpace + (lineNum - 1)*kCollectionInteritemSpace + lineNum*rowHeight;
-        if (tableHeaderViewHeight > 300) {
-            tableHeaderViewHeight = 300;
-        }
-        self.tableView.tableHeaderView.height = tableHeaderViewHeight + 10;
-        [_collectionView reloadData];
-        
-        CGFloat miniHeight = self.tableView.height - self.tableView.tableHeaderView.height - kSectionViewHeight - 64;
-        if (miniHeight < 120) {
-            miniHeight = 120;
-        }
-        self.tableView.tableFooterView.height = miniHeight;
-        [self.tableView reloadData];
+        [self handleGroupInfo:mutArr];
+    } else {
+        [UIView ilg_makeToast:@"获取群组信息失败"];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -216,7 +218,13 @@ static NSString *kMuteKey = @"kMuteKey";
 - (void)switchValueChanged:(UISwitch *)switchControl {
     BOOL isMute = switchControl.on;
     
-    [ILGLocalData userDefaultSave:@(isMute) key:kMuteKey];
+    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+        [ILGLocalData userDefaultSave:@(isMute) key:kMuteKey];
+    } else {
+        [[XHClient sharedClient].groupManager setGroup:_groupID pushEnable:isMute completion:^(NSError *error) {
+            
+        }];
+    }
 }
 
 #pragma mark - Delegate
@@ -315,11 +323,11 @@ static NSString *kMuteKey = @"kMuteKey";
         make.centerY.equalTo(tableSecsionView);
     }];
     
-    BOOL isOn = [[ILGLocalData userDefaultObject:kMuteKey] boolValue];
-    [switchControl setOn:isOn animated:NO];
+    [switchControl setOn:self.isMute animated:NO];
     
     return tableSecsionView;
 }
+
 
 #pragma mark - Other
 - (void)addMember {
@@ -397,5 +405,73 @@ static NSString *kMuteKey = @"kMuteKey";
         NSLog(@" cancel");
     }]];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)requestForGroupInfo {
+    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+        [m_interfaceUrls demoRequestGroupMembers:_groupID];
+        
+    } else {
+        __weak typeof(self) weakSelf = self;
+        [[XHClient sharedClient].groupManager queryGroupInfo:self.groupID completion:^(NSString *listInfo, NSError *error) {
+            NSDictionary *dict = nil;
+            if (error == nil && listInfo) {
+                NSData *jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
+                dict = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                          options:NSJSONReadingMutableContainers
+                                                            error:nil];
+            }
+            
+            if (dict) {
+                NSArray *list = [dict objectForKey:@"data"];
+                self.isMute = [dict[@"ignore"] boolValue];
+                
+                NSMutableArray *mutArr = [NSMutableArray array];
+                for (NSDictionary *dict in list) {
+                    NSString *newMemberID =  [dict objectForKey:@"userId"];
+                    [mutArr addObject:newMemberID];
+                }
+                
+                if (self.isOwner) {
+                    [mutArr addObject:@""];
+                }
+                
+                [weakSelf handleGroupInfo:mutArr];
+            }
+        }];
+    }
+}
+
+- (void)handleGroupInfo:(NSArray *)list
+{
+    if (list.count == 0) {
+        return;
+    }
+    
+    [_m_GroupMemberInfo addObjectsFromArray:list];
+
+    int lineNum = 0;
+    if (_m_GroupMemberInfo.count%5 == 0) {
+        lineNum = (int)(_m_GroupMemberInfo.count/5);
+    } else {
+        lineNum = (int)(_m_GroupMemberInfo.count/5) + 1;
+    }
+    
+    CGFloat width = ([UIScreen mainScreen].bounds.size.width - (kCollectionInteritemSpace * 4) - 15*2) / 5.0;
+    CGFloat rowHeight = width/52*82;
+    
+    CGFloat tableHeaderViewHeight = kCollectionTopSpace + kCollectionBottomSpace + (lineNum - 1)*kCollectionInteritemSpace + lineNum*rowHeight;
+    if (tableHeaderViewHeight > 300) {
+        tableHeaderViewHeight = 300;
+    }
+    self.tableView.tableHeaderView.height = tableHeaderViewHeight + 10;
+    [_collectionView reloadData];
+    
+    CGFloat miniHeight = self.tableView.height - self.tableView.tableHeaderView.height - kSectionViewHeight - 64;
+    if (miniHeight < 120) {
+        miniHeight = 120;
+    }
+    self.tableView.tableFooterView.height = miniHeight;
+    [self.tableView reloadData];
 }
 @end

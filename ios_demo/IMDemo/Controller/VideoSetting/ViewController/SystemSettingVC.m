@@ -112,9 +112,10 @@
         [AppConfig saveSystemSettingsForPrivate:appParameters];
     }
     
-    [self.navigationController popViewControllerAnimated:YES];
-    [UIWindow ilg_makeToast:@"保存成功，重新启动APP后生效"];
+    [UIView showProgressWithText:@"App即将自动终止，请重新启动APP"];
+    [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(timeRecordDidEnd:) userInfo:nil repeats:NO];
 }
+
 
 #pragma mark UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -141,6 +142,10 @@
     [alertController addAction:publicAction];
     
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)timeRecordDidEnd:(NSTimer *)timer {
+    exit(0);
 }
 
 
