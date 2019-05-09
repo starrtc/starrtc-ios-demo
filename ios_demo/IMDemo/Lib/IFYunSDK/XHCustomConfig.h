@@ -62,6 +62,14 @@ static  int CHATROOM_LIST_TYPE_CLASS_PUSH = 6;
 // 开放版SDK初始化
 -(void)sdkInitForFree:(NSString *)userId;
 
+/**
+ * 初始化P2P直连
+ */
+-(void)initStarDirectLink;
 
+/**
+ * 停止P2P直连
+ */
+-(void)stopStarDircetLink;
 @end
 #endif /* XHCustomConfig_h */
