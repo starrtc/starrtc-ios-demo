@@ -48,9 +48,13 @@
         [UIView ilg_makeToast:@"群组名称不能为空"];
         
     } else {
+        [self.view showProgressWithText:@"创建中..."];
+        
         __weak typeof(self) weakSelf = self;
         [[XHClient sharedClient].groupManager createGroup:name completion:^(NSString *groupID, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.view hideProgress];
+                
                 if (error) {
                     [UIView ilg_makeToast:error.localizedDescription];
                     

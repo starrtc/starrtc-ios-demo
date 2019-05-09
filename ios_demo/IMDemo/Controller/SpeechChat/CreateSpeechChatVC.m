@@ -49,7 +49,7 @@
                 [parameters setObject:liveID forKey:@"ID"];
                 [parameters setObject:meeting.liveName forKey:@"Name"];
                 [parameters setObject:[IMUserInfo shareInstance].userID forKey:@"Creator"];
-                [parameters setObject:[XHClient sharedClient].config.agentID forKey:@"appid"];
+                [parameters setObject:[AppConfig shareConfig].appId forKey:@"appid"];
                 [IFNetworkingInterfaceHandle requestCreateAudioRoomWithParameters:parameters success:^(id  _Nullable responseObject) {
                     
                     NSInteger status = [[responseObject objectForKey:@"status"] integerValue];

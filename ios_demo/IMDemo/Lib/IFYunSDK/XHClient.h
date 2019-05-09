@@ -14,22 +14,6 @@
 #import "XHLiveManager.h"
 #import "XHVoipP2PManager.h"
 
-@interface XHSDKConfig:NSObject
-/* 应用ID*/
-@property (nonatomic, strong) NSString *agentID;
-/* 登陆服务*/
-@property (nonatomic, strong) NSString *starLoginURL;
-/* 消息服务*/
-@property (nonatomic, strong) NSString *imScheduleURL;
-/* 聊天室服务*/
-@property (nonatomic, strong) NSString *chatRoomScheduleURL;
-/* 上传服务*/
-@property (nonatomic, strong) NSString *liveSrcScheduleURL;
-/* 下载服务*/
-@property (nonatomic, strong) NSString *liveVdnScheduleURL;
-/* voip服务*/
-@property (nonatomic, strong) NSString *voipServerURL;
-@end
 
 @protocol XHClientDelegate <NSObject>
 
@@ -48,11 +32,9 @@
 @property (nonatomic, strong, readonly) XHVoipP2PManager *voipP2PManager;
 @property (nonatomic, strong, readonly) XHMeetingManager *meetingManager;
 @property (nonatomic, strong, readonly) XHLiveManager *liveManager;
-@property (nonatomic, strong, readonly) XHSDKConfig *config;
 
 + (instancetype)sharedClient;
 
-- (void)initSDKWithConfiguration:(XHSDKConfig *)config;
 
 - (void)setVideoConfig:(XHVideoConfig *)videoConfig;
 

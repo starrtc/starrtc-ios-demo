@@ -211,6 +211,40 @@
  */
 - (void)setVideoEnable:(BOOL) enable;
 
+
+/**
+ * 保存到列表
+ * @param userId 用户名
+ * @param type  类型
+ * @param meetingId  ID
+ * @param info  消息
+ * @param completion  回调
+ */
+-(void)saveToList:(NSString *)userId
+             type:(NSInteger) type
+        meetingId:(NSString *) meetingId
+             info:(NSString *)info
+       completion:(void(^)(NSError *error))completion;
+
+/**
+ * 查询会议室列表
+ * @param userId 用户名
+ * @param type  类型
+ * @param completion 结果回调
+ */
+-(void)queryMeetingList:(NSString *)userId
+                   type:(NSString *)type
+             completion:(void(^)(NSString *listInfo, NSError *error))completion;
+
+/**
+ * 从会议室列表删除
+ * @param meetingId 会议室ID
+ * @param completion 结果回调
+ */
+-(void)deleteFromMeetingList:(NSString *)meetingId
+    completion:(void(^)(NSError *error))completion;
+
+
 @end
 
 

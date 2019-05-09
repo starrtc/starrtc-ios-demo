@@ -10,6 +10,7 @@
 #import "ChatRoomViewController.h"
 
 #import "InterfaceUrls.h"
+#import "XHCustomConfig.h"
 
 @interface ChatRoomCreateViewController ()
 
@@ -55,7 +56,18 @@
                 [UIView ilg_makeToast:error.localizedDescription];
                 
             } else {
-                [[[InterfaceUrls alloc] init] reportChatroom:name ID:chatRoomID creator:[IMUserInfo shareInstance].userID];
+                if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+                    [[[InterfaceUrls alloc] init] reportChatroom:name ID:chatRoomID creator:[IMUserInfo shareInstance].userID];
+                } else {
+                    NSDictionary *infoDic = @{@"id":chatRoomID,
+                                              @"creator":UserId,
+                                              @"name":name
+                                              };
+                    NSString *infoStr = [infoDic ilg_jsonString];
+                    [[XHClient sharedClient].roomManager saveToList:UserId type:CHATROOM_LIST_TYPE_CHATROOM chatroomID:chatRoomID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
+                        
+                    }];
+                }
                 
                 ChatRoomViewController *receive = [[ChatRoomViewController alloc] init];
                 receive.mRoomName = name;

@@ -13,16 +13,50 @@
 #import "CircleTestVC.h"
 #import "QGSandboxViewerVC.h"
 #import "SystemSettingVC.h"
-@interface VideoSettingVC ()
+#import "IFInnerHomeVC.h"
+#import "IFThirdStreamTestListVC.h"
 
+#import "IFFrameAndBitSetView.h"
+
+typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
+    IFVideoSettingTypeServerConfig = 1001,
+    IFVideoSettingTypeLoopTest = 1002,
+    IFVideoSettingTypeThirdStreamTest = 1003,
+    IFVideoSettingTypeInnerTest = 1004, //内网直连测试
+    IFVideoSettingTypeResolutionSet = 1007, //分辨率设置
+    IFVideoSettingTypeBigPictureSet = 1008, //大图帧率码率设置
+    IFVideoSettingTypeSmallPictureSet = 1009, //小图帧率码率设置
+    IFVideoSettingTypeVideoEncodeSet = 1010, //视频编码设置
+    IFVideoSettingTypeAudioEncodeSet = 1011, //音频编码设置
+    IFVideoSettingTypeUploadLog = 1020, //上传日志
+    IFVideoSettingTypeAbout = 1021, //关于
+    
+};
+
+@interface VideoSettingVC () <IFFrameAndBitSetViewDelegate>
 {
     VideoSetParameters * _videoSetParameters;
 }
-@property (weak, nonatomic) IBOutlet UISwitch *hwEncodeSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *openGLSwitch;
-@property (nonatomic, strong) UIAlertController * corpAlertController;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *top;
-@property (weak, nonatomic) IBOutlet UIButton *corpSetButton;
+
+@property (nonatomic, strong) UIAlertController *corpAlertController;
+
+@property (weak, nonatomic) IBOutlet UIButton *resolutionSetButton;
+@property (weak, nonatomic) IBOutlet UIButton *bigPictureSetBtn;
+@property (weak, nonatomic) IBOutlet UIButton *smallPictureSetBtn;
+@property (weak, nonatomic) IBOutlet UIButton *videoFormSetBtn;
+@property (weak, nonatomic) IBOutlet UIButton *audioFormSetBtn;
+
+@property (weak, nonatomic) IBOutlet UISwitch *audioEnableSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *videoEnableSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *autoAdjustFrameAndBitSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *hardEncodeSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *openGLEnableSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *openSLEnableSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *voipP2PModelSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *audioHandleSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *lowLevelAECHandleSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *logEnableSwitch;
+
 
 @end
 
@@ -30,27 +64,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"设置";
-    UITapGestureRecognizer *logTapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleLogTap:)];
-    logTapGesture.numberOfTapsRequired =3;
-    logTapGesture.numberOfTouchesRequired =1;
-    [self.view addGestureRecognizer:logTapGesture];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     [self setupVideoDefaultParameters];
-    if ([UIDevice currentDevice].systemVersion.doubleValue < 11.0) {
-        self.top.constant = 64;
-    }
 }
 
-- (void)setupVideoDefaultParameters{
-    _videoSetParameters = [VideoSetParameters locaParameters];
-    [self.hwEncodeSwitch setOn:_videoSetParameters.hwEncodeEnable];
-    [self.openGLSwitch setOn:_videoSetParameters.openGLEnable];
-    [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [_videoSetParameters saveParametersToLocal];
+    [[XHClient sharedClient] setVideoConfig:_videoSetParameters];
 }
 
-- (UIAlertController*)corpAlertController{
+- (void)leftButtonClicked:(UIButton *)button{
+    [super leftButtonClicked:button];
+    [_videoSetParameters saveParametersToLocal];
+    [[XHClient sharedClient] setVideoConfig:_videoSetParameters];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - UI
+- (UIAlertController *)corpAlertController {
     if (!_corpAlertController) {
+        UIButton *resolutionBtn = _resolutionSetButton;
         _corpAlertController = [UIAlertController alertControllerWithTitle:@"设置分辨率" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -60,110 +107,110 @@
         
         UIAlertAction *alertAction0 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_176BW_320BH_SMALL_NONE] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_176BW_320BH_SMALL_NONE;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction1 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_176BW_320BH_88SW_160SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_176BW_320BH_88SW_160SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction2 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_240BW_320BH_SMALL_NONE] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_240BW_320BH_SMALL_NONE;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction3 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_240BW_320BH_120SW_160SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_240BW_320BH_120SW_160SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction4 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_480BW_480BH_SMALL_NONE] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+            
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_480BW_480BH_SMALL_NONE;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction5 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_480BW_480BH_120SW_120SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+            
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_480BW_480BH_120SW_120SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction6 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_480BW_480BH_240SW_240SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_480BW_480BH_240SW_240SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction7 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_360BW_640BH_SMALL_NONE] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_360BW_640BH_SMALL_NONE;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction8 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_360BW_640BH_90SW_160SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_360BW_640BH_90SW_160SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction9 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_360BW_640BH_180SW_320SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_360BW_640BH_180SW_320SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction10 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_480BW_640BH_SMALL_NONE] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_480BW_640BH_SMALL_NONE;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction11 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_480BW_640BH_120SW_160SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_480BW_640BH_120SW_160SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction12 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_480BW_640BH_240SW_320SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_480BW_640BH_240SW_320SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction13 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_640BW_640BH_SMALL_NONE] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_640BW_640BH_SMALL_NONE;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction14 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_640BW_640BH_160SW_160SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_640BW_640BH_160SW_160SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction15 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_640BW_640BH_320SW_320SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_640BW_640BH_320SW_320SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction16 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_720BW_1280BH_SMALL_NONE] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_720BW_1280BH_SMALL_NONE;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction17 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_720BW_1280BH_90SW_160SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_720BW_1280BH_90SW_160SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction18 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_720BW_1280BH_180SW_320SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_720BW_1280BH_180SW_320SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction19 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_720BW_1280BH_360SW_640SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_720BW_1280BH_360SW_640SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction20 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_1080BW_1920BH_SMALL_NONE] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_1080BW_1920BH_SMALL_NONE;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction21 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_1080BW_1920BH_135SW_240SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_1080BW_1920BH_135SW_240SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction22 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_1080BW_1920BH_270SW_480SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_1080BW_1920BH_270SW_480SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction23 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_1080BW_1920BH_540SW_960SH] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_1080BW_1920BH_540SW_960SH;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
         UIAlertAction *alertAction24 = [UIAlertAction actionWithTitle:[VideoSetParameters resolutionTextWithType:IOS_STAR_VIDEO_CROP_CONFIG_BIG_NOCROP_SMALL_NONE] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             _videoSetParameters.resolution = IOS_STAR_VIDEO_CROP_CONFIG_BIG_NOCROP_SMALL_NONE;
-            [self.corpSetButton setTitle:[_videoSetParameters.currentResolutionText stringByAppendingString:@"＞"] forState:UIControlStateNormal];
+            [resolutionBtn setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
         }];
-   
+        
         [_corpAlertController addAction:alertAction];
         [_corpAlertController addAction:alertAction0];
         [_corpAlertController addAction:alertAction1];
@@ -194,281 +241,354 @@
     return _corpAlertController;
 }
 
-- (IBAction)crop:(UIButton *)sender {
-    
-    [self presentViewController:self.corpAlertController animated:YES completion:nil];
-    
+
+#pragma mark - delegate
+
+- (void)frameAndBitDidChanged:(IFFrameAndBitSetViewType)type frame:(int)frame bit:(int)bit {
+    if (type == IFFrameAndBitSetViewTypeBig) {
+        _videoSetParameters.bigVideoFPS = frame;
+        _videoSetParameters.bigVideoBitrate = bit;
+        
+        [self.bigPictureSetBtn setTitle:[NSString stringWithFormat:@"(%d/%d)", frame, bit] forState:UIControlStateNormal];
+    } else {
+        _videoSetParameters.smallVideoFPS = frame;
+        _videoSetParameters.smallVideoBitrate = bit;
+        
+        [self.smallPictureSetBtn setTitle:[NSString stringWithFormat:@"(%d/%d)", frame, bit] forState:UIControlStateNormal];
+    }
 }
-- (IBAction)videoCricleTest:(UIButton *)sender {
-    
-    CircleTestVC *vc = [[CircleTestVC alloc] initWithNibName:@"CircleTestVC" bundle:[NSBundle mainBundle]];
-    [self.navigationController pushViewController:vc animated:YES];
-    
+
+#pragma mark - event
+
+- (IBAction)serverSetBtnClicked:(id)sender {
+    [self handleEventForServerSet];
 }
-- (IBAction)serverSet:(UIButton *)sender {
+
+- (IBAction)loopTestBtnClicked:(id)sender {
+    [self handleEventForLoopTest];
+}
+
+- (IBAction)thirdStreamTestBtnClicked:(id)sender {
+    [self handleEventForThirdStreamTest];
+}
+
+- (IBAction)innerTestBtnClicked:(id)sender {
+    [self handleEventForInnerTest];
+}
+
+- (IBAction)resolutionSetBtnClicked:(id)sender {
+    [self handleEventForResolutionSet];
+}
+
+- (IBAction)bigPictureSetBtnClicked:(id)sender {
+    [self handleEventForBiPictureSet];
+}
+
+- (IBAction)smallPictureSetBtnClicked:(id)sender {
+    [self handleEventForSmallPictureSet];
+}
+
+- (IBAction)videoFormBtnClicked:(id)sender {
+    [self handleEventForVideoEncodeSet];
+}
+
+- (IBAction)audioFormBtnClicked:(id)sender {
+    [self handleEventForAudioEncodeSet];
+}
+
+- (IBAction)uploadLogBtnClicked:(id)sender {
+    [self handleEventForUploadLog];
+}
+
+- (IBAction)aboutBtnClicked:(id)sender {
+    [self handleEventForAbout];
+}
+
+- (IBAction)audioEnable:(UISwitch *)sender {
+    _videoSetParameters.audioEnable = !sender.isOn;
+}
+
+- (IBAction)videoEnabled:(UISwitch *)sender {
+    _videoSetParameters.videoEnable = !sender.isOn;
+}
+
+- (IBAction)autoAdjustFrameAndBit:(UISwitch *)sender {
+    _videoSetParameters.dynamicBitrateAndFPSEnable = sender.on;
+}
+
+- (IBAction)hardEncode:(UISwitch *)sender {
+    _videoSetParameters.hwEncodeEnable = sender.isOn;
+}
+
+- (IBAction)openGL:(UISwitch *)sender {
+    _videoSetParameters.openGLEnable = sender.isOn;
+}
+
+- (IBAction)switchForOpenSL:(UISwitch *)sender {
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (IBAction)switchForVoipP2P:(UISwitch *)sender {
+    _videoSetParameters.voipP2PEnable = sender.on;
+}
+
+- (IBAction)switchForAudioHandle:(UISwitch *)sender {
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (IBAction)switchForLowAECHandle:(UISwitch *)sender {
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (IBAction)switchForLogWindow:(UISwitch *)sender {
+    _videoSetParameters.logEnable = sender.on;
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+
+#pragma mark - other
+
+- (void)setupVideoDefaultParameters {
+    _videoSetParameters = [VideoSetParameters locaParameters];
+    NSString *bitPicSetStr = [NSString stringWithFormat:@"(%d/%d) >", _videoSetParameters.bigVideoFPS, _videoSetParameters.bigVideoBitrate];
+    NSString *smallPicSetStr = [NSString stringWithFormat:@"(%d/%d) >", _videoSetParameters.smallVideoFPS, _videoSetParameters.smallVideoBitrate];
+
+    
+    [self.audioEnableSwitch setOn:!_videoSetParameters.audioEnable];
+    [self.videoEnableSwitch setOn:!_videoSetParameters.videoEnable];
+    [self.autoAdjustFrameAndBitSwitch setOn:_videoSetParameters.dynamicBitrateAndFPSEnable];
+    [self.hardEncodeSwitch setOn:_videoSetParameters.hwEncodeEnable];
+    [self.openGLEnableSwitch setOn:_videoSetParameters.openGLEnable];
+    [self.openSLEnableSwitch setOn:NO];
+    [self.voipP2PModelSwitch setOn:_videoSetParameters.voipP2PEnable];
+    [self.audioHandleSwitch setOn:NO];
+    [self.lowLevelAECHandleSwitch setOn:NO];
+    [self.logEnableSwitch setOn:_videoSetParameters.logEnable];
+    
+    [self.resolutionSetButton setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
+    [self.bigPictureSetBtn setTitle:bitPicSetStr forState:UIControlStateNormal];
+    [self.smallPictureSetBtn setTitle:smallPicSetStr forState:UIControlStateNormal];
+    
+    NSString *videoForm = @">";
+    if (_videoSetParameters.videoCodecType == IOS_STAR_STREAM_VIDEO_CODEC_H264) {
+        videoForm = [NSString stringWithFormat:@"H264 >"];
+    } else if (_videoSetParameters.videoCodecType == IOS_STAR_STREAM_VIDEO_CODEC_H265) {
+        videoForm = [NSString stringWithFormat:@"H265 >"];
+    } else if (_videoSetParameters.videoCodecType == IOS_STAR_STREAM_VIDEO_CODEC_MPEG1) {
+        videoForm = [NSString stringWithFormat:@"MPEG1 >"];
+    }
+    [self.videoFormSetBtn setTitle:videoForm forState:UIControlStateNormal];
+    
+    NSString *audioForm = @">";
+    if (_videoSetParameters.audioCodecType == IOS_STAR_STREAM_AUDIO_CODEC_OPUS) {
+        audioForm = [NSString stringWithFormat:@"OPUS >"];
+    } else if (_videoSetParameters.audioCodecType == IOS_STAR_STREAM_AUDIO_CODEC_AAC) {
+        audioForm = [NSString stringWithFormat:@"AAC >"];
+    } else if (_videoSetParameters.audioCodecType == IOS_STAR_STREAM_AUDIO_CODEC_MP2) {
+        audioForm = [NSString stringWithFormat:@"MP2(MPEG Audio Layer-2) >"];
+    }
+    [self.audioFormSetBtn setTitle:audioForm forState:UIControlStateNormal];
+}
+
+- (void)handleEventForServerSet
+{
     SystemSettingVC *system = [[SystemSettingVC alloc] initWithNibName:@"SystemSettingVC" bundle:[NSBundle mainBundle]];
     [self.navigationController pushViewController:system animated:YES];
 }
-- (IBAction)videoEnabled:(UISwitch *)sender {
-    [AppConfig shareConfig].videoEnabled = !sender.isOn;
-    
-}
-- (IBAction)audioEnable:(UISwitch *)sender {
-    [AppConfig shareConfig].audioEnabled = !sender.isOn;
-    
-}
-- (IBAction)openGL:(UISwitch *)sender {
-    _videoSetParameters.openGLEnable = sender.isOn;
-    
-}
-- (IBAction)hardEncode:(UISwitch *)sender {
-    
-    _videoSetParameters.hwEncodeEnable = sender.isOn;
-}
-- (IBAction)aboutUSButtonClicked:(UIButton *)sender {
-    AboutUsVC * vc = [AboutUsVC new];
+
+- (void)handleEventForLoopTest
+{
+    CircleTestVC *vc = [[CircleTestVC alloc] initWithNibName:@"CircleTestVC" bundle:[NSBundle mainBundle]];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)handleEventForThirdStreamTest
+{
+    IFThirdStreamTestListVC *vc = [[IFThirdStreamTestListVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+}
+
+- (void)handleEventForInnerTest
+{
+    IFInnerHomeVC *vc = [[IFInnerHomeVC alloc] initWithNibName:NSStringFromClass([IFInnerHomeVC class]) bundle:[NSBundle mainBundle]];
     
+    [self.navigationController presentViewController:vc animated:YES completion:nil];
 }
 
+- (void)handleEventForResolutionSet
+{
+    [self presentViewController:self.corpAlertController animated:YES completion:nil];
+}
 
-- (IBAction)encodeFormat:(UIButton *)sender {
-//    [UIWindow ilg_makeToast:@"开发中...."];
+- (void)handleEventForBiPictureSet
+{
+    [self.view addSubview:[self frameAndBitSetView:IFFrameAndBitSetViewTypeBig maxFrameValue:20 maxBitValue:2000]];
+}
+
+- (void)handleEventForSmallPictureSet
+{
+    [self.view addSubview:[self frameAndBitSetView:IFFrameAndBitSetViewTypeSmall maxFrameValue:15 maxBitValue:200]];
+}
+
+- (void)handleEventForVideoEncodeSet
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
+    NSArray *titles = @[@"H264", @"H265", @"MPEG1", @"取消"];
+    for (int index = 0; index < titles.count; index++) {
+        UIAlertActionStyle style = UIAlertActionStyleDefault;
+        if (index == titles.count - 1) {
+            style = UIAlertActionStyleCancel;
+        }
+        UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:style handler:^(UIAlertAction * _Nonnull action) {
+            if (action.style == UIAlertActionStyleDefault) {
+                [self saveVideoEncode:action.title];
+                [self.videoFormSetBtn setTitle:[NSString stringWithFormat:@"%@ >", action.title] forState:UIControlStateNormal];
+            }
+        }];
+        [alertController addAction:action];
+    }
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)leftButtonClicked:(UIButton *)button{
-    [super leftButtonClicked:button];
-    [_videoSetParameters saveParametersToLocal];
-    [[XHClient sharedClient] setVideoConfig:_videoSetParameters];
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)saveVideoEncode:(NSString *)title {
+    if ([title isEqualToString:@"H264"]) {
+        _videoSetParameters.videoCodecType = IOS_STAR_STREAM_VIDEO_CODEC_H264;
+    } else if ([title isEqualToString:@"H265"]) {
+        _videoSetParameters.videoCodecType = IOS_STAR_STREAM_VIDEO_CODEC_H265;
+    } else if ([title isEqualToString:@"MPEG1"]) {
+        _videoSetParameters.videoCodecType = IOS_STAR_STREAM_VIDEO_CODEC_MPEG1;
+    }
 }
 
-/**
- 三次点击发送日志
- 
- @param sender 手势
- */
--(void)handleLogTap:(UIGestureRecognizer *)sender{
+- (void)handleEventForAudioEncodeSet
+{
+    [self.view ilg_makeToast:@"开发中..." position:ILGToastPositionBottom];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    NSArray *titles = @[@"OPUS", @"AAC", @"MP2(MPEG Audio Layer-2)", @"取消"];
+    for (int index = 0; index < titles.count; index++) {
+        UIAlertActionStyle style = UIAlertActionStyleDefault;
+        if (index == titles.count - 1) {
+            style = UIAlertActionStyleCancel;
+        }
+        UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:style handler:^(UIAlertAction * _Nonnull action) {
+            if (action.style == UIAlertActionStyleDefault) {
+                [self saveAudioEncode:action.title];
+                [self.audioFormSetBtn setTitle:[NSString stringWithFormat:@"%@ >", action.title] forState:UIControlStateNormal];
+            }
+        }];
+        [alertController addAction:action];
+    }
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)saveAudioEncode:(NSString *)title {
+    if ([title isEqualToString:@"OPUS"]) {
+        _videoSetParameters.audioCodecType = IOS_STAR_STREAM_AUDIO_CODEC_OPUS;
+    } else if ([title isEqualToString:@"AAC"]) {
+        _videoSetParameters.audioCodecType = IOS_STAR_STREAM_AUDIO_CODEC_AAC;
+    } else {
+        _videoSetParameters.audioCodecType = IOS_STAR_STREAM_AUDIO_CODEC_MP2;
+    }
+}
+
+- (void)handleEventForUploadLog
+{
     QGSandboxViewerVC *vc = [[QGSandboxViewerVC alloc] initWithHomeDirectory];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)shareLogsAtDirectory:(NSString*)path delegate:(UIViewController*)delegate {
-    //分享的url
-    NSURL *urlToShare = [NSURL fileURLWithPath:path];
-    //在这里呢 如果想分享图片 就把图片添加进去  文字什么的通上
-    NSArray *activityItems = @[urlToShare];
-    UIActivityViewController *activityVC = [[UIActivityViewController alloc]initWithActivityItems:activityItems applicationActivities:nil];
-    //不出现在活动项目
-    activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeCopyToPasteboard,UIActivityTypeAssignToContact,UIActivityTypeSaveToCameraRoll];
-    [delegate presentViewController:activityVC animated:YES completion:nil];
-    // 分享之后的回调
-    activityVC.completionWithItemsHandler = ^(UIActivityType  _Nullable activityType, BOOL completed, NSArray * _Nullable returnedItems, NSError * _Nullable activityError) {
-        if (completed) {
-            NSLog(@"completed");
-            //分享 成功
-        } else  {
-            NSLog(@"cancled");
-            //分享 取消
-        }
-    };
-}
-
-///pcm转WAV
-- (NSString*)pcm2WAV
+- (void)handleEventForAbout
 {
-    NSString *pcmPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/xbMedia"];
-    
-    NSString *wavPath = [NSHomeDirectory() stringByAppendingString:@"/Documents/xbMedia.wav"];
-    char *pcmPath_c = [pcmPath UTF8String];
-    char *wavPath_c = [wavPath UTF8String];
-    convertPcm2Wav(pcmPath_c, wavPath_c, 1, 16000);
-    return wavPath;
-    
-    //进入沙盒找到xbMedia.wav即可
+    AboutUsVC *vc = [AboutUsVC new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark - other
 
-
-// pcm 转wav
-
-//wav头的结构如下所示：
-
-typedef  struct  {
+- (IFFrameAndBitSetView *)frameAndBitSetView:(IFFrameAndBitSetViewType)type maxFrameValue:(NSInteger)maxFrameValue maxBitValue:(NSInteger)maxBitValue {
+    IFFrameAndBitSetView *view = [IFFrameAndBitSetView viewFromXIBWithType:type];
+    view.frame = self.view.bounds;
+    view.frameSlider.maximumValue = maxFrameValue;
+    view.bitSlider.maximumValue = maxBitValue;
+    view.delegate = self;
     
-    char        fccID[4];
-    
-    int32_t      dwSize;
-    
-    char        fccType[4];
-    
-} HEADER;
-
-typedef  struct  {
-    
-    char        fccID[4];
-    
-    int32_t      dwSize;
-    
-    int16_t      wFormatTag;
-    
-    int16_t      wChannels;
-    
-    int32_t      dwSamplesPerSec;
-    
-    int32_t      dwAvgBytesPerSec;
-    
-    int16_t      wBlockAlign;
-    
-    int16_t      uiBitsPerSample;
-    
-}FMT;
-
-typedef  struct  {
-    
-    char        fccID[4];
-    
-    int32_t      dwSize;
-    
-}DATA;
-
-/*
- int convertPcm2Wav(char *src_file, char *dst_file, int channels, int sample_rate)
- 请问这个方法怎么用?参数都是什么意思啊
- 
- 赞  回复
- code书童： @不吃鸡爪 pcm文件路径，wav文件路径，channels为通道数，手机设备一般是单身道，传1即可，sample_rate为pcm文件的采样率，有44100，16000，8000，具体传什么看你录音时候设置的采样率。
- */
-
-int convertPcm2Wav(char *src_file, char *dst_file, int channels, int sample_rate)
-
-{
-    int bits = 16;
-    
-    //以下是为了建立.wav头而准备的变量
-    
-    HEADER  pcmHEADER;
-    
-    FMT  pcmFMT;
-    
-    DATA  pcmDATA;
-    
-    unsigned  short  m_pcmData;
-    
-    FILE  *fp,*fpCpy;
-    
-    if((fp=fopen(src_file,  "rb"))  ==  NULL) //读取文件
-        
-    {
-        
-        printf("open pcm file %s error\n", src_file);
-        
-        return -1;
-        
+    int frameValue = 0;
+    int bitValue = 0;
+    if (type == IFFrameAndBitSetViewTypeBig) {
+        frameValue = _videoSetParameters.bigVideoFPS;
+        bitValue = _videoSetParameters.bigVideoBitrate;
+    } else {
+        frameValue = _videoSetParameters.smallVideoFPS;
+        bitValue = _videoSetParameters.smallVideoBitrate;
     }
+    view.frameSlider.value = frameValue;
+    view.bitSlider.value = bitValue;
+    view.frameL.text = [NSString stringWithFormat:@"帧率:%d", frameValue];
+    view.bitL.text = [NSString stringWithFormat:@"码率:%d", bitValue];
     
-    if((fpCpy=fopen(dst_file,  "wb+"))  ==  NULL) //为转换建立一个新文件
-        
-    {
-        
-        printf("create wav file error\n");
-        
-        return -1;
-        
-    }
-    
-    //以下是创建wav头的HEADER;但.dwsize未定，因为不知道Data的长度。
-    
-    strncpy(pcmHEADER.fccID,"RIFF",4);
-    
-    strncpy(pcmHEADER.fccType,"WAVE",4);
-    
-    fseek(fpCpy,sizeof(HEADER),1); //跳过HEADER的长度，以便下面继续写入wav文件的数据;
-    
-    //以上是创建wav头的HEADER;
-    
-    if(ferror(fpCpy))
-        
-    {
-        
-        printf("error\n");
-        
-    }
-    
-    //以下是创建wav头的FMT;
-    
-    pcmFMT.dwSamplesPerSec=sample_rate;
-    
-    pcmFMT.dwAvgBytesPerSec=pcmFMT.dwSamplesPerSec*sizeof(m_pcmData);
-    
-    pcmFMT.uiBitsPerSample=bits;
-    
-    strncpy(pcmFMT.fccID,"fmt  ", 4);
-    
-    pcmFMT.dwSize=16;
-    
-    pcmFMT.wBlockAlign=2;
-    
-    pcmFMT.wChannels=channels;
-    
-    pcmFMT.wFormatTag=1;
-    
-    //以上是创建wav头的FMT;
-    
-    fwrite(&pcmFMT,sizeof(FMT),1,fpCpy); //将FMT写入.wav文件;
-    
-    //以下是创建wav头的DATA;  但由于DATA.dwsize未知所以不能写入.wav文件
-    
-    strncpy(pcmDATA.fccID,"data", 4);
-    
-    pcmDATA.dwSize=0; //给pcmDATA.dwsize  0以便于下面给它赋值
-    
-    fseek(fpCpy,sizeof(DATA),1); //跳过DATA的长度，以便以后再写入wav头的DATA;
-    
-    fread(&m_pcmData,sizeof(int16_t),1,fp); //从.pcm中读入数据
-    
-    while(!feof(fp)) //在.pcm文件结束前将他的数据转化并赋给.wav;
-        
-    {
-        
-        pcmDATA.dwSize+=2; //计算数据的长度；每读入一个数据，长度就加一；
-        
-        fwrite(&m_pcmData,sizeof(int16_t),1,fpCpy); //将数据写入.wav文件;
-        
-        fread(&m_pcmData,sizeof(int16_t),1,fp); //从.pcm中读入数据
-        
-    }
-    
-    fclose(fp); //关闭文件
-    
-    pcmHEADER.dwSize = 0;  //根据pcmDATA.dwsize得出pcmHEADER.dwsize的值
-    
-    rewind(fpCpy); //将fpCpy变为.wav的头，以便于写入HEADER和DATA;
-    
-    fwrite(&pcmHEADER,sizeof(HEADER),1,fpCpy); //写入HEADER
-    
-    fseek(fpCpy,sizeof(FMT),1); //跳过FMT,因为FMT已经写入
-    
-    fwrite(&pcmDATA,sizeof(DATA),1,fpCpy);  //写入DATA;
-    
-    fclose(fpCpy);  //关闭文件
-    
-    return 0;
-    
+    return view;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
+
+
+/*
+ 
+ #pragma mark - deledate
+ 
+ - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+ if (indexPath.row == 2) {
+ return 0;
+ }
+ return 44;
+ }
+ 
+ - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+ UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+ 
+ switch (cell.tag) {
+ case IFVideoSettingTypeServerConfig:
+ [self handleEventForServerSet];
+ break;
+ case IFVideoSettingTypeLoopTest:
+ [self handleEventForLoopTest];
+ break;
+ case IFVideoSettingTypeThirdStreamTest:
+ [self handleEventForThirdStreamTest];
+ break;
+ case IFVideoSettingTypeInnerTest:
+ [self handleEventForInnerTest];
+ break;
+ case IFVideoSettingTypeResolutionSet:
+ [self handleEventForResolutionSet];
+ break;
+ case IFVideoSettingTypeBigPictureSet:
+ [self handleEventForBiPictureSet];
+ break;
+ case IFVideoSettingTypeSmallPictureSet:
+ [self handleEventForSmallPictureSet];
+ break;
+ case IFVideoSettingTypeVideoEncodeSet:
+ [self handleEventForVideoEncodeSet];
+ break;
+ case IFVideoSettingTypeAudioEncodeSet:
+ [self handleEventForAudioEncodeSet];
+ break;
+ case IFVideoSettingTypeUploadLog:
+ [self handleEventForUploadLog];
+ break;
+ case IFVideoSettingTypeAbout:
+ [self handleEventForAbout];
+ break;
+ default:
+ break;
+ }
+ }
+
+ */

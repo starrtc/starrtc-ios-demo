@@ -15,35 +15,42 @@
 #import "IFListViewCell.h"
 
 #import "InterfaceUrls.h"
+#import "XHCustomConfig.h"
 
 @interface IFLiveListVC () <InterfaceUrlsdelegate>
+@property (nonatomic, strong) NSMutableArray *listArr;
+@property (nonatomic, strong) InterfaceUrls *m_interfaceUrls;
+
 @property (nonatomic, strong) IFListView *listView;
-@property (nonatomic, strong) NSMutableArray *liveListArr;
 @end
 
 @implementation IFLiveListVC
-{
-    InterfaceUrls             *m_interfaceUrls;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [self createUI];
+    [self initData];
 
-    _liveListArr = [NSMutableArray array];
+    [self createUI];
     
-    m_interfaceUrls = [[InterfaceUrls alloc] init];
-    m_interfaceUrls.delegate = self;
-    [UIView showProgressWithText:@"加载中..."];
-    [m_interfaceUrls demoRequestLiveList];
+    [self refreshList];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark - Data
+
+- (void)initData {
+    _listArr = [NSMutableArray array];
+    
+    _m_interfaceUrls = [[InterfaceUrls alloc] init];
+    _m_interfaceUrls.delegate = self;
+}
+
 
 #pragma mark - UI
 
@@ -71,27 +78,9 @@
 #pragma mark InterfaceUrlsdelegate
 - (void)getLiveListResponse:(id)respnseContent {
     NSDictionary *dict = respnseContent;
-    int status = [[dict objectForKey:@"status"] intValue];
-    if(status == 1) {
-        NSArray *listArr = [dict objectForKey:@"data"];
-        
-        [_liveListArr removeAllObjects];
-        for (int index = 0; index < listArr.count; index++) {
-            NSMutableDictionary *mutDic = [listArr[index] mutableCopy];
-            mutDic[@"userIcon"] = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
-            mutDic[@"coverIcon"] = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
-            [_liveListArr addObject:mutDic];
-        }
-        
-        [_listView.tableView reloadData];
-    }
-    
-    if ([_listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
-        if (_listView.tableView.refreshControl && _listView.tableView.refreshControl.refreshing) {
-            [_listView.tableView.refreshControl endRefreshing];
-        }
-    }
-    [UIView hiddenProgress];
+//    int status = [[dict objectForKey:@"status"] intValue];
+    NSArray *listArr = [dict objectForKey:@"data"];
+    [self refreshListDidEnd:listArr];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
@@ -104,7 +93,7 @@
  */
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _liveListArr.count;
+    return _listArr.count;
 }
 
 /**
@@ -118,13 +107,14 @@
     IFListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
                             TableSampleIdentifier];
     
-    NSDictionary *dic = [_liveListArr objectAtIndex:indexPath.row];
-    cell.topL.text = dic[@"Name"];
-    cell.bottomL.text = [NSString stringWithFormat:@"创建者:%@", dic[@"Creator"]];
-    cell.bgImageView.backgroundColor = [[IMUserInfo shareInstance] listIconColor:[NSString stringWithFormat:@"%@%@", dic[@"Name"], dic[@"Creator"]]];
+    IFLiveItem *item = [_listArr objectAtIndex:indexPath.row];
+    cell.topL.text = item.liveName;
+    cell.bottomL.text = [NSString stringWithFormat:@"创建者:%@", item.creatorID];
+    cell.bgImageView.backgroundColor = [[IMUserInfo shareInstance] listIconColor:[NSString stringWithFormat:@"%@%@", item.liveName, item.creatorID]];
     [cell.iconBtn setImage:[UIImage imageNamed:@"list_list_icon"] forState:UIControlStateNormal];
-    BOOL liveState = [dic[@"liveState"] boolValue];
-    cell.rightL.hidden = !liveState;
+    //To do:直播状态处理
+//    BOOL liveState = [dic[@"liveState"] boolValue];
+//    cell.rightL.hidden = !liveState;
 
     return cell;
 }
@@ -132,15 +122,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary *dic = [_liveListArr objectAtIndex:indexPath.row];
+    IFLiveItem *item = [_listArr objectAtIndex:indexPath.row];
     
     IFLiveVCType type = IFLiveVCTypeLook;
-    if ([dic[@"Creator"] isEqualToString:[IMUserInfo shareInstance].userID]) {
+    if ([item.creatorID isEqualToString:[IMUserInfo shareInstance].userID]) {
         type = IFLiveVCTypeStart;
     }
     IFLiveVC *vc = [[IFLiveVC alloc] initWithType:type];
-    vc.liveId = dic[@"ID"];
-    vc.creator = dic[@"Creator"];
+    vc.liveId = item.ID;
+    vc.creator = item.creatorID;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -152,8 +142,86 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)refreshList {
-    [m_interfaceUrls demoRequestLiveList];
+- (void)refreshList
+{
+    [self.view showProgressWithText:@"加载中..."];
+    
+    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+        [_m_interfaceUrls demoRequestLiveList];
+    } else {
+        __weak typeof(self) weakSelf = self;
+        [[XHClient sharedClient].liveManager queryLiveList:@"" type:[NSString stringWithFormat:@"%d", CHATROOM_LIST_TYPE_LIVE] completion:^(NSString *listInfo, NSError *error) {
+            NSArray *listArr = nil;
+            if (listInfo) {
+                NSData *jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
+                listArr = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                          options:NSJSONReadingMutableContainers
+                                                            error:nil];
+            }
+            
+            [weakSelf refreshListDidEnd:listArr];
+        }];
+    }
 }
+
+- (void)refreshListDidEnd:(NSArray *)listArr
+{
+    if (listArr.count != 0) {
+        [_listArr removeAllObjects];
+        
+        if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+            for (int index = 0; index < listArr.count; index++) {
+                NSDictionary *subDic = listArr[index];
+                
+                IFLiveItem *item = [[IFLiveItem alloc] init];
+                //                item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
+                item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
+                item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
+                item.liveName = subDic[@"Name"];
+                item.creatorID = subDic[@"Creator"];
+                item.ID = subDic[@"ID"];
+                
+                [_listArr addObject:item];
+            }
+        } else {
+            for (int index = 0; index < listArr.count; index++) {
+                NSString *str = listArr[index];
+                NSString *strDecoded = [str ilg_URLDecode];
+                NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
+                NSError *error = nil;
+                NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                       options:NSJSONReadingMutableContainers
+                                                                         error:&error];
+                if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
+                    continue;
+                }
+                
+                IFLiveItem *item = [[IFLiveItem alloc] init];
+                //                item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
+                item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
+                item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
+                item.liveName = subDic[@"name"];
+                item.creatorID = subDic[@"creator"];
+                item.ID = subDic[@"id"];
+                
+                [_listArr addObject:item];
+            }
+        }
+        
+        [_listView.tableView reloadData];
+    }
+    
+    [self.view hideProgress];
+    if ([_listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
+        if (_listView.tableView.refreshControl && _listView.tableView.refreshControl.refreshing) {
+            [_listView.tableView.refreshControl endRefreshing];
+        }
+    }
+}
+
+@end
+
+
+@implementation IFLiveItem
 
 @end

@@ -12,6 +12,8 @@
 
 #import "InterfaceUrls.h"
 
+#import "XHCustomConfig.h"
+
 @interface IFCreateMeetingVC ()
 
 @end
@@ -36,6 +38,7 @@
 - (void)createUI {
     self.title = @"创建会议室";
     
+    self.sessionView.isHasControl = NO;
     self.sessionView.alertTitle = @"专属会议的名称";
     self.sessionView.textFieldPlaceholder = @"输入会议名称";
     self.sessionView.funcBtnTitle = @"创建新会议";
@@ -55,14 +58,26 @@
         __weak typeof(self) weakSelf = self;
         XHMeetingItem *meetingItem = [[XHMeetingItem alloc] init];
         meetingItem.meetingName = name;
-        meetingItem.meetingType = self.sessionView.isPublic ? XHMeetingTypeGlobalPublic:XHMeetingTypeLoginPublic;
+//        meetingItem.meetingType = self.sessionView.isPublic ? XHMeetingTypeGlobalPublic:XHMeetingTypeLoginPublic;
+        meetingItem.meetingType = XHMeetingTypeGlobalPublic;
         [[XHClient sharedClient].meetingManager createMeeting:meetingItem completion:^(NSString *meetingID, NSError *error) {
             [UIView hiddenProgress];
             if (error) {
                 [weakSelf.view ilg_makeToast:[NSString stringWithFormat:@"创建会议失败：%@", error.localizedDescription] position:ILGToastPositionCenter];
                 
             } else {
-                [[[InterfaceUrls alloc] init] reportMeeting:name ID:meetingID creator:[IMUserInfo shareInstance].userID];
+                if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+                    [[[InterfaceUrls alloc] init] reportMeeting:name ID:meetingID creator:[IMUserInfo shareInstance].userID];
+                } else {
+                    NSDictionary *infoDic = @{@"id":meetingID,
+                                           @"creator":UserId,
+                                           @"name":meetingItem.meetingName
+                                           };
+                    NSString *infoStr = [infoDic ilg_jsonString];
+                    [[XHClient sharedClient].meetingManager saveToList:UserId type:CHATROOM_LIST_TYPE_MEETING meetingId:meetingID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
+                        
+                    }];
+                }
                 
                 IFMutilMeetingVC *receive = [[IFMutilMeetingVC alloc] initWithType:IFMutilMeetingVCTypeCreate];
                 receive.meetingId = meetingID;

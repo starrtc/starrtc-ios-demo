@@ -13,15 +13,24 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SystemSettingVC">
             <connections>
                 <outlet property="appIdTextField" destination="7FL-Tm-Dwf" id="o4c-p4-ZfE"/>
+                <outlet property="appidView" destination="d4y-ps-A6z" id="wTM-rr-IHb"/>
                 <outlet property="chatTextField" destination="FGi-gi-R9C" id="oXv-r3-Msm"/>
+                <outlet property="chatroomTitleL" destination="5lG-g8-L3k" id="DNb-Ae-QTu"/>
                 <outlet property="downloadTextField" destination="yfL-vo-CWQ" id="qLY-F6-YZL"/>
+                <outlet property="downloadTitleL" destination="Qp9-8F-Pc6" id="19o-C6-GRG"/>
                 <outlet property="loginTextField" destination="P6L-d5-Pn6" id="vmB-mw-8SN"/>
+                <outlet property="loginView" destination="IS6-zT-sgd" id="Eu5-5e-lGS"/>
                 <outlet property="messageTextField" destination="vyF-xi-O7f" id="AIz-kc-9AH"/>
+                <outlet property="messageTitleL" destination="Gz1-Uu-3pY" id="Sps-tN-wv8"/>
+                <outlet property="serviceBtn" destination="ypd-P5-Wsl" id="zB3-kh-oIq"/>
                 <outlet property="uploadTextField" destination="paX-8D-o4G" id="JnB-os-e77"/>
+                <outlet property="uploadTitleL" destination="aus-R8-8cw" id="neh-X7-zFj"/>
                 <outlet property="userIdTextField" destination="5PV-p7-TY3" id="I8u-4A-GL8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="voipTextField" destination="hJl-g3-hDS" id="rwS-mp-YUS"/>
+                <outlet property="voipTitleL" destination="KfL-QX-Hti" id="N3k-rb-VBO"/>
                 <outlet property="yewuTextField" destination="84A-QY-iFh" id="y9T-tk-jgm"/>
+                <outlet property="yewuView" destination="2Dj-I8-TQ8" id="f5b-Fp-R0h"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -32,8 +41,55 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Hd-0z-ltD">
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pI-xD-TkG">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="切换配置保存后才会生效，点击保存时App将自动关闭，需要手动重启" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QJ-lN-xug">
+                                    <rect key="frame" x="5" y="5" width="365" height="29"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="切换配置" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyO-b6-9mu">
+                                    <rect key="frame" x="5" y="32.5" width="65.5" height="19.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypd-P5-Wsl">
+                                    <rect key="frame" x="312" y="28" width="43" height="29"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="公有云">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="switchService:" destination="-1" eventType="touchUpInside" id="NJp-NH-8yu"/>
+                                    </connections>
+                                </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HXh-8q-vlT">
+                                    <rect key="frame" x="357" y="32.5" width="10" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="10" id="2A2-Zu-ran"/>
+                                        <constraint firstAttribute="height" constant="20" id="7JB-nA-B7h"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="4h7-P9-J6e"/>
+                                <constraint firstItem="yyO-b6-9mu" firstAttribute="leading" secondItem="4pI-xD-TkG" secondAttribute="leading" constant="5" id="BsJ-jE-xA2"/>
+                                <constraint firstItem="HXh-8q-vlT" firstAttribute="leading" secondItem="ypd-P5-Wsl" secondAttribute="trailing" constant="2" id="EMt-tM-sZk"/>
+                                <constraint firstItem="ypd-P5-Wsl" firstAttribute="centerY" secondItem="yyO-b6-9mu" secondAttribute="centerY" id="GzU-cM-EZm"/>
+                                <constraint firstAttribute="trailing" secondItem="HXh-8q-vlT" secondAttribute="trailing" constant="8" id="XAK-ag-xon"/>
+                                <constraint firstAttribute="bottom" secondItem="yyO-b6-9mu" secondAttribute="bottom" constant="8" id="aa3-4x-O85"/>
+                                <constraint firstItem="HXh-8q-vlT" firstAttribute="centerY" secondItem="yyO-b6-9mu" secondAttribute="centerY" id="cZP-QL-v57"/>
+                                <constraint firstItem="8QJ-lN-xug" firstAttribute="top" secondItem="4pI-xD-TkG" secondAttribute="top" constant="5" id="hz0-ba-HQz"/>
+                                <constraint firstAttribute="trailing" secondItem="8QJ-lN-xug" secondAttribute="trailing" constant="5" id="w3v-Gx-nGJ"/>
+                                <constraint firstItem="8QJ-lN-xug" firstAttribute="leading" secondItem="4pI-xD-TkG" secondAttribute="leading" constant="5" id="zWH-P8-fv6"/>
+                            </constraints>
+                        </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BWI-YF-o7A">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="595"/>
+                            <rect key="frame" x="0.0" y="60" width="375" height="595"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Dj-I8-TQ8">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -517,11 +573,16 @@
                         </stackView>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="4pI-xD-TkG" firstAttribute="centerX" secondItem="5Hd-0z-ltD" secondAttribute="centerX" id="48n-ht-uP3"/>
+                        <constraint firstItem="4pI-xD-TkG" firstAttribute="top" secondItem="5Hd-0z-ltD" secondAttribute="top" id="619-lF-daf"/>
                         <constraint firstAttribute="bottom" secondItem="BWI-YF-o7A" secondAttribute="bottom" id="Z1N-yq-K0L"/>
+                        <constraint firstItem="4pI-xD-TkG" firstAttribute="leading" secondItem="5Hd-0z-ltD" secondAttribute="leading" id="bkX-3l-T2y"/>
                         <constraint firstAttribute="trailing" secondItem="BWI-YF-o7A" secondAttribute="trailing" id="cUy-70-Awv"/>
-                        <constraint firstItem="BWI-YF-o7A" firstAttribute="top" secondItem="5Hd-0z-ltD" secondAttribute="top" id="euq-iK-tLO"/>
+                        <constraint firstItem="BWI-YF-o7A" firstAttribute="top" secondItem="4pI-xD-TkG" secondAttribute="bottom" id="euq-iK-tLO"/>
+                        <constraint firstAttribute="trailing" secondItem="4pI-xD-TkG" secondAttribute="trailing" id="f7c-jl-fjM"/>
                         <constraint firstItem="BWI-YF-o7A" firstAttribute="width" secondItem="5Hd-0z-ltD" secondAttribute="width" id="kC5-5D-iji"/>
                         <constraint firstItem="BWI-YF-o7A" firstAttribute="leading" secondItem="5Hd-0z-ltD" secondAttribute="leading" id="v5q-fC-k8R"/>
+                        <constraint firstItem="4pI-xD-TkG" firstAttribute="width" secondItem="5Hd-0z-ltD" secondAttribute="width" id="x3I-tN-sy4"/>
                     </constraints>
                 </scrollView>
             </subviews>

@@ -16,11 +16,11 @@
 @end
 
 
-@interface ChatroomInfo: NSObject
+@interface IFChatroomItem: NSObject
 
-@property  NSString *  roomName;
-@property  NSString *  createrId;
-@property  NSString *  roomId;
+@property NSString *ID;
+@property NSString *name;
+@property NSString *creatorId;
 @property NSString *USER_TYPE;
 
 @end

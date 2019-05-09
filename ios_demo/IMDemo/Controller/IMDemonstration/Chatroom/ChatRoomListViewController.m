@@ -14,33 +14,29 @@
 #import "IFListView.h"
 #import "IFListViewCell.h"
 
-@interface ChatRoomListViewController ()
+#import "XHCustomConfig.h"
 
+@interface ChatRoomListViewController ()
+@property (nonatomic, strong) IFListView *listView;
 @end
 
 @implementation ChatRoomListViewController
 {
-    UITableView               *_tableView;
-    InterfaceUrls             *m_interfaceUrls;
+    InterfaceUrls *m_interfaceUrls;
     
-    NSMutableArray            *m_ChatInfo;
+    NSMutableArray *_listArr;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    [self initData];
+    
     [self createUI];
+
+    [self refreshList];
     
-    m_ChatInfo = [NSMutableArray array];
-    
-    // 请求会议室列表
-    m_interfaceUrls = [[InterfaceUrls alloc] init];
-    m_interfaceUrls.delegate = self;
-    [UIView showProgressWithText:@"加载中..."];
-    [m_interfaceUrls demoRequestChatroomList];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshChatroomList) name:@"IFChatroomListRefreshNotif" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList) name:@"IFChatroomListRefreshNotif" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -53,8 +49,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+- (void)initData {
+    _listArr = [NSMutableArray array];
+    
+    // 请求会议室列表
+    m_interfaceUrls = [[InterfaceUrls alloc] init];
+    m_interfaceUrls.delegate = self;
 }
 
 
@@ -66,16 +67,16 @@
     CGRect frame = self.view.bounds;
     IFListView *listView = [[IFListView alloc] initWithDelegate:self frame:frame];
     [self.view addSubview:listView];
+    _listView = listView;
 
     [listView.tableView registerClass:[IFListViewCell class] forCellReuseIdentifier:@"TableSampleIdentifier"];
     listView.tableView.rowHeight = 95;
     [listView.button setTitle:@"创建聊天室" forState:UIControlStateNormal];
     [listView.button addTarget:self action:@selector(createChatroomButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    _tableView = listView.tableView;
     
     if ([listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(refreshChatroomList) forControlEvents:UIControlEventValueChanged];
+        [refreshControl addTarget:self action:@selector(refreshList) forControlEvents:UIControlEventValueChanged];
         [listView.tableView setRefreshControl:refreshControl];
     }
 }
@@ -85,26 +86,12 @@
 - (void)getChatRoomListResponse:(id)respnseContent {
     NSDictionary *dict = respnseContent;
     int status = [[dict objectForKey:@"status"] intValue];
-    
-    [m_ChatInfo removeAllObjects];
-    if(status == 1) {
-        NSDictionary *info = [dict objectForKey:@"data"];
-        for (NSMutableDictionary *dict in info) {
-            ChatroomInfo *new_chatInfo = [[ChatroomInfo alloc] init];
-            new_chatInfo.roomName =  [dict objectForKey:@"Name"];
-            new_chatInfo.createrId =  [dict objectForKey:@"Creator"];
-            new_chatInfo.roomId =  [dict objectForKey:@"ID"];
-            [m_ChatInfo addObject:new_chatInfo];
-        }
+    NSArray *listArr = [dict objectForKey:@"data"];
+    if (status == 1 && [listArr isKindOfClass:[NSArray class]]) {
+        [self refreshListDidEnd:listArr];
+    } else {
+        [self refreshListDidEnd:nil];
     }
-    
-    if ([_tableView respondsToSelector:@selector(setRefreshControl:)]) {
-        if (_tableView.refreshControl && _tableView.refreshControl.refreshing) {
-            [_tableView.refreshControl endRefreshing];
-        }
-    }
-    [UIView hiddenProgress];
-    [_tableView reloadData];
 }
 
 #pragma mark tableView
@@ -118,7 +105,7 @@
  */
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return m_ChatInfo.count;
+    return _listArr.count;
 }
 
 /**
@@ -133,10 +120,10 @@
                              TableSampleIdentifier];
     
     NSUInteger row = [indexPath row];
-    ChatroomInfo* one_chatinfo = [m_ChatInfo objectAtIndex:row];
-    cell.topL.text = one_chatinfo.roomName;
-    cell.bottomL.text = [NSString stringWithFormat:@"创建者:%@", one_chatinfo.createrId];
-    cell.bgImageView.backgroundColor = [[IMUserInfo shareInstance] listIconColor:[NSString stringWithFormat:@"%@%@", one_chatinfo.roomName, one_chatinfo.createrId]];
+    IFChatroomItem* item = [_listArr objectAtIndex:row];
+    cell.topL.text = item.name;
+    cell.bottomL.text = [NSString stringWithFormat:@"创建者:%@", item.creatorId];
+    cell.bgImageView.backgroundColor = [[IMUserInfo shareInstance] listIconColor:[NSString stringWithFormat:@"%@%@", item.name, item.creatorId]];
     [cell.iconBtn setImage:[UIImage imageNamed:@"im_chatroomList_icon"] forState:UIControlStateNormal];
     
     return cell;
@@ -147,10 +134,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     ChatRoomViewController *receive = [[ChatRoomViewController alloc] init];
-    ChatroomInfo *selectItemObject = [m_ChatInfo objectAtIndex:indexPath.row];
-    receive.mRoomId = selectItemObject.roomId;
-    receive.mRoomName = selectItemObject.roomName;
-    receive.mCreaterId = selectItemObject.createrId;
+    IFChatroomItem *item = [_listArr objectAtIndex:indexPath.row];
+    receive.mRoomId = item.ID;
+    receive.mRoomName = item.name;
+    receive.mCreaterId = item.creatorId;
     receive.fromType = IFChatroomVCTypeFromList;
     
     [self.navigationController pushViewController:receive animated:YES];
@@ -164,14 +151,80 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)refreshChatroomList {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+- (void)refreshList
+{
+    [self.view showProgressWithText:@"加载中..."];
+    
+    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
         [m_interfaceUrls demoRequestChatroomList];
-    });
+    } else {
+        __weak typeof(self) weakSelf = self;
+        [[XHClient sharedClient].roomManager queryChatroomList:UserId type:[NSString stringWithFormat:@"%d", CHATROOM_LIST_TYPE_CHATROOM] completion:^(NSString *listInfo, NSError *error) {
+            NSArray *listArr = nil;
+            if (listInfo) {
+                NSData *jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
+                listArr = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                          options:NSJSONReadingMutableContainers
+                                                            error:nil];
+            }
+            
+            [weakSelf refreshListDidEnd:listArr];
+
+        }];
+    }
+}
+
+- (void)refreshListDidEnd:(NSArray *)listArr
+{
+    if (listArr.count != 0) {
+        [_listArr removeAllObjects];
+        
+        if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+            for (int index = 0; index < listArr.count; index++) {
+                NSDictionary *subDic = listArr[index];
+                
+                IFChatroomItem *item = [[IFChatroomItem alloc] init];
+                item.name = subDic[@"Name"];
+                item.creatorId = subDic[@"Creator"];
+                item.ID = subDic[@"ID"];
+                
+                [_listArr addObject:item];
+            }
+        } else {
+            for (int index = 0; index < listArr.count; index++) {
+                NSString *str = listArr[index];
+                NSString *strDecoded = [str ilg_URLDecode];
+                NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
+                NSError *error = nil;
+                NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                       options:NSJSONReadingMutableContainers
+                                                                         error:&error];
+                if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
+                    continue;
+                }
+                
+                IFChatroomItem *item = [[IFChatroomItem alloc] init];
+                item.name = subDic[@"name"];
+                item.creatorId = subDic[@"creator"];
+                item.ID = subDic[@"id"];
+                
+                [_listArr addObject:item];
+            }
+        }
+        
+        [_listView.tableView reloadData];
+    }
+    
+    [self.view hideProgress];
+    if ([_listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
+        if (_listView.tableView.refreshControl && _listView.tableView.refreshControl.refreshing) {
+            [_listView.tableView.refreshControl endRefreshing];
+        }
+    }
 }
 
 @end
 
-@implementation ChatroomInfo
+@implementation IFChatroomItem
 
 @end

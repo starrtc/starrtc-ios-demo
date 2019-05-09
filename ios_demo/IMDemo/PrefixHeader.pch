@@ -20,7 +20,6 @@
 #import "UIButton+ILGUIKit.h"
 #import "UIColor+Category.h"
 #import "ILGLocalData.h"
-#import "NSDate+ILGLib.h"
 #import "ILGDevice.h"
 #import "IMUserInfo.h"
 #import "IMHelp.h"
@@ -29,6 +28,9 @@
 #import "UIImage+utils.h"
 #import "UIView+utils.h"
 #import "AssignToObject.h"
+
+#import "ILGLibrary.h"
+
 #define UserOnline [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserOnline"] boolValue]
 #define UserId [IMUserInfo shareInstance].userID
 #define StatusBarHeight UIApplication.sharedApplication.statusBarFrame.size.height

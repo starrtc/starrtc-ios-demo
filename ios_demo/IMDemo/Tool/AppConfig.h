@@ -8,23 +8,37 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, IFServiceType) {
+    IFServiceTypePublic, //公有云
+    IFServiceTypePrivate //私有云
+};
+
 @interface AppConfig : NSObject
 
-@property (nonatomic, strong) NSString *host;
-@property (nonatomic, strong) NSString *userId;
-@property (nonatomic, strong) NSString *appId;
-@property (nonatomic, strong) NSString *loginHost;
-@property (nonatomic, strong) NSString *messageHost;
-@property (nonatomic, strong) NSString *chatHost;
-@property (nonatomic, strong) NSString *uploadHost;
-@property (nonatomic, strong) NSString *downloadHost;
-@property (nonatomic, strong) NSString *voipHost;
+@property (nonatomic, strong, readonly) NSString *appId;
+@property (nonatomic, strong, readonly) NSString *userId;
+@property (nonatomic, strong, readonly) NSString *host;
+@property (nonatomic, strong, readonly) NSString *loginHost;
+@property (nonatomic, strong, readonly) NSString *messageHost;
+@property (nonatomic, strong, readonly) NSString *chatHost;
+@property (nonatomic, strong, readonly) NSString *uploadHost;
+@property (nonatomic, strong, readonly) NSString *downloadHost;
+@property (nonatomic, strong, readonly) NSString *voipHost;
+
 @property (nonatomic, assign) BOOL audioEnabled;
 @property (nonatomic, assign) BOOL videoEnabled;
 
 + (instancetype)shareConfig;
++ (AppConfig *)appConfigForLocal:(IFServiceType)type;
++ (void)saveSystemSettingsForPublic:(NSDictionary *)params;
++ (void)saveSystemSettingsForPrivate:(NSDictionary *)params;
 
 - (BOOL)liveEnable;
 - (void)checkAppConfig;
+
+//切换sdk部署服务类型，私有云或公有云
++ (void)switchSDKServiceType;
+//sdk服务类型
++ (IFServiceType)SDKServiceType;
 
 @end

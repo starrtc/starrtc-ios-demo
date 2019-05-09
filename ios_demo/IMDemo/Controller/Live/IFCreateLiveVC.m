@@ -11,6 +11,8 @@
 #import "IFLiveVC.h"
 
 #import "InterfaceUrls.h"
+#import "XHCustomConfig.h"
+
 
 @interface IFCreateLiveVC ()
 
@@ -35,6 +37,7 @@
 - (void)createUI {
     self.title = @"创建直播间";
     
+    self.sessionView.isHasControl = NO;
     self.sessionView.alertTitle = @"专属直播间的名称";
     self.sessionView.textFieldPlaceholder = @"输入直播间名称";
     self.sessionView.funcBtnTitle = @"创建新直播";
@@ -54,7 +57,8 @@
         __weak typeof(self) weakSelf = self;
         XHLiveItem *liveItem = [[XHLiveItem alloc] init];
         liveItem.liveName = name;
-        liveItem.liveType = self.sessionView.isPublic ? XHLiveTypeGlobalPublic:XHLiveTypeLoginPublic;
+        liveItem.liveType = XHLiveTypeGlobalPublic;
+//        liveItem.liveType = self.sessionView.isPublic ? XHLiveTypeGlobalPublic:XHLiveTypeLoginPublic;
         [[XHClient sharedClient].liveManager createLive:liveItem completion:^(NSString *liveID, NSError *error) {
             [UIView hiddenProgress];
             
@@ -62,7 +66,18 @@
                 [weakSelf.view ilg_makeToast:[NSString stringWithFormat:@"创建直播失败：%@", error.localizedDescription] position:ILGToastPositionCenter];
                 
             } else {
-                [[[InterfaceUrls alloc] init] reportLive:name ID:liveID creator:[IMUserInfo shareInstance].userID];
+                if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+                    [[[InterfaceUrls alloc] init] reportLive:name ID:liveID creator:[IMUserInfo shareInstance].userID];
+                } else {
+                    NSDictionary *infoDic = @{@"id":liveID,
+                                              @"creator":UserId,
+                                              @"name":name
+                                              };
+                    NSString *infoStr = [infoDic ilg_jsonString];
+                    [[XHClient sharedClient].meetingManager saveToList:UserId type:CHATROOM_LIST_TYPE_LIVE meetingId:liveID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
+                        
+                    }];
+                }
                 
                 IFLiveVC *receive = [[IFLiveVC alloc] initWithType:IFLiveVCTypeCreate];
                 receive.liveId = liveID;
