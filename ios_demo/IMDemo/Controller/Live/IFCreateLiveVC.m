@@ -37,6 +37,7 @@
 - (void)createUI {
     self.title = @"创建直播间";
     
+    self.sessionView.isHasControl = NO;
     self.sessionView.alertTitle = @"专属直播间的名称";
     self.sessionView.textFieldPlaceholder = @"输入直播间名称";
     self.sessionView.funcBtnTitle = @"创建新直播";
@@ -56,7 +57,8 @@
         __weak typeof(self) weakSelf = self;
         XHLiveItem *liveItem = [[XHLiveItem alloc] init];
         liveItem.liveName = name;
-        liveItem.liveType = self.sessionView.isPublic ? XHLiveTypeGlobalPublic:XHLiveTypeLoginPublic;
+        liveItem.liveType = XHLiveTypeGlobalPublic;
+//        liveItem.liveType = self.sessionView.isPublic ? XHLiveTypeGlobalPublic:XHLiveTypeLoginPublic;
         [[XHClient sharedClient].liveManager createLive:liveItem completion:^(NSString *liveID, NSError *error) {
             [UIView hiddenProgress];
             
