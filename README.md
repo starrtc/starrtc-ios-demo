@@ -55,6 +55,9 @@ https://github.com/starrtc/starrtc-server
 ==
 测试小车，人脸识别，在线教育等请参见：https://docs.starrtc.com/en/download/
 
+更新记录
+===
+https://github.com/starrtc/starrtc-ios-demo/wiki/Changelog
 
 Contact
 =====
