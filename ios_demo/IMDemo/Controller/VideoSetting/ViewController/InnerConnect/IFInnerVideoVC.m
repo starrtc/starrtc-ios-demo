@@ -44,8 +44,25 @@
     
     [self createUI];
     
-    [[XHClient sharedClient].voipManager setVideoConfig:[VideoSetParameters locaParameters]];
+    [[XHClient sharedClient].voipP2PManager setVideoConfig:[VideoSetParameters locaParameters]];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (_conversationStatus == IFInnerConversationStatus_Calling) {
+        
+        //设置用于视频显示的View
+        [[XHClient sharedClient].voipP2PManager setupView:self.conversationView.selfView targetView:self.conversationView.targetView];
+        
+        [[XHClient sharedClient].voipP2PManager call:self.targetId completion:^(NSError *error) {
+            if (error) {
+                [self showError:error];
+                [self backup];
+            }
+        }];
+    }
+}
+
 
 - (void)setConversationStatus:(IFInnerConversationStatus)conversationStatus {
     _conversationStatus = conversationStatus;
@@ -55,16 +72,19 @@
 
     if (conversationStatus == IFInnerConversationStatus_Conversation) {
 
-        //设置用于视频显示的View
-        [[XHClient sharedClient].voipManager setupView:self.conversationView.selfView targetView:self.conversationView.targetView];
+
     
     } else if (conversationStatus == IFInnerConversationStatus_Calling) {
-        [[XHClient sharedClient].voipManager call:self.targetId completion:^(NSError *error) {
-            if (error) {
-                [self showError:error];
-                [self backup];
-            }
-        }];
+        
+//        //设置用于视频显示的View
+//        [[XHClient sharedClient].voipP2PManager setupView:self.conversationView.selfView targetView:self.conversationView.targetView];
+//        
+//        [[XHClient sharedClient].voipP2PManager call:self.targetId completion:^(NSError *error) {
+//            if (error) {
+//                [self showError:error];
+//                [self backup];
+//            }
+//        }];
     }
     
 }
@@ -118,7 +138,7 @@
 - (void)callingVoipViewDidCancel:(CallingVoipView*) voipConversationView
 {
     __weak typeof(self)weakSelf = self;
-    [[XHClient sharedClient].voipManager cancel:self.targetId completion:^(NSError *error) {
+    [[XHClient sharedClient].voipP2PManager cancel:self.targetId completion:^(NSError *error) {
         [weakSelf backup];
     }];
 }
@@ -128,7 +148,7 @@
 - (void)receiveVoipViewDidRefuse:(ReceiveVoipView*) receiveVoipView
 {
     __weak typeof(self)weakSelf = self;
-    [[XHClient sharedClient].voipManager refuse:self.targetId completion:^(NSError *error) {
+    [[XHClient sharedClient].voipP2PManager refuse:self.targetId completion:^(NSError *error) {
         [weakSelf backup];
     }];
 }
@@ -137,7 +157,11 @@
 - (void)receiveVoipViewDidAgree:(ReceiveVoipView*) receiveVoipView
 {
     __weak typeof(self)weakSelf = self;
-    [[XHClient sharedClient].voipManager accept:self.targetId completion:^(NSError *error) {
+    
+    //设置用于视频显示的View
+    [[XHClient sharedClient].voipP2PManager setupView:self.conversationView.selfView targetView:self.conversationView.targetView];
+    
+    [[XHClient sharedClient].voipP2PManager accept:self.targetId completion:^(NSError *error) {
         if (error) {
             [weakSelf showError:error];
             [weakSelf backup];
@@ -152,7 +176,7 @@
 - (void)voipConversationViewDidHangup:(VoipConversationView *)voipConversationView
 {
     __weak typeof(self)weakSelf = self;
-    [[XHClient sharedClient].voipManager hangup:self.targetId completion:^(NSError *error) {
+    [[XHClient sharedClient].voipP2PManager hangup:self.targetId completion:^(NSError *error) {
         if (error) {
             [weakSelf showError:error];
         }
@@ -163,7 +187,7 @@
 //切换摄像头
 - (void)voipConversationViewSwitchCamera:(VoipConversationView*) voipConversationView
 {
-    [[XHClient sharedClient].voipManager switchCamera];
+    [[XHClient sharedClient].voipP2PManager switchCamera];
 }
 
 //录屏

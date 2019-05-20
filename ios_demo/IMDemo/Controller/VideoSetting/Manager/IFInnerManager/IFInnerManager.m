@@ -19,7 +19,7 @@
 {
     self = [super init];
     if (self) {
-        [[XHClient sharedClient].voipManager addDelegate:self];
+        [[XHClient sharedClient].voipP2PManager addDelegate:self];
     }
     return self;
 }
@@ -91,5 +91,14 @@
 -(void)onStop:(NSString *)code{
     [self.videoVC backup];
 }
+
+- (void)onMiss:(NSString *)fromID {
+}
+
+
+- (void)onReceiveRealtimeData:(NSString *)data { 
+    
+}
+
 
 @end

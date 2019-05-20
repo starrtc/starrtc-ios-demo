@@ -48,6 +48,8 @@
     self.innerManager = [[IFInnerManager alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startCalling:) name:@"IFInnerStartCallNotif" object:nil];
+    
+    [[XHClient sharedClient].voipP2PManager initStarDirectLink ];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -65,6 +67,7 @@
 }
 
 - (IBAction)backBtnClicked:(id)sender {
+    [[XHClient sharedClient].voipP2PManager stopStarDircetLink ];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -85,7 +88,7 @@
     @[ /*IOS_VPN @"/" IP_ADDR_IPv6, IOS_VPN @"/" IP_ADDR_IPv4,*/ IOS_WIFI @"/" IP_ADDR_IPv6, IOS_WIFI @"/" IP_ADDR_IPv4, IOS_CELLULAR @"/" IP_ADDR_IPv6, IOS_CELLULAR @"/" IP_ADDR_IPv4 ] ;
     
     NSDictionary *addresses = [self getIPAddresses];
-    NSLog(@"addresses: %@", addresses);
+    //NSLog(@"addresses: %@", addresses);
     
     __block NSString *address;
     [searchArray enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop)

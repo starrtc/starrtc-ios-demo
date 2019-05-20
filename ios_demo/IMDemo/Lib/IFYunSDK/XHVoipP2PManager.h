@@ -69,11 +69,23 @@
  */
 - (void)onReceiveRealtimeData:(NSString *)data;
 
+
 @end
 
 @interface XHVoipP2PManager : NSObject
 
 - (void)addDelegate:(id<XHVoipP2PManagerDelegate>)delegate;
+
+
+/**
+ * 初始化P2P直连
+ */
+-(void)initStarDirectLink;
+
+/**
+ * 停止P2P直连
+ */
+-(void)stopStarDircetLink;
 
 
 /**
