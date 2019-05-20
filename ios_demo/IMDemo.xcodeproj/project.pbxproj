@@ -135,6 +135,7 @@
 		8408FA691FF3C2C3008E5846 /* ChatRoomCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408FA681FF3C2C3008E5846 /* ChatRoomCreateViewController.m */; };
 		8412C49320189AC60061F7A9 /* videoReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8412C48F20189AC40061F7A9 /* videoReadyViewController.m */; };
 		8412C49420189AC60061F7A9 /* voipControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8412C49120189AC50061F7A9 /* voipControllerView.m */; };
+		844050C3228D5C02002831CE /* libbz2.1.0.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 844050C2228D5C01002831CE /* libbz2.1.0.5.tbd */; };
 		845799AE1FE7D85600560EC2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 845799AD1FE7D85600560EC2 /* AppDelegate.m */; };
 		845799B11FE7D85600560EC2 /* C2CViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845799B01FE7D85600560EC2 /* C2CViewController.m */; };
 		845799B61FE7D85600560EC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845799B51FE7D85600560EC2 /* Assets.xcassets */; };
@@ -476,6 +477,7 @@
 		8412C49020189AC50061F7A9 /* voipControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = voipControllerView.h; sourceTree = "<group>"; };
 		8412C49120189AC50061F7A9 /* voipControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = voipControllerView.m; sourceTree = "<group>"; };
 		8412C49220189AC50061F7A9 /* videoReadyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoReadyViewController.h; sourceTree = "<group>"; };
+		844050C2228D5C01002831CE /* libbz2.1.0.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.5.tbd; path = usr/lib/libbz2.1.0.5.tbd; sourceTree = SDKROOT; };
 		845799A91FE7D85600560EC2 /* IMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845799AC1FE7D85600560EC2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		845799AD1FE7D85600560EC2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -679,6 +681,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844050C3228D5C02002831CE /* libbz2.1.0.5.tbd in Frameworks */,
 				A5E4C38620A96D5B00F7D34A /* Bugly.framework in Frameworks */,
 				84D494451FFB967500D151BE /* VideoToolbox.framework in Frameworks */,
 				84E59DA21FEA01A800048219 /* libiconv.tbd in Frameworks */,
@@ -1244,6 +1247,7 @@
 		84E59D9A1FE9FEC000048219 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				844050C2228D5C01002831CE /* libbz2.1.0.5.tbd */,
 				84E59DA11FEA01A800048219 /* libiconv.tbd */,
 				84E59D9F1FEA019000048219 /* libstdc++.tbd */,
 				84E59D9D1FEA010E00048219 /* libc++.tbd */,

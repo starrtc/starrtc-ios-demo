@@ -32,10 +32,14 @@
     // Do any additional setup after loading the view from its nib.
     
     [self createIU];
+    
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
+    self.ipTextField.text = @"192.168.1.104";
+    
 }
 
 
@@ -43,7 +47,8 @@
 - (void)createIU {
     self.ipTextField.delegate = self;
     self.ipTextField.enablesReturnKeyAutomatically = YES;
-    self.ipTextField.returnKeyType = UIReturnKeyContinue;
+    self.ipTextField.returnKeyType = UIReturnKeyContinue;;
+    self.ipTextField.text = @"192.168.1.104";
 }
 
 
@@ -71,5 +76,9 @@
     return YES;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    textField.text = @"192.168.1.104";
+}
 
 @end
