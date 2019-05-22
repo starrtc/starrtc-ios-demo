@@ -63,7 +63,9 @@
 
 - (IBAction)callOther:(id)sender {
     IFInnerCallVC *vc = [[IFInnerCallVC alloc] initWithNibName:NSStringFromClass([IFInnerCallVC class]) bundle:[NSBundle mainBundle]];
+    NSLog(@"callOther 准备跳转通话画面");
     [self presentViewController:vc animated:YES completion:nil];
+    NSLog(@"callOther 已经跳转通话画面");
 }
 
 - (IBAction)backBtnClicked:(id)sender {

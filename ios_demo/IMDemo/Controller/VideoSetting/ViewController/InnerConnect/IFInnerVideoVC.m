@@ -86,7 +86,7 @@
 //            }
 //        }];
     }
-    
+    NSLog(@"HappyTest setConversationStatus end");
 }
 
 
@@ -111,6 +111,7 @@
 }
 
 - (void)refreshUI {
+    NSLog(@"caimj refreshUI");
     self.callingView.hidden = YES;
     self.receiveView.hidden = YES;
     self.conversationView.hidden = YES;
