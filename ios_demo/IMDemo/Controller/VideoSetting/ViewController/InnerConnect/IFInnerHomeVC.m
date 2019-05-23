@@ -28,6 +28,7 @@
 @property (nonatomic, strong) IFInnerManager *innerManager;
 @end
 
+
 @implementation IFInnerHomeVC
 
 - (BOOL)shouldAutorotate {
@@ -63,9 +64,9 @@
 
 - (IBAction)callOther:(id)sender {
     IFInnerCallVC *vc = [[IFInnerCallVC alloc] initWithNibName:NSStringFromClass([IFInnerCallVC class]) bundle:[NSBundle mainBundle]];
-    NSLog(@"callOther 准备跳转通话画面");
+    NSLog(@"callOther 准备跳转输入对端地址画面");
     [self presentViewController:vc animated:YES completion:nil];
-    NSLog(@"callOther 已经跳转通话画面");
+    NSLog(@"callOther 已经跳转输入对端地址通话画面");
 }
 
 - (IBAction)backBtnClicked:(id)sender {
@@ -74,10 +75,12 @@
 }
 
 - (void)startCalling:(NSNotification *)notif {
+    NSLog(@"准备跳转到通话画面");
     NSDictionary *dict = notif.object;
-    
     [self presentViewController:self.innerManager.videoVC animated:YES completion:nil];
     [self.innerManager.videoVC configureTargetId:dict[@"ipStr"] status:IFInnerConversationStatus_Calling];
+    NSLog(@"跳转到通话画面结束");
+    
 }
 
 
