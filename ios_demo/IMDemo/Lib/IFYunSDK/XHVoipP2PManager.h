@@ -181,11 +181,6 @@
 - (void)setVideoEnable:(BOOL) enable;
 
 
-/**
- * 退出P2P直连
- */
-- (void)exit;
-
 @end
 
 

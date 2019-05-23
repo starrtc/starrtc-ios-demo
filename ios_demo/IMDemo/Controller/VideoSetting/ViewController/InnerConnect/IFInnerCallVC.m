@@ -14,6 +14,8 @@
 
 @end
 
+static NSString *ipAddr = @"192.168.1.104";
+
 @implementation IFInnerCallVC
 
 - (BOOL)shouldAutorotate {
@@ -39,7 +41,7 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
-    self.ipTextField.text = @"192.168.1.104";
+    self.ipTextField.text = ipAddr;
     
 }
 
@@ -49,7 +51,7 @@
     self.ipTextField.delegate = self;
     self.ipTextField.enablesReturnKeyAutomatically = YES;
     self.ipTextField.returnKeyType = UIReturnKeyContinue;;
-    self.ipTextField.text = @"192.168.1.104";
+    self.ipTextField.text = ipAddr;
 }
 
 
@@ -72,6 +74,8 @@
     
     [self dismissViewControllerAnimated:NO completion:nil];
     
+    ipAddr = self.ipTextField.text;
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"IFInnerStartCallNotif" object:@{@"ipStr":self.ipTextField.text}];
 
     return YES;
@@ -79,7 +83,7 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    textField.text = @"192.168.1.104";
+    textField.text = ipAddr;
 }
 
 @end

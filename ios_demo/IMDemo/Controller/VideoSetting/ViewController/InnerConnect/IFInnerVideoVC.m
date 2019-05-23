@@ -94,8 +94,11 @@
 
 - (void)createUI {
     self.callingView = [CallingVoipView instanceFromNIB];
+    self.callingView.hidden = NO;
     self.receiveView = [ReceiveVoipView instanceFromNIB];
+    self.receiveView.hidden = YES;
     self.conversationView = [VoipConversationView instanceFromNIB];
+    self.conversationView.hidden = YES;
     
     self.callingView.delegate = self;
     self.receiveView.delegate = self;
@@ -118,12 +121,15 @@
     
     switch (_conversationStatus) {
         case IFInnerConversationStatus_Calling:
+            NSLog(@"show IFInnerConversationStatus_Calling");
             self.callingView.hidden = NO;
             break;
         case IFInnerConversationStatus_Receiving:
+            NSLog(@"show IFInnerConversationStatus_Receiving");
             self.receiveView.hidden = NO;
             break;
         case IFInnerConversationStatus_Conversation:
+            NSLog(@"show IFInnerConversationStatus_Conversation");
             self.conversationView.hidden = NO;
             break;
         default:
