@@ -16,6 +16,7 @@
 @property (nonatomic, strong) SpeechChatMenuView *chatMenuView;
 @property (nonatomic, strong) SpeechMembersView *membersView;
 @property (nonatomic, strong) SpeechMessagesView *messagesView;
+@property (weak, nonatomic) IBOutlet UIButton *upMicButton;
 @end
 
 @implementation GuestSpeechChatVC
@@ -30,7 +31,10 @@
     self.navigationItem.title = self.roomInfo.Name;
     [self.view addSubview:self.chatMenuView];
     [self.view addSubview:self.membersView];
-    [self.view insertSubview:self.messagesView atIndex:0];
+    [self.chatMenuView hiddenAudioButton];
+    [self.view addSubview:self.messagesView];
+    [self.view bringSubviewToFront:self.upMicButton	];
+    //[self.view insertSubview:self.messagesView atIndex:0];
 }
 - (void)setupHandle{
     
@@ -76,9 +80,19 @@
 #pragma mark - 点击
 
 - (IBAction)upVideoButtonClicked:(UIButton *)sender {
-    [[XHClient sharedClient].liveManager applyToBroadcaster:self.roomInfo.Creator completion:^(NSError *error) {
-        [UIWindow ilg_makeToast:@"申请发送成功，正在等待房主同意..."];
-    }];
+    if([sender.titleLabel.text isEqualToString:@"上麦"])
+    {
+        [[XHClient sharedClient].liveManager applyToBroadcaster:self.roomInfo.Creator completion:^(NSError *error) {
+            [UIWindow ilg_makeToast:@"申请发送成功，正在等待房主同意..."];
+        }];
+        [sender setTitle:@"下麦" forState:UIControlStateNormal] ;
+        
+    }
+    else
+    {
+        [[XHClient sharedClient].liveManager changeToAudience];
+        [sender setTitle:@"上麦" forState:UIControlStateNormal] ;
+    }
 }
 
 //父类方法
@@ -117,6 +131,11 @@
  @return 用于显示发言者视频画面的view
  */
 - (UIView *)onActorJoined:(NSString *)uid live:(NSString *)liveID{
+    if([uid isEqualToString:UserId])
+    {
+        // 主持人进入后先将自己静音
+        [[XHClient sharedClient].liveManager setAudioEnable:NO];
+    }
     [self.membersView addMember:uid];
     return nil;
 }
@@ -130,6 +149,10 @@
 - (void)onActorLeft:(NSString *)uid live:(NSString *)liveID{
 
     [self.membersView removeMember:uid];
+    if([uid isEqualToString:UserId])
+    {
+        [self.chatMenuView hiddenAudioButton];
+    }
     
 }
 
@@ -144,6 +167,7 @@
         case XHLiveJoinResult_Accept:
             content = @"房主接收了您的申请";
             [[XHClient sharedClient].liveManager changeToBroadcaster];
+            [self.chatMenuView showAudioButton];
             break;
         case XHLiveJoinResult_refuse:
             content = @"房主拒绝了您的申请";
@@ -195,6 +219,10 @@
  @param liveID 直播间ID
  */
 - (void)onLiveError:(NSError *)error live:(NSString *)liveID{
+    
+    NSLog(@"onLiveError %@",error);
+    [self leftButtonClicked:nil];
+    [UIWindow ilg_makeToast:error.localizedDescription ];
     
 }
 

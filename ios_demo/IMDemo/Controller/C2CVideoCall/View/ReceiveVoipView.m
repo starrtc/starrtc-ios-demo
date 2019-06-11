@@ -12,7 +12,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
-    @end
+@property (weak, nonatomic) IBOutlet UILabel *waitingInfoLabel;
+@end
 
 @implementation ReceiveVoipView
 
@@ -23,9 +24,17 @@
     // Drawing code
 }
 */
-- (void)setupUserNickname:(NSString*)nickname{
+- (void)setupUserNickname:(NSString*)nickname isAudio:(BOOL)isAudio{
     self.nickNameLabel.text = nickname;
     self.headerImageView.image = [UIImage imageWithUserId:nickname];
+    if(isAudio)
+    {
+        _waitingInfoLabel.text = @"邀请您进行语音通话";
+    }
+    else
+    {
+        _waitingInfoLabel.text = @"邀请您进行视频通话";
+    }
 }
 - (IBAction)agreeButtonClicked:(UIButton *)sender {
     if(_delegate && [_delegate respondsToSelector:@selector(receiveVoipViewDidAgree:)]){

@@ -9,16 +9,26 @@
 #import "CallingVoipView.h"
 
 @interface CallingVoipView ()
+
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *waitingInfoLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 
 @end
 
 @implementation CallingVoipView
 
-- (void)setupUserNickname:(NSString*)nickname{
+- (void)setupUserNickname:(NSString*)nickname isAudio:(BOOL)isAudio{
     self.nickNameLabel.text = nickname;
     self.headerImageView.image = [UIImage imageWithUserId:nickname];
+    if(isAudio)
+    {
+        _waitingInfoLabel.text = @"正在等待对方接受语音通话...";
+    }
+    else
+    {
+        _waitingInfoLabel.text = @"正在等待对方接受视频通话...";
+    }
 }
 
 - (IBAction)cancelButtonClicked:(UIButton *)sender {

@@ -19,6 +19,6 @@
 @interface CallingVoipView : IFBaseView
 
 @property (nonatomic, weak) id<CallingVoipViewDelegate> delegate;
-- (void)setupUserNickname:(NSString*)nickname;
+- (void)setupUserNickname:(NSString*)nickname isAudio:(BOOL)isAudio;
 
 @end

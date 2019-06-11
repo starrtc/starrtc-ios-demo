@@ -18,6 +18,7 @@
 @interface VoipVideoVC ()<CallingVoipViewDelegate,ReceiveVoipViewDelegate,VoipConversationViewDelegate>
 {
     VoipVCStatus _voipStatus;  //当前控制器的Voip 连接状态
+    VoipShowType _showType;   // 音频还是视频
 }
 @property (weak, nonatomic) CallingVoipView *callingView;
 @property (weak, nonatomic) VoipConversationView *conversationView;
@@ -40,7 +41,7 @@
 - (instancetype)initWithNib{
     if (self = [super initWithNibName:@"VoipVideoVC" bundle:[NSBundle mainBundle]]) {
         _voipStatus = VoipVCStatus_Calling;
-        
+        _showType = VoipShowType_Video;
     }
     return self;
 }
@@ -48,6 +49,7 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         _voipStatus = VoipVCStatus_Calling;
+        _showType = VoipShowType_Video;
     }
     return self;
 }
@@ -82,18 +84,37 @@
     
     [self setupUI];
     [[XHClient sharedClient].voipManager setVideoConfig:[VideoSetParameters locaParameters]];
-    //设置用于视频显示的View
-    [[XHClient sharedClient].voipManager setupView:self.conversationView.selfView targetView:self.conversationView.targetView];
-    if (_voipStatus == VoipVCStatus_Calling) {
-        [[XHClient sharedClient].voipManager call:self.targetId completion:^(NSError *error) {
-            if (error) {
-                [self showError:error];
-                [self backup];
-            }
-        }];
+
+    if(_showType == VoipShowType_Audio)
+    {
+        if(_voipStatus == VoipVCStatus_Calling)
+        {
+            [[XHClient sharedClient].voipManager audioCall:self.targetId completion:^(NSError *error) {
+                if (error) {
+                    [self showError:error];
+                    [self backup];
+                }
+            }];
+        }
+        [self.callingView setupUserNickname:self.targetId isAudio:YES];
+        [self.receiveView setupUserNickname:self.targetId  isAudio:YES];
     }
-    [self.callingView setupUserNickname:self.targetId];
-    [self.receiveView setupUserNickname:self.targetId];
+    else
+    {
+        //设置用于视频显示的View
+        [[XHClient sharedClient].voipManager setupView:self.conversationView.selfView targetView:self.conversationView.targetView];
+        if (_voipStatus == VoipVCStatus_Calling) {
+            [[XHClient sharedClient].voipManager call:self.targetId completion:^(NSError *error) {
+                if (error) {
+                    [self showError:error];
+                    [self backup];
+                }
+            }];
+        }
+        [self.callingView setupUserNickname:self.targetId isAudio:NO];
+        [self.receiveView setupUserNickname:self.targetId  isAudio:NO];
+    }
+
 
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
  
@@ -132,6 +153,15 @@
             self.conversationView.hidden = YES;
             break;
     }
+    if(_showType == VoipShowType_Audio)
+    {
+        [self.conversationView setupUserNickname: self.targetId isAudio:YES];
+    }
+    else
+    {
+        [self.conversationView setupUserNickname: self.targetId isAudio:NO];
+
+    }
 }
 
 //- (XQEchoCancellation*)echoCancellation{
@@ -158,10 +188,16 @@
 //    return _echoCancellation;
 //}
 
-- (void)setupTargetId:(NSString*)targetId viopStatus:(VoipVCStatus)voipStatus{
+- (void)setupTargetId:(NSString*)targetId viopStatus:(VoipVCStatus)voipStatus showType:(VoipShowType)showType{
     [self setupVoipState:voipStatus];
+    [self setupShowType:showType];
     self.targetId = targetId;
     
+}
+
+- (void)setupShowType:(VoipShowType) showType
+{
+    _showType = showType;
 }
 
 - (void)setupVoipState:(VoipVCStatus) voipStatus

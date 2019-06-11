@@ -13,7 +13,7 @@
 #import "XHMeetingManager.h"
 #import "XHLiveManager.h"
 #import "XHVoipP2PManager.h"
-
+#import "XHBeautyManager.h"
 
 @protocol XHClientDelegate <NSObject>
 
@@ -32,7 +32,7 @@
 @property (nonatomic, strong, readonly) XHVoipP2PManager *voipP2PManager;
 @property (nonatomic, strong, readonly) XHMeetingManager *meetingManager;
 @property (nonatomic, strong, readonly) XHLiveManager *liveManager;
-
+@property (nonatomic, strong, readonly) XHBeautyManager *beautyManager;
 + (instancetype)sharedClient;
 
 

@@ -11,6 +11,8 @@
 @class VoipConversationView;
 @protocol VoipConversationViewDelegate <NSObject>
 
+
+
 //挂断
 - (void)voipConversationViewDidHangup:(VoipConversationView*) voipConversationView;
 //切换摄像头
@@ -21,6 +23,8 @@
 @end
 
 @interface VoipConversationView : IFBaseView
+
+- (void)setupUserNickname:(NSString*)nickname isAudio:(BOOL)isAudio;
 
 @property (nonatomic, weak) id<VoipConversationViewDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIView *selfView;

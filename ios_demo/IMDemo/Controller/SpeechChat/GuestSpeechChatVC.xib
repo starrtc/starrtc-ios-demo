@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GuestSpeechChatVC">
             <connections>
+                <outlet property="upMicButton" destination="IIk-eh-UTh" id="zM3-di-Hf6"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -45,7 +46,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="upVideoButtonClicked:" destination="-1" eventType="touchUpInside" id="ybD-ri-lkO"/>
+                        <action selector="upVideoButtonClicked:" destination="-1" eventType="touchUpInside" id="FnU-iZ-VJm"/>
                     </connections>
                 </button>
             </subviews>
@@ -62,6 +63,6 @@
         </view>
     </objects>
     <resources>
-        <image name="audio_live_bg" width="350" height="621"/>
+        <image name="audio_live_bg" width="175" height="310"/>
     </resources>
 </document>

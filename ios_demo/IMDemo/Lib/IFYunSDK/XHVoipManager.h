@@ -19,6 +19,13 @@
  * @fromID 对方ID
  */
 - (void)onCalling:(NSString *)fromID;
+
+/**
+ * 被叫方响应
+ * 被叫方收到主叫方的语音呼叫
+ * @param fromID 对方ID
+ */
+- (void)onAudioCalling:(NSString *)fromID;
 /*
  *对方已挂断
  * @fromID 对方ID
@@ -129,6 +136,14 @@ typedef NS_ENUM(NSInteger, XHVideoConnectionType)
   @param completion 回调
   */
 - (void)call:(NSString *)toID completion:(void(^)(NSError *error))completion;
+
+/**
+ * 主叫方调用
+ * 发起语音通话
+ * @param toID 被叫方ID
+ * @param completion 结果回调
+ */
+- (void)audioCall:(NSString *)toID completion:(void(^)(NSError *error))completion;
 
 /**
  取消视频通话

@@ -13,6 +13,11 @@ typedef NS_ENUM(NSInteger , VoipVCStatus) {
     VoipVCStatus_Receiving = 3,
 };
 
+typedef NS_ENUM(NSInteger , VoipShowType) {
+    VoipShowType_Video = 1,
+    VoipShowType_Audio = 2,
+};
+
 @interface VoipVideoVC : IFBaseVC
 
 + (instancetype)shareInstance;
@@ -21,7 +26,7 @@ typedef NS_ENUM(NSInteger , VoipVCStatus) {
 
 @property (nonatomic, copy) NSString *targetId;//对方用户ID，（可能是呼叫方，也可能是接收方）
 
-- (void)setupTargetId:(NSString*)targetId viopStatus:(VoipVCStatus)voipStatus;
+- (void)setupTargetId:(NSString*)targetId viopStatus:(VoipVCStatus)voipStatus showType:(VoipShowType)showType;
 
 - (void)updateVoipState:(VoipVCStatus) voipStatus;
 

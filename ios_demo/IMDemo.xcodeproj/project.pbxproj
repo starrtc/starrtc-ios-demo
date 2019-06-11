@@ -471,6 +471,7 @@
 		7BE914A121EEDA3100FEEBD7 /* IFAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFAlertView.m; sourceTree = "<group>"; };
 		7BE914A321EF175C00FEEBD7 /* SpeechRoomModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SpeechRoomModel.h; sourceTree = "<group>"; };
 		7BE914A421EF175C00FEEBD7 /* SpeechRoomModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpeechRoomModel.m; sourceTree = "<group>"; };
+		8406904E22A6515D004377D0 /* XHBeautyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHBeautyManager.h; sourceTree = "<group>"; };
 		8408FA671FF3C2C3008E5846 /* ChatRoomCreateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatRoomCreateViewController.h; sourceTree = "<group>"; };
 		8408FA681FF3C2C3008E5846 /* ChatRoomCreateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatRoomCreateViewController.m; sourceTree = "<group>"; };
 		8412C48F20189AC40061F7A9 /* videoReadyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = videoReadyViewController.m; sourceTree = "<group>"; };
@@ -712,27 +713,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		7B0E4E2520AEB4D700030D98 /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tools;
-			sourceTree = "<group>";
-		};
-		7B0E4E2620AEB4D700030D98 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		7B0E4E2720AEB4D700030D98 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		7B570800207AFFED00857F30 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -877,13 +857,6 @@
 				7B627832208731DA00FE0841 /* VoipListTableViewCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		7B62782E2087318500FE0841 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		7B62782F2087318D00FE0841 /* Tools */ = {
@@ -1203,7 +1176,6 @@
 				A58DFF10206CE2820074DB7B /* View */,
 				A58DFF11206CE29A0074DB7B /* Tool */,
 				A58DFF12206CE2B30074DB7B /* Lib */,
-				A58C188620CE8EF90036278A /* Define */,
 				845799AC1FE7D85600560EC2 /* AppDelegate.h */,
 				845799AD1FE7D85600560EC2 /* AppDelegate.m */,
 				845799B51FE7D85600560EC2 /* Assets.xcassets */,
@@ -1212,7 +1184,6 @@
 				845799BA1FE7D85600560EC2 /* Info.plist */,
 				A58DFF46206CE7010074DB7B /* PrefixHeader.pch */,
 				845799BB1FE7D85600560EC2 /* main.m */,
-				A58DFF13206CE3090074DB7B /* Resource */,
 			);
 			path = IMDemo;
 			sourceTree = "<group>";
@@ -1366,13 +1337,6 @@
 			path = IMMsgManager;
 			sourceTree = "<group>";
 		};
-		A58C188620CE8EF90036278A /* Define */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Define;
-			sourceTree = "<group>";
-		};
 		A58C188720CE99980036278A /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -1450,13 +1414,6 @@
 			path = Lib;
 			sourceTree = "<group>";
 		};
-		A58DFF13206CE3090074DB7B /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resource;
-			sourceTree = "<group>";
-		};
 		A58DFF1D206CE6A80074DB7B /* Masonry */ = {
 			isa = PBXGroup;
 			children = (
@@ -1514,9 +1471,6 @@
 			isa = PBXGroup;
 			children = (
 				7B0E4E2420AEB4D700030D98 /* Controller */,
-				7B0E4E2720AEB4D700030D98 /* Model */,
-				7B0E4E2520AEB4D700030D98 /* Tools */,
-				7B0E4E2620AEB4D700030D98 /* View */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -1539,7 +1493,6 @@
 			isa = PBXGroup;
 			children = (
 				7B62782F2087318D00FE0841 /* Tools */,
-				7B62782E2087318500FE0841 /* Model */,
 				7B62782D2087317B00FE0841 /* View */,
 				7B62782C2087316A00FE0841 /* Controller */,
 			);
@@ -1870,6 +1823,7 @@
 		A5F4CDD322684F5200398268 /* IFYunSDK */ = {
 			isa = PBXGroup;
 			children = (
+				8406904E22A6515D004377D0 /* XHBeautyManager.h */,
 				A5F4CDEE2269944A00398268 /* XHCustomConfig.h */,
 				A5F4CDD422684F5200398268 /* XHVideoConfig.h */,
 				A5F4CDD522684F5200398268 /* XHVoipP2PManager.h */,

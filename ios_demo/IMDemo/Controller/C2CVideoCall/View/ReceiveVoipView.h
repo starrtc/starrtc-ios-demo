@@ -20,6 +20,6 @@
 @interface ReceiveVoipView : IFBaseView
 
 @property (nonatomic, weak) id<ReceiveVoipViewDelegate> delegate;
-- (void)setupUserNickname:(NSString*)nickname;
+- (void)setupUserNickname:(NSString*)nickname isAudio:(BOOL)isAudio;
 
 @end

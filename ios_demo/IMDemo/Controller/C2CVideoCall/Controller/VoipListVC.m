@@ -94,8 +94,39 @@
             [[VoipHistoryManage manage] sortList];
             [self.tableView reloadData];
         });
-        [[VoipVideoVC shareInstance] setupTargetId:userId viopStatus:VoipVCStatus_Calling];
-        [[VoipVideoVC shareInstance] showVoipInViewController:self];
+        
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        NSArray *titles = @[@"视频通话", @"音频通话", @"取消"];
+        for (int index = 0; index < titles.count; index++)
+        {
+            UIAlertActionStyle style = UIAlertActionStyleDefault;
+            if (index == titles.count - 1)
+            {
+                style = UIAlertActionStyleCancel;
+            }
+            
+            UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:style handler:^(UIAlertAction * _Nonnull action)
+                                     {
+                                         if (index == 0 )
+                                         {
+                                             //设置对方UserId
+                                             [[VoipVideoVC shareInstance] setupTargetId:userId viopStatus:VoipVCStatus_Calling showType:VoipShowType_Video];
+                                         }
+                                         else
+                                         {
+                                             //设置对方UserId
+                                             [[VoipVideoVC shareInstance] setupTargetId:userId viopStatus:VoipVCStatus_Calling showType:VoipShowType_Audio];
+                                         }
+                                         [[VoipVideoVC shareInstance] showVoipInViewController:self];
+                                     }];
+            [alertController addAction:action];
+        }
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+        
     }
 }
 
