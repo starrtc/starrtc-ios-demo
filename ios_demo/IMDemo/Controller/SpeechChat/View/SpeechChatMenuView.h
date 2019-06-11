@@ -25,6 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<SpeechChatMenuViewDelegate> delegate;
 
+-(void)hiddenAudioButton;
+
+-(void)showAudioButton;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

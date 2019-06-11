@@ -110,7 +110,7 @@
     } else if (_vcType == IFSourceVCTypeStart || _vcType == IFSourceVCTypeCreate) {
         [self.whitePanel publish];
         
-        [[XHClient sharedClient].liveManager setDeviceDirection:STAR_DEVICE_DIRECTION_HOME_LEFT];
+        [[XHClient sharedClient].liveManager setDeviceDirection:STAR_DEVICE_DIRECTION_HOME_BOTTOM];
         [[XHClient sharedClient].liveManager startLive:self.liveId completion:^(NSError *error) {
             if (error) {
                 [weakSelf.navigationController popViewControllerAnimated:YES];

@@ -33,9 +33,9 @@
 }
 - (void)setupHandle{
     self.membersView.roomInfo = self.roomInfo;
+    [[XHClient sharedClient].liveManager setRtcMediaType:IOS_STAR_RTC_MEDIA_TYPE_AUDIO_ONLY];
     [[XHClient sharedClient].liveManager setVideoEnable:NO];
     [[XHClient sharedClient].liveManager setAudioEnable:NO];
-    [[XHClient sharedClient].liveManager setRtcMediaType:IOS_STAR_RTC_MEDIA_TYPE_AUDIO_ONLY];
     [[XHClient sharedClient].liveManager addDelegate:self];
     [[XHClient sharedClient].liveManager startLive:self.roomInfo.ID completion:^(NSError *error) {
         if (error) {
@@ -107,6 +107,11 @@
  @return 用于显示发言者视频画面的view
  */
 - (UIView *)onActorJoined:(NSString *)uid live:(NSString *)liveID{
+    if([uid isEqualToString:self.roomInfo.Creator])
+    {
+       // 主持人进入后先将自己静音
+        [[XHClient sharedClient].liveManager setAudioEnable:NO];
+    }
     [self.membersView addMember:uid];
     return nil;
 }

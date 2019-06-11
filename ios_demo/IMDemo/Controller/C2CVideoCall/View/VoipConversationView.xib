@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,10 +18,47 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lqf-cs-K1m">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starfox_500" translatesAutoresizingMaskIntoConstraints="NO" id="AA6-ju-s6B">
+                            <rect key="frame" x="142" y="178" width="90" height="90"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="90" id="jV6-OT-7lM"/>
+                                <constraint firstAttribute="width" constant="90" id="pJI-cp-9ID"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="45"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVj-fi-0WG">
+                            <rect key="frame" x="29" y="276" width="316" height="26"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1UI-uG-hRO">
+                            <rect key="frame" x="158" y="491" width="58" height="26"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="WVj-fi-0WG" firstAttribute="top" secondItem="AA6-ju-s6B" secondAttribute="bottom" constant="8" id="57I-OF-aIL"/>
+                        <constraint firstAttribute="trailing" secondItem="WVj-fi-0WG" secondAttribute="trailing" constant="30" id="6Yg-ya-ZhD"/>
+                        <constraint firstItem="AA6-ju-s6B" firstAttribute="leading" secondItem="Lqf-cs-K1m" secondAttribute="leading" constant="142" id="FNj-am-5Ue"/>
+                        <constraint firstItem="WVj-fi-0WG" firstAttribute="top" secondItem="AA6-ju-s6B" secondAttribute="bottom" constant="17" id="Tua-NZ-MN2"/>
+                        <constraint firstItem="1UI-uG-hRO" firstAttribute="leading" secondItem="Lqf-cs-K1m" secondAttribute="leading" constant="158" id="U1d-CF-d5H"/>
+                        <constraint firstItem="WVj-fi-0WG" firstAttribute="centerX" secondItem="1UI-uG-hRO" secondAttribute="centerX" id="csc-ed-mJx"/>
+                        <constraint firstItem="WVj-fi-0WG" firstAttribute="leading" secondItem="Lqf-cs-K1m" secondAttribute="leading" constant="29" id="dKi-Jn-2JC"/>
+                        <constraint firstItem="AA6-ju-s6B" firstAttribute="top" secondItem="Lqf-cs-K1m" secondAttribute="top" constant="178" id="mko-YJ-Bc7"/>
+                    </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOM-9y-w8b">
-                    <rect key="frame" x="15" y="40" width="116" height="155"/>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LOM-9y-w8b">
+                    <rect key="frame" x="15" y="46" width="116" height="155"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="155" id="XY9-T1-pyG"/>
@@ -80,7 +116,7 @@
                     </connections>
                 </button>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="录屏" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Vr-gU-XIl">
-                    <rect key="frame" x="64.5" y="597" width="35" height="21"/>
+                    <rect key="frame" x="64" y="597" width="35" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -89,6 +125,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Lqf-cs-K1m" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="12F-FB-WFW"/>
+                <constraint firstItem="eSP-7L-LL4" firstAttribute="top" secondItem="1UI-uG-hRO" secondAttribute="bottom" constant="-1" id="2vF-oT-V6M"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="u08-AX-VoM" secondAttribute="trailing" constant="73.5" id="30o-Ks-oSt"/>
                 <constraint firstItem="dat-1y-rTJ" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="4of-qU-3Ma"/>
                 <constraint firstItem="dat-1y-rTJ" firstAttribute="top" secondItem="eSP-7L-LL4" secondAttribute="bottom" constant="15" id="ASJ-3X-EIu"/>
@@ -109,10 +146,13 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="callTimeLabel" destination="1UI-uG-hRO" id="H4E-hc-fHx"/>
+                <outlet property="nickImage" destination="AA6-ju-s6B" id="9c9-6d-pAm"/>
+                <outlet property="nickNameLabel" destination="WVj-fi-0WG" id="p1h-SN-LA6"/>
                 <outlet property="selfView" destination="LOM-9y-w8b" id="y83-xO-0Qk"/>
                 <outlet property="targetView" destination="Lqf-cs-K1m" id="x0q-41-EGE"/>
             </connections>
-            <point key="canvasLocation" x="33.5" y="93.5"/>
+            <point key="canvasLocation" x="32.799999999999997" y="93.103448275862078"/>
         </view>
     </objects>
     <resources>
@@ -120,5 +160,6 @@
         <image name="RecordScreen2" width="65" height="65"/>
         <image name="VoipSwitchCamar" width="65" height="65"/>
         <image name="hangup" width="65" height="65"/>
+        <image name="starfox_500" width="485" height="500"/>
     </resources>
 </document>

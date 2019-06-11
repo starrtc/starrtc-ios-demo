@@ -37,11 +37,12 @@
     if ([self.roomNameTextField.text length] > 0) {
         XHLiveItem *meeting = [XHLiveItem new];
         meeting.liveName = self.roomNameTextField.text;
-        if(self.priviteStatusSwitch.on){
-            meeting.liveType = XHLiveTypeLoginPublic;
-        } else {
-            meeting.liveType = XHLiveTypeLoginSpecXHy;
-        }
+        meeting.liveType = XHLiveTypeGlobalPublic;
+//        if(self.priviteStatusSwitch.on){
+//            meeting.liveType = XHLiveTypeLoginPublic;
+//        } else {
+//            meeting.liveType = XHLiveTypeLoginSpecXHy;
+//        }
 //        ID=%@&Name=%@&Creator=%@
         [[XHClient sharedClient].liveManager createLive:meeting completion:^(NSString *liveID, NSError *error) {
             if (error == nil) {

@@ -46,9 +46,11 @@
         if ([self isValidData]) {
             //保存历史记录
             [[VoipHistoryManage manage] addVoip:self.toUserTextField.text];
-             //设置对方UserId
-            [[VoipVideoVC shareInstance] setupTargetId:self.toUserTextField.text viopStatus:VoipVCStatus_Calling];
-            [self.navigationController pushViewController:[VoipVideoVC shareInstance] animated:YES];
+            
+            [self showAlertChooseAudioOrVideo];
+            
+            
+            
             
         }
         
@@ -57,6 +59,41 @@
     }
     
 }
+
+
+-(void)showAlertChooseAudioOrVideo
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    NSArray *titles = @[@"视频通话", @"音频通话", @"取消"];
+    for (int index = 0; index < titles.count; index++)
+    {
+        UIAlertActionStyle style = UIAlertActionStyleDefault;
+        if (index == titles.count - 1)
+        {
+            style = UIAlertActionStyleCancel;
+        }
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:style handler:^(UIAlertAction * _Nonnull action)
+                                 {
+                                     if (index == 0 )
+                                     {
+                                         //设置对方UserId
+                                         [[VoipVideoVC shareInstance] setupTargetId:self.toUserTextField.text viopStatus:VoipVCStatus_Calling showType:VoipShowType_Video];
+                                     }
+                                     else
+                                     {
+                                         //设置对方UserId
+                                         [[VoipVideoVC shareInstance] setupTargetId:self.toUserTextField.text viopStatus:VoipVCStatus_Calling showType:VoipShowType_Audio];
+                                     }
+                                     [self.navigationController pushViewController:[VoipVideoVC shareInstance] animated:YES];
+                                 }];
+        [alertController addAction:action];
+    }
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.toUserTextField resignFirstResponder];
@@ -70,7 +107,7 @@
             //保存历史记录
             [[VoipHistoryManage manage] addVoip:self.toUserTextField.text];
             //设置对方UserId
-            [[VoipVideoVC shareInstance] setupTargetId:self.toUserTextField.text viopStatus:VoipVCStatus_Calling];
+            [self showAlertChooseAudioOrVideo];
             [self.navigationController pushViewController:[VoipVideoVC shareInstance] animated:YES];
             
         }

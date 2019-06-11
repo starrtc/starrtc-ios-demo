@@ -63,9 +63,25 @@
     //保存历史记录
     [[VoipHistoryManage manage] addVoip:fromID];
     //设置对方UserId
-    [[VoipVideoVC shareInstance] setupTargetId:fromID viopStatus:VoipVCStatus_Receiving];
+    [[VoipVideoVC shareInstance] setupTargetId:fromID viopStatus:VoipVCStatus_Receiving showType:VoipShowType_Video];
     [[VoipVideoVC shareInstance] showVoipInViewController:self.delegate];
 }
+
+/**
+ * 被叫方响应
+ * 被叫方收到主叫方的语音呼叫
+ * @param fromID 对方ID
+ */
+- (void)onAudioCalling:(NSString *)fromID
+{
+    //保存历史记录
+    [[VoipHistoryManage manage] addVoip:fromID];
+    //设置对方UserId
+    [[VoipVideoVC shareInstance] setupTargetId:fromID viopStatus:VoipVCStatus_Receiving showType:VoipShowType_Audio];
+    [[VoipVideoVC shareInstance] showVoipInViewController:self.delegate];
+    
+}
+
 //对方已挂断
 - (void)onHangup:(NSString *)fromID{
     [UIWindow ilg_makeToast:@"对方已挂断"];

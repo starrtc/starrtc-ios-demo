@@ -47,6 +47,22 @@
     [[self currentViewController] presentViewController:self.videoVC animated:YES completion:nil];
     [self.videoVC configureTargetId:fromID status:IFInnerConversationStatus_Receiving];
 }
+
+/**
+ * 被叫方响应
+ * 被叫方收到主叫方的语音呼叫
+ * @param fromID 对方ID
+ */
+- (void)onAudioCalling:(NSString *)fromID
+{
+//    //保存历史记录
+//    
+//    //设置对方UserId
+//    [[self currentViewController] presentViewController:self.videoVC animated:YES completion:nil];
+//    [self.videoVC configureTargetId:fromID status:IFInnerConversationStatus_Receiving];
+}
+
+
 - (UIViewController *)currentViewController {
     UIViewController *currentVC = [UIApplication sharedApplication].keyWindow.rootViewController;
     
