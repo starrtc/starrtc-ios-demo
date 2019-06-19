@@ -200,6 +200,21 @@
     }];
 }
 
+// 转发rtsp流
+-(void)demopushRtsp:(NSString *)server
+               name:(NSString *)name
+         chatroomId:(NSString *)chatroomId
+           listType:(NSInteger)listType
+            rtspUrl:(NSString *)rtspUrl
+{
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@/push?streamType=rtsp&streamUrl=%@&roomLiveType=%ld&roomId=%@&extra=%@",server,
+                        rtspUrl, (long)listType, chatroomId, name];
+    [self get:urlStr callback:^(id result, NSError *error) {
+       
+    }];
+}
+
+
 - (void)get:(NSString *)urlStr callback:(void(^)(id result, NSError *error))callback {
     NSURL *url = [NSURL URLWithString:urlStr];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];

@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *uploadTextField;
 @property (weak, nonatomic) IBOutlet UITextField *downloadTextField;
 @property (weak, nonatomic) IBOutlet UITextField *voipTextField;
+@property (weak, nonatomic) IBOutlet UITextField *uploadProxyTextField;
 
 @property (weak, nonatomic) IBOutlet UILabel *messageTitleL;
 @property (weak, nonatomic) IBOutlet UILabel *chatroomTitleL;
@@ -61,6 +62,7 @@
     self.uploadTextField.delegate = self;
     self.downloadTextField.delegate = self;
     self.voipTextField.delegate = self;
+    self.uploadProxyTextField.delegate = self;
 }
 
 - (void)initTextField
@@ -76,6 +78,7 @@
     self.uploadTextField.text = config.uploadHost;
     self.downloadTextField.text = config.downloadHost;
     self.voipTextField.text = config.voipHost;
+    self.uploadProxyTextField.text = config.uploadProxyHost;
 }
 
 - (void)endEditTextField:(UIGestureRecognizer*)ges{
@@ -105,6 +108,7 @@
     [appParameters setObject:self.voipTextField.text forKey:@"voipHost"];
     [appParameters setObject:self.appIdTextField.text forKey:@"appId"];
     [appParameters setObject:self.userIdTextField.text forKey:@"userId"];
+    [appParameters setObject:self.uploadProxyTextField.text forKey:@"uploadProxyHost"];
     
     if (self.serviceTypeForTmp == IFServiceTypePublic) {
         [AppConfig saveSystemSettingsForPublic:appParameters];

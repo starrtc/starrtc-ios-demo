@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, IFServiceType) {
 @property (nonatomic, strong, readonly) NSString *chatHost;
 @property (nonatomic, strong, readonly) NSString *uploadHost;
 @property (nonatomic, strong, readonly) NSString *downloadHost;
+@property (nonatomic, strong, readonly) NSString *uploadProxyHost;
 @property (nonatomic, strong, readonly) NSString *voipHost;
 
 @property (nonatomic, assign) BOOL audioEnabled;

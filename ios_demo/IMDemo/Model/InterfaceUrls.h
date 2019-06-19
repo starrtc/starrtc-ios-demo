@@ -53,6 +53,13 @@
 //公有部署下第三方流列表
 - (void)requestForThirdStreamList;
 
+// 转发rtsp流
+-(void)demopushRtsp:(NSString *)server
+               name:(NSString *)name
+         chatroomId:(NSString *)chatroomId
+           listType:(NSInteger)listType
+            rtspUrl:(NSString *)rtspUrl;
+
 //获取authKey
 +(void)getAuthKey:(NSString * ) userID
             appid:(NSString *) appid

@@ -50,22 +50,25 @@ static NSString * const kAppConfigParametersPrivateKey = @"AppConfigParametersPr
             
         } else {
             if (type == IFServiceTypePrivate) {
-                _messageHost = @"129.204.145.78:19903";
-                _chatHost = @"129.204.145.78:19906";
-                _uploadHost = @"129.204.145.78:19931";
-                _downloadHost = @"129.204.145.78:19928";
-                _voipHost = @"129.204.145.78:10086";
-//                _messageHost = @"aisee.f3322.org:19903";
-//                _chatHost = @"aisee.f3322.org:19906";
-//                _uploadHost = @"aisee.f3322.org:19931";
-//                _downloadHost = @"aisee.f3322.org:19928";
-//                _voipHost = @"aisee.f3322.org:10086";
+//                _messageHost = @"129.204.145.78:19903";
+//                _chatHost = @"129.204.145.78:19906";
+//                _uploadHost = @"129.204.145.78:19931";
+//                _downloadHost = @"129.204.145.78:19928";
+//                _voipHost = @"129.204.145.78:10086";
+//                _uploadProxyHost = @"129.204.145.78:19932";
+                _messageHost = @"aisee.f3322.org:19903";
+                _chatHost = @"aisee.f3322.org:19906";
+                _uploadHost = @"aisee.f3322.org:19931";
+                _downloadHost = @"aisee.f3322.org:19928";
+                _voipHost = @"aisee.f3322.org:10086";
+                _uploadProxyHost = @"aisee.f3322.org:19932";
             } else {
                 _messageHost = @"ips2.starrtc.com:9904";
                 _chatHost = @"ips2.starrtc.com:9907";
                 _uploadHost = @"ips2.starrtc.com:9929";
                 _downloadHost = @"ips2.starrtc.com:9926";
                 _voipHost = @"voip2.starrtc.com:10086";
+                _uploadProxyHost = @"liveproxy.starrtc.com:19932";
             }
         }
         

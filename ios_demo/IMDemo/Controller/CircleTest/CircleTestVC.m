@@ -8,6 +8,7 @@
 
 #import "CircleTestVC.h"
 #import "LoopTest.h"
+#import "XHClient.h"
 
 @interface CircleTestVC ()
 {
@@ -24,8 +25,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+   // [[XHClient sharedClient].beautyManager addDelegate:self];
     _loopTest = [[LoopTest alloc] init];
     [_loopTest setupView:self.bigVideoPreview1 self_small_view:self.smallVideoPreview1 target_big_view:self.bigVideoPreview2 target_small_view:self.smallVideoPreview2];
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -37,9 +40,8 @@
 }
 
 /**
- <#Description#>
 
- @param animated <#animated description#>
+ @param animated
  */
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -63,6 +65,20 @@
     
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark - XHBeautyManagerDelegate
+
+/**
+ 收到待处理的美颜数据
+ @param videoData 数据
+ */
+-(void) onFrame:(StarVideoData *) videoData
+{
+   // 直接回填数据
+    [[XHClient sharedClient].beautyManager backfillData:videoData];
+}
+
 
 /*
 #pragma mark - Navigation

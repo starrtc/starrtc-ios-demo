@@ -14,7 +14,7 @@
 #import "QGSandboxViewerVC.h"
 #import "SystemSettingVC.h"
 #import "IFInnerHomeVC.h"
-#import "IFThirdStreamTestListVC.h"
+#import "ThirdStreamTestListVC.h"
 
 #import "IFFrameAndBitSetView.h"
 
@@ -404,7 +404,7 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 
 - (void)handleEventForThirdStreamTest
 {
-    IFThirdStreamTestListVC *vc = [[IFThirdStreamTestListVC alloc] init];
+    ThirdStreamTestListVC *vc = [[ThirdStreamTestListVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
     [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
 }
