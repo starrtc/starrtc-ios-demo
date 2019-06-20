@@ -110,6 +110,6 @@
         </view>
     </objects>
     <resources>
-        <image name="big_button" width="298" height="55.5"/>
+        <image name="big_button" width="298" height="55"/>
     </resources>
 </document>

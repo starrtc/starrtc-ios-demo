@@ -12,7 +12,7 @@
 
 @property (atomic) NSInteger width ;
 @property (atomic) NSInteger height;
-@property (atomic) uint8_t *data;//NV12格式
+@property (atomic) NSData *videoData;//NV12格式
 @property (atomic) NSInteger dataLength;
 @property (atomic) NSInteger index;
 

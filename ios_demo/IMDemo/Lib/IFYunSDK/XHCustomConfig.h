@@ -38,6 +38,8 @@ static  int CHATROOM_LIST_TYPE_CLASS_PUSH = 6;
 @property (nonatomic, strong) NSString *liveSrcScheduleURL;
 /* 下载服务*/
 @property (nonatomic, strong) NSString *liveVdnScheduleURL;
+/* live代理服务*/
+@property (nonatomic, strong) NSString *liveProxyScheduleURL;
 ///* voip服务*/
 @property (nonatomic, strong) NSString *voipScheduleURL;
 
@@ -50,6 +52,8 @@ static  int CHATROOM_LIST_TYPE_CLASS_PUSH = 6;
 @property (nonatomic, strong) NSString *liveSrcServerURL;
 /* 下载服务*/
 @property (nonatomic, strong) NSString *liveVdnServerURL;
+/* live代理服务*/
+@property (nonatomic, strong) NSString *liveProxyServerURL;
 /* voip服务*/
 @property (nonatomic, strong) NSString *voipServerURL;
 
