@@ -57,6 +57,8 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 @property (weak, nonatomic) IBOutlet UISwitch *lowLevelAECHandleSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *logEnableSwitch;
 
+@property (weak, nonatomic) IBOutlet UISwitch *aecEnableSwitch;
+
 
 @end
 
@@ -345,6 +347,14 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
 }
 
+- (IBAction)aecEnableSwitch:(UISwitch *)sender {
+    
+    if(sender.isOn != [AppConfig AEventCenterEnable])
+    {
+        [AppConfig switchAecEnableStatus];
+    }
+}
+
 
 #pragma mark - other
 
@@ -361,13 +371,15 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     [self.openGLEnableSwitch setOn:_videoSetParameters.openGLEnable];
     [self.openSLEnableSwitch setOn:NO];
     [self.voipP2PModelSwitch setOn:_videoSetParameters.voipP2PEnable];
-    [self.audioHandleSwitch setOn:NO];
+    [self.audioHandleSwitch setOn:_videoSetParameters.audioEnable];
     [self.lowLevelAECHandleSwitch setOn:NO];
     [self.logEnableSwitch setOn:_videoSetParameters.logEnable];
     
     [self.resolutionSetButton setTitle:_videoSetParameters.currentResolutionText forState:UIControlStateNormal];
     [self.bigPictureSetBtn setTitle:bitPicSetStr forState:UIControlStateNormal];
     [self.smallPictureSetBtn setTitle:smallPicSetStr forState:UIControlStateNormal];
+    
+    [self.aecEnableSwitch setOn:[AppConfig AEventCenterEnable]];
     
     NSString *videoForm = @">";
     if (_videoSetParameters.videoCodecType == IOS_STAR_STREAM_VIDEO_CODEC_H264) {

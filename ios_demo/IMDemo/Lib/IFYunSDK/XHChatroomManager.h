@@ -179,6 +179,7 @@
  * @param completion 结果回调
  */
 - (void)deleteFromChatroomList:(NSString *) chatroomId
+                      listType:(NSInteger)listType
                     completion:(void(^)(NSError *error))completion;
 
 @end

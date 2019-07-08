@@ -12,13 +12,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SpeechRoomModel : NSObject
 
-@property (nonatomic, strong) NSString *Creator;
+@property (nonatomic, strong) NSString *creatorID;
 
 @property (nonatomic, strong) NSString *ID;
 
-@property (nonatomic, strong) NSString *Name;
+@property (nonatomic, strong) NSString *liveName;
 
 @property (nonatomic, assign) NSInteger liveState;
+
+@property (nonatomic, copy) NSString *userIcon; //用户头像
+@property (nonatomic, copy) NSString *coverIcon; //封面
 
 @end
 

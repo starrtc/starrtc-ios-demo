@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger, XHSDKConnectionState) {
 
 typedef NS_ENUM(NSInteger, XHChatroomType) {
     //会议类型
+    XHChatroomTypeUnable,   //占位
     XHChatroomTypePublic=1 , //无需登录和验证
     XHChatroomTypeLogin  //需要登录，无需验证
 };
@@ -52,6 +53,15 @@ typedef NS_ENUM(NSInteger, XHLiveType) {
     XHLiveTypeLoginSpecXHy //需要登录和验证
 };
 
+
+/**
+ * 超级聊天室类型
+ */
+typedef NS_ENUM(NSInteger,  XHSuperRoomType) {
+    XHSuperRoomTypeGlobalPublic , //无需登录和验证
+    XHSuperRoomTypeLoginPublic , //需要登录，无需验证
+    XHSuperRoomTypeLoginSpecify //需要登录和验证
+};
 
 typedef NS_ENUM(NSInteger, XHMediaEcodeConfigEnum)
 {

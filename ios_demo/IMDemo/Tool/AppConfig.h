@@ -37,9 +37,15 @@ typedef NS_ENUM(NSInteger, IFServiceType) {
 - (BOOL)liveEnable;
 - (void)checkAppConfig;
 
-//切换sdk部署服务类型，私有云或公有云
-+ (void)switchSDKServiceType;
-//sdk服务类型
-+ (IFServiceType)SDKServiceType;
+//切换aec状态
++ (void)switchAecEnableStatus;
+//获取是否开启aec
++ (BOOL)AEventCenterEnable;
+
+
+////切换sdk部署服务类型，私有云或公有云
+//+ (void)switchSDKServiceType;
+////sdk服务类型
+//+ (IFServiceType)SDKServiceType;
 
 @end

@@ -138,11 +138,34 @@
 		8412C49320189AC60061F7A9 /* videoReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8412C48F20189AC40061F7A9 /* videoReadyViewController.m */; };
 		8412C49420189AC60061F7A9 /* voipControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8412C49120189AC50061F7A9 /* voipControllerView.m */; };
 		844050C3228D5C02002831CE /* libbz2.1.0.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 844050C2228D5C01002831CE /* libbz2.1.0.5.tbd */; };
+		8442C89222CC4DF20092FECB /* GuestSuperRoomVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8442C88922CC4DF00092FECB /* GuestSuperRoomVC.xib */; };
+		8442C89322CC4DF20092FECB /* CreateSuperRoomVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8442C88A22CC4DF10092FECB /* CreateSuperRoomVC.xib */; };
+		8442C89422CC4DF20092FECB /* SuperRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442C88C22CC4DF10092FECB /* SuperRoomVC.m */; };
+		8442C89522CC4DF20092FECB /* CreateSuperRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442C88D22CC4DF10092FECB /* CreateSuperRoomVC.m */; };
+		8442C89622CC4DF20092FECB /* GuestSuperRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442C88E22CC4DF10092FECB /* GuestSuperRoomVC.m */; };
+		8442C89722CC4DF20092FECB /* SuperRoomVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8442C88F22CC4DF10092FECB /* SuperRoomVC.xib */; };
+		8442C8A722CC50250092FECB /* SuperRoomMembersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8442C89922CC50240092FECB /* SuperRoomMembersView.xib */; };
+		8442C8A822CC50250092FECB /* SuperRoomMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442C89A22CC50240092FECB /* SuperRoomMemberCell.m */; };
+		8442C8A922CC50250092FECB /* SuperRoomMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8442C89B22CC50240092FECB /* SuperRoomMemberCell.xib */; };
+		8442C8AA22CC50250092FECB /* SuperRoomMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442C89C22CC50240092FECB /* SuperRoomMenuView.m */; };
+		8442C8AB22CC50250092FECB /* SuperRoomMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442C89D22CC50240092FECB /* SuperRoomMessageCell.m */; };
+		8442C8AC22CC50250092FECB /* SuperRoomMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8442C89E22CC50240092FECB /* SuperRoomMenuView.xib */; };
+		8442C8AD22CC50250092FECB /* SuperRoomMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8442C89F22CC50240092FECB /* SuperRoomMessageCell.xib */; };
+		8442C8AE22CC50250092FECB /* SuperRoomMembersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442C8A022CC50250092FECB /* SuperRoomMembersView.m */; };
+		8442C8AF22CC50250092FECB /* SuperRoomMessagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442C8A322CC50250092FECB /* SuperRoomMessagesView.m */; };
+		8442C8B022CC50250092FECB /* SuperRoomMessagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8442C8A422CC50250092FECB /* SuperRoomMessagesView.xib */; };
 		845799AE1FE7D85600560EC2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 845799AD1FE7D85600560EC2 /* AppDelegate.m */; };
 		845799B11FE7D85600560EC2 /* C2CViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845799B01FE7D85600560EC2 /* C2CViewController.m */; };
 		845799B61FE7D85600560EC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845799B51FE7D85600560EC2 /* Assets.xcassets */; };
 		845799BC1FE7D85600560EC2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 845799BB1FE7D85600560EC2 /* main.m */; };
 		845799C61FE7D85600560EC2 /* IMDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 845799C51FE7D85600560EC2 /* IMDemoTests.m */; };
+		845EE3C822CB2C0E00A6DB91 /* SuperRoomListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EE3C622CB2C0D00A6DB91 /* SuperRoomListVC.m */; };
+		845EE3CB22CB64B900A6DB91 /* SuperRoomListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845EE3CA22CB64B900A6DB91 /* SuperRoomListVC.xib */; };
+		845EE3D022CB6A9800A6DB91 /* SuperRoomListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845EE3CD22CB6A9800A6DB91 /* SuperRoomListCell.xib */; };
+		845EE3D122CB6A9800A6DB91 /* SuperRoomListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EE3CF22CB6A9800A6DB91 /* SuperRoomListCell.m */; };
+		845EE3D922CB6B7800A6DB91 /* SuperRoomMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EE3D322CB6B7700A6DB91 /* SuperRoomMessageModel.m */; };
+		845EE3DA22CB6B7800A6DB91 /* SuperRoomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EE3D522CB6B7800A6DB91 /* SuperRoomModel.m */; };
+		845EE3DB22CB6B7800A6DB91 /* SuperRoomMemberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EE3D722CB6B7800A6DB91 /* SuperRoomMemberModel.m */; };
 		84D494451FFB967500D151BE /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E59D9B1FE9FEC000048219 /* VideoToolbox.framework */; };
 		84D4944C1FFF5C9800D151BE /* MessageGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4944B1FFF5C9800D151BE /* MessageGroupViewController.m */; };
 		84D4944F1FFF5CBC00D151BE /* MessageGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4944E1FFF5CBC00D151BE /* MessageGroupListViewController.m */; };
@@ -484,6 +507,30 @@
 		8412C49120189AC50061F7A9 /* voipControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = voipControllerView.m; sourceTree = "<group>"; };
 		8412C49220189AC50061F7A9 /* videoReadyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoReadyViewController.h; sourceTree = "<group>"; };
 		844050C2228D5C01002831CE /* libbz2.1.0.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.5.tbd; path = usr/lib/libbz2.1.0.5.tbd; sourceTree = SDKROOT; };
+		8442C88922CC4DF00092FECB /* GuestSuperRoomVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuestSuperRoomVC.xib; sourceTree = "<group>"; };
+		8442C88A22CC4DF10092FECB /* CreateSuperRoomVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateSuperRoomVC.xib; sourceTree = "<group>"; };
+		8442C88B22CC4DF10092FECB /* SuperRoomVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomVC.h; sourceTree = "<group>"; };
+		8442C88C22CC4DF10092FECB /* SuperRoomVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomVC.m; sourceTree = "<group>"; };
+		8442C88D22CC4DF10092FECB /* CreateSuperRoomVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateSuperRoomVC.m; sourceTree = "<group>"; };
+		8442C88E22CC4DF10092FECB /* GuestSuperRoomVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestSuperRoomVC.m; sourceTree = "<group>"; };
+		8442C88F22CC4DF10092FECB /* SuperRoomVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuperRoomVC.xib; sourceTree = "<group>"; };
+		8442C89022CC4DF10092FECB /* CreateSuperRoomVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateSuperRoomVC.h; sourceTree = "<group>"; };
+		8442C89122CC4DF10092FECB /* GuestSuperRoomVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestSuperRoomVC.h; sourceTree = "<group>"; };
+		8442C89822CC50240092FECB /* SuperRoomMembersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomMembersView.h; sourceTree = "<group>"; };
+		8442C89922CC50240092FECB /* SuperRoomMembersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuperRoomMembersView.xib; sourceTree = "<group>"; };
+		8442C89A22CC50240092FECB /* SuperRoomMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomMemberCell.m; sourceTree = "<group>"; };
+		8442C89B22CC50240092FECB /* SuperRoomMemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuperRoomMemberCell.xib; sourceTree = "<group>"; };
+		8442C89C22CC50240092FECB /* SuperRoomMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomMenuView.m; sourceTree = "<group>"; };
+		8442C89D22CC50240092FECB /* SuperRoomMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomMessageCell.m; sourceTree = "<group>"; };
+		8442C89E22CC50240092FECB /* SuperRoomMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuperRoomMenuView.xib; sourceTree = "<group>"; };
+		8442C89F22CC50240092FECB /* SuperRoomMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuperRoomMessageCell.xib; sourceTree = "<group>"; };
+		8442C8A022CC50250092FECB /* SuperRoomMembersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomMembersView.m; sourceTree = "<group>"; };
+		8442C8A122CC50250092FECB /* SuperRoomMessagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomMessagesView.h; sourceTree = "<group>"; };
+		8442C8A222CC50250092FECB /* SuperRoomMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomMenuView.h; sourceTree = "<group>"; };
+		8442C8A322CC50250092FECB /* SuperRoomMessagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomMessagesView.m; sourceTree = "<group>"; };
+		8442C8A422CC50250092FECB /* SuperRoomMessagesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuperRoomMessagesView.xib; sourceTree = "<group>"; };
+		8442C8A522CC50250092FECB /* SuperRoomMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomMessageCell.h; sourceTree = "<group>"; };
+		8442C8A622CC50250092FECB /* SuperRoomMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomMemberCell.h; sourceTree = "<group>"; };
 		845799A91FE7D85600560EC2 /* IMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845799AC1FE7D85600560EC2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		845799AD1FE7D85600560EC2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -497,6 +544,18 @@
 		845799C11FE7D85600560EC2 /* IMDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IMDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		845799C51FE7D85600560EC2 /* IMDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IMDemoTests.m; sourceTree = "<group>"; };
 		845799C71FE7D85600560EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		845EE3C522CB2C0D00A6DB91 /* SuperRoomListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuperRoomListVC.h; sourceTree = "<group>"; };
+		845EE3C622CB2C0D00A6DB91 /* SuperRoomListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuperRoomListVC.m; sourceTree = "<group>"; };
+		845EE3CA22CB64B900A6DB91 /* SuperRoomListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuperRoomListVC.xib; sourceTree = "<group>"; };
+		845EE3CD22CB6A9800A6DB91 /* SuperRoomListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SuperRoomListCell.xib; sourceTree = "<group>"; };
+		845EE3CE22CB6A9800A6DB91 /* SuperRomListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRomListCell.h; sourceTree = "<group>"; };
+		845EE3CF22CB6A9800A6DB91 /* SuperRoomListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomListCell.m; sourceTree = "<group>"; };
+		845EE3D322CB6B7700A6DB91 /* SuperRoomMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomMessageModel.m; sourceTree = "<group>"; };
+		845EE3D422CB6B7700A6DB91 /* SuperRoomMemberModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomMemberModel.h; sourceTree = "<group>"; };
+		845EE3D522CB6B7800A6DB91 /* SuperRoomModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomModel.m; sourceTree = "<group>"; };
+		845EE3D622CB6B7800A6DB91 /* SuperRoomMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomMessageModel.h; sourceTree = "<group>"; };
+		845EE3D722CB6B7800A6DB91 /* SuperRoomMemberModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomMemberModel.m; sourceTree = "<group>"; };
+		845EE3D822CB6B7800A6DB91 /* SuperRoomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomModel.h; sourceTree = "<group>"; };
 		84D4944A1FFF5C9800D151BE /* MessageGroupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageGroupViewController.h; sourceTree = "<group>"; };
 		84D4944B1FFF5C9800D151BE /* MessageGroupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageGroupViewController.m; sourceTree = "<group>"; };
 		84D4944D1FFF5CBC00D151BE /* MessageGroupListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageGroupListViewController.h; sourceTree = "<group>"; };
@@ -1229,6 +1288,65 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		845EE3C422CAF29E00A6DB91 /* SuperRoom */ = {
+			isa = PBXGroup;
+			children = (
+				8442C89022CC4DF10092FECB /* CreateSuperRoomVC.h */,
+				8442C88D22CC4DF10092FECB /* CreateSuperRoomVC.m */,
+				8442C88A22CC4DF10092FECB /* CreateSuperRoomVC.xib */,
+				8442C89122CC4DF10092FECB /* GuestSuperRoomVC.h */,
+				8442C88E22CC4DF10092FECB /* GuestSuperRoomVC.m */,
+				8442C88922CC4DF00092FECB /* GuestSuperRoomVC.xib */,
+				8442C88B22CC4DF10092FECB /* SuperRoomVC.h */,
+				8442C88C22CC4DF10092FECB /* SuperRoomVC.m */,
+				8442C88F22CC4DF10092FECB /* SuperRoomVC.xib */,
+				845EE3D222CB6AB600A6DB91 /* model */,
+				845EE3CC22CB691100A6DB91 /* view */,
+			);
+			path = SuperRoom;
+			sourceTree = "<group>";
+		};
+		845EE3CC22CB691100A6DB91 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				845EE3C522CB2C0D00A6DB91 /* SuperRoomListVC.h */,
+				845EE3C622CB2C0D00A6DB91 /* SuperRoomListVC.m */,
+				845EE3CE22CB6A9800A6DB91 /* SuperRomListCell.h */,
+				845EE3CA22CB64B900A6DB91 /* SuperRoomListVC.xib */,
+				845EE3CF22CB6A9800A6DB91 /* SuperRoomListCell.m */,
+				845EE3CD22CB6A9800A6DB91 /* SuperRoomListCell.xib */,
+				8442C8A222CC50250092FECB /* SuperRoomMenuView.h */,
+				8442C89C22CC50240092FECB /* SuperRoomMenuView.m */,
+				8442C89E22CC50240092FECB /* SuperRoomMenuView.xib */,
+				8442C8A622CC50250092FECB /* SuperRoomMemberCell.h */,
+				8442C89A22CC50240092FECB /* SuperRoomMemberCell.m */,
+				8442C89B22CC50240092FECB /* SuperRoomMemberCell.xib */,
+				8442C89822CC50240092FECB /* SuperRoomMembersView.h */,
+				8442C8A022CC50250092FECB /* SuperRoomMembersView.m */,
+				8442C89922CC50240092FECB /* SuperRoomMembersView.xib */,
+				8442C8A522CC50250092FECB /* SuperRoomMessageCell.h */,
+				8442C89D22CC50240092FECB /* SuperRoomMessageCell.m */,
+				8442C89F22CC50240092FECB /* SuperRoomMessageCell.xib */,
+				8442C8A122CC50250092FECB /* SuperRoomMessagesView.h */,
+				8442C8A322CC50250092FECB /* SuperRoomMessagesView.m */,
+				8442C8A422CC50250092FECB /* SuperRoomMessagesView.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		845EE3D222CB6AB600A6DB91 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				845EE3D422CB6B7700A6DB91 /* SuperRoomMemberModel.h */,
+				845EE3D722CB6B7800A6DB91 /* SuperRoomMemberModel.m */,
+				845EE3D622CB6B7800A6DB91 /* SuperRoomMessageModel.h */,
+				845EE3D322CB6B7700A6DB91 /* SuperRoomMessageModel.m */,
+				845EE3D822CB6B7800A6DB91 /* SuperRoomModel.h */,
+				845EE3D522CB6B7800A6DB91 /* SuperRoomModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		84E59D9A1FE9FEC000048219 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1369,6 +1487,7 @@
 		A58DFF0F206CE2670074DB7B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				845EE3C422CAF29E00A6DB91 /* SuperRoom */,
 				7BB1142021E44CA1007668E1 /* SpeechChat */,
 				A58DFF48206CF8270074DB7B /* HomePage */,
 				A58DFF53206D02C50074DB7B /* CircleTest */,
@@ -1963,18 +2082,24 @@
 				A5A39A0D221D2A7A00960461 /* IFInnerHomeVC.xib in Resources */,
 				A56A4BA12272F4B100469616 /* IFFrameAndBitSetView.xib in Resources */,
 				7B57080B207AFFED00857F30 /* EMViewController.xib in Resources */,
+				845EE3D022CB6A9800A6DB91 /* SuperRoomListCell.xib in Resources */,
 				7B7D1EC821EC297C0043F096 /* SpeechChatListCell.xib in Resources */,
 				7BD47D71206E2EF70000E9A1 /* ReceiverVoipVideoVC.xib in Resources */,
 				A5C71DB0226E986D001B4306 /* VideoSettings.storyboard in Resources */,
+				8442C89722CC4DF20092FECB /* SuperRoomVC.xib in Resources */,
 				7BD47D6C206E2ED50000E9A1 /* SenderVoipVideoVC.xib in Resources */,
+				8442C89222CC4DF20092FECB /* GuestSuperRoomVC.xib in Resources */,
 				7BB1142521E44D63007668E1 /* SpeechChatListVC.xib in Resources */,
 				7B62782B20872F0800FE0841 /* VoipListVC.xib in Resources */,
+				8442C8B022CC50250092FECB /* SuperRoomMessagesView.xib in Resources */,
 				7B627834208731DA00FE0841 /* VoipListTableViewCell.xib in Resources */,
 				A5A39A12221D335600960461 /* IFInnerCallVC.xib in Resources */,
 				7BE9149921EEC2D500FEEBD7 /* SpeechMessageCell.xib in Resources */,
+				845EE3CB22CB64B900A6DB91 /* SuperRoomListVC.xib in Resources */,
 				7BE44CDC2088367100EEDF47 /* VoipVideoVC.xib in Resources */,
 				A58DFF1B206CE63F0074DB7B /* Main.storyboard in Resources */,
 				A58C187620CE856B0036278A /* README.markdown in Resources */,
+				8442C8AC22CC50250092FECB /* SuperRoomMenuView.xib in Resources */,
 				7BBD696020DC939600E663D4 /* QGSendboxViewerCell.xib in Resources */,
 				7BC4C2DD21EDBB6100809204 /* SpeechMembersView.xib in Resources */,
 				7BB1142F21E44F25007668E1 /* SpeechChatVC.xib in Resources */,
@@ -1985,10 +2110,13 @@
 				A58DFF66206E084A0074DB7B /* README.mdown in Resources */,
 				7BE44CEE20883B0500EEDF47 /* ReceiveVoipView.xib in Resources */,
 				A58DFF1C206CE63F0074DB7B /* LaunchScreen.storyboard in Resources */,
+				8442C8AD22CC50250092FECB /* SuperRoomMessageCell.xib in Resources */,
 				7BE44CD720882EF600EEDF47 /* VoipReadyVC.xib in Resources */,
+				8442C8A722CC50250092FECB /* SuperRoomMembersView.xib in Resources */,
 				7BCE7C0F20C52E92003A3FFF /* AboutUsVC.xib in Resources */,
 				7B5BF0D5221BED4A00F82A42 /* IQKeyboardManager.bundle in Resources */,
 				7BE44CEA20883AF100EEDF47 /* CallingVoipView.xib in Resources */,
+				8442C8A922CC50250092FECB /* SuperRoomMemberCell.xib in Resources */,
 				845799B61FE7D85600560EC2 /* Assets.xcassets in Resources */,
 				7BC4C2E221EDC2D300809204 /* SpeechMemberCell.xib in Resources */,
 				7BC4C2E721EDE49700809204 /* GuestSpeechChatVC.xib in Resources */,
@@ -1996,6 +2124,7 @@
 				7BAB8F1021F5AD58002AB0A3 /* SystemSettingVC.xib in Resources */,
 				7BB1142A21E44F09007668E1 /* CreateSpeechChatVC.xib in Resources */,
 				7BE44CEC20883AFC00EEDF47 /* VoipConversationView.xib in Resources */,
+				8442C89322CC4DF20092FECB /* CreateSuperRoomVC.xib in Resources */,
 				7BBD695C20DC939600E663D4 /* QGSandboxViewerVC.xib in Resources */,
 				8408FECF22B730800087ED25 /* ThirdStreamCreateVC.xib in Resources */,
 			);
@@ -2027,6 +2156,7 @@
 				7B7D1F0F21EC31A00043F096 /* MD5Util.m in Sources */,
 				7B57080A207AFFED00857F30 /* EMViewController.m in Sources */,
 				7B7D1F5921EC34AB0043F096 /* MJRefreshBackFooter.m in Sources */,
+				8442C89522CC4DF20092FECB /* CreateSuperRoomVC.m in Sources */,
 				7BE9149F21EED57400FEEBD7 /* SpeechMemberModel.m in Sources */,
 				A549CB69207B0C510045A2E1 /* IFCreateBaseVC.m in Sources */,
 				7B7D1EFF21EC2F320043F096 /* AFNetworkReachabilityManager.m in Sources */,
@@ -2035,6 +2165,7 @@
 				A58DFF6A206E08DC0074DB7B /* UIColor+Category.m in Sources */,
 				7BB1142421E44D63007668E1 /* SpeechChatListVC.m in Sources */,
 				A58DFF44206CE6A80074DB7B /* ViewController+MASAdditions.m in Sources */,
+				8442C8A822CC50250092FECB /* SuperRoomMemberCell.m in Sources */,
 				A5B92F082071D731003456D0 /* IFChatView.m in Sources */,
 				A5DAA68A2089B65300A76FEA /* ILGImagePicker.m in Sources */,
 				7B7D1F1421EC31A00043F096 /* IFNetworkingManager.m in Sources */,
@@ -2047,6 +2178,7 @@
 				7B7D1F4921EC34AB0043F096 /* MJRefreshConst.m in Sources */,
 				7B8247EE206E1A6D00513F41 /* VoipReadyVC.m in Sources */,
 				A58C187B20CE856B0036278A /* FMDatabasePool.m in Sources */,
+				845EE3DA22CB6B7800A6DB91 /* SuperRoomModel.m in Sources */,
 				7BE9149821EEC2D500FEEBD7 /* SpeechMessageCell.m in Sources */,
 				7B7D1F4F21EC34AB0043F096 /* MJRefreshBackStateFooter.m in Sources */,
 				7B7D1EC721EC297C0043F096 /* SpeechChatListCell.m in Sources */,
@@ -2065,6 +2197,7 @@
 				A58C187920CE856B0036278A /* FMDatabaseAdditions.m in Sources */,
 				A54D214820B81D5100E89114 /* IFVideoChatCell.m in Sources */,
 				84D4945520046C2900D151BE /* ShowMsgElem.m in Sources */,
+				8442C89422CC4DF20092FECB /* SuperRoomVC.m in Sources */,
 				A5B92F142073821D003456D0 /* IFLiveVC.m in Sources */,
 				7B0FE9A02073831900CDEF98 /* VideoSetParameters.m in Sources */,
 				84E59DB31FF21B9E00048219 /* ViewController.m in Sources */,
@@ -2074,12 +2207,15 @@
 				7BB1142E21E44F25007668E1 /* SpeechChatVC.m in Sources */,
 				7BE44CDB2088367100EEDF47 /* VoipVideoVC.m in Sources */,
 				A58DFF5E206E081D0074DB7B /* UIView+ILGKit.m in Sources */,
+				845EE3D122CB6A9800A6DB91 /* SuperRoomListCell.m in Sources */,
 				7B7D1EF921EC2F320043F096 /* AFAutoPurgingImageCache.m in Sources */,
 				7B8F12A120A18AB200E7C30F /* VoipHistoryManage.m in Sources */,
 				7BD47D70206E2EF70000E9A1 /* ReceiverVoipVideoVC.m in Sources */,
 				7BBD695D20DC939600E663D4 /* QGSandboxViewerVC.m in Sources */,
 				7BA8AB64206D0953007CA939 /* UIView+layerXib.m in Sources */,
 				A5DAA6802089B52400A76FEA /* ILGLocalData.m in Sources */,
+				8442C8AF22CC50250092FECB /* SuperRoomMessagesView.m in Sources */,
+				8442C89622CC4DF20092FECB /* GuestSuperRoomVC.m in Sources */,
 				A58DFF3B206CE6A80074DB7B /* MASCompositeConstraint.m in Sources */,
 				7B6278182086EE4D00FE0841 /* VideoSettingVC.m in Sources */,
 				A5B92F0E20736CEE003456D0 /* IFMutilMeetingListVC.m in Sources */,
@@ -2091,7 +2227,9 @@
 				7BE914A521EF175C00FEEBD7 /* SpeechRoomModel.m in Sources */,
 				7B81C1A921EF352000C9CBD9 /* UIView+utils.m in Sources */,
 				7BC4C2E621EDE49700809204 /* GuestSpeechChatVC.m in Sources */,
+				8442C8AA22CC50250092FECB /* SuperRoomMenuView.m in Sources */,
 				A58C187C20CE856B0036278A /* FMResultSet.m in Sources */,
+				845EE3C822CB2C0E00A6DB91 /* SuperRoomListVC.m in Sources */,
 				A58DFF3D206CE6A80074DB7B /* MASConstraintMaker.m in Sources */,
 				A5B92F0B20736538003456D0 /* IFLiveListVC.m in Sources */,
 				A5CA18C721E5CCBC00790711 /* IFLiveMessage.m in Sources */,
@@ -2101,6 +2239,7 @@
 				A58C188020CE85830036278A /* ILGFMDBManager.m in Sources */,
 				A58DFF43206CE6A80074DB7B /* View+MASAdditions.m in Sources */,
 				A58C188520CE87E00036278A /* IMMsgManager.m in Sources */,
+				8442C8AE22CC50250092FECB /* SuperRoomMembersView.m in Sources */,
 				A58DFF4B206CF86A0074DB7B /* IFBaseVC.m in Sources */,
 				8408FECC22B3866F0087ED25 /* RtspInfo.m in Sources */,
 				A5CA18CA21E6EDCF00790711 /* IFNavigationController.m in Sources */,
@@ -2116,6 +2255,7 @@
 				7B7D1F0021EC2F320043F096 /* AFSecurityPolicy.m in Sources */,
 				7B7D1EFE21EC2F320043F096 /* AFURLRequestSerialization.m in Sources */,
 				A5E15F9020900EE600A6EA85 /* IFVideoListView.m in Sources */,
+				845EE3D922CB6B7800A6DB91 /* SuperRoomMessageModel.m in Sources */,
 				A5650D49221FCC0500E9A655 /* IFInnerManager.m in Sources */,
 				A56A4B9F2272F49800469616 /* IFFrameAndBitSetView.m in Sources */,
 				A5CA18C321E5CC1700790711 /* IFSourceListVC.m in Sources */,
@@ -2124,6 +2264,7 @@
 				7B7D1F5B21EC34AB0043F096 /* MJRefreshComponent.m in Sources */,
 				7B570811207B08C900857F30 /* VideoTestSpeedVC.m in Sources */,
 				7B5BF0D2221BED4A00F82A42 /* IQBarButtonItem.m in Sources */,
+				845EE3DB22CB6B7800A6DB91 /* SuperRoomMemberModel.m in Sources */,
 				7B7D1F5021EC34AB0043F096 /* MJRefreshBackNormalFooter.m in Sources */,
 				A5CA18C121E5CC1700790711 /* IFSourceVC.m in Sources */,
 				84E59DAE1FF1198300048219 /* ChatRoomListViewController.m in Sources */,
@@ -2162,6 +2303,7 @@
 				7B7D1F5421EC34AB0043F096 /* MJRefreshNormalHeader.m in Sources */,
 				7B75E69221EF181B00252C8A /* AssignToObject.m in Sources */,
 				7BE9149C21EEC63400FEEBD7 /* SpeechMessageModel.m in Sources */,
+				8442C8AB22CC50250092FECB /* SuperRoomMessageCell.m in Sources */,
 				A5A39A0C221D2A7A00960461 /* IFInnerHomeVC.m in Sources */,
 				A58DFF41206CE6A80074DB7B /* NSArray+MASAdditions.m in Sources */,
 				A5DAA6812089B52400A76FEA /* ILGSFHFKeychainUtils.m in Sources */,

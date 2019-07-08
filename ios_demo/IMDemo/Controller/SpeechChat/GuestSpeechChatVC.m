@@ -28,7 +28,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 - (void)setupUI{
-    self.navigationItem.title = self.roomInfo.Name;
+    self.navigationItem.title = self.roomInfo.liveName;
     [self.view addSubview:self.chatMenuView];
     [self.view addSubview:self.membersView];
     [self.chatMenuView hiddenAudioButton];
@@ -82,7 +82,7 @@
 - (IBAction)upVideoButtonClicked:(UIButton *)sender {
     if([sender.titleLabel.text isEqualToString:@"上麦"])
     {
-        [[XHClient sharedClient].liveManager applyToBroadcaster:self.roomInfo.Creator completion:^(NSError *error) {
+        [[XHClient sharedClient].liveManager applyToBroadcaster:self.roomInfo.creatorID completion:^(NSError *error) {
             [UIWindow ilg_makeToast:@"申请发送成功，正在等待房主同意..."];
         }];
         [sender setTitle:@"下麦" forState:UIControlStateNormal] ;

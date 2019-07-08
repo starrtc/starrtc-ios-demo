@@ -28,7 +28,9 @@ static NSString * const kAppConfigParametersPrivateKey = @"AppConfigParametersPr
     static AppConfig *appConfigManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        appConfigManager = [[self alloc] initWithType:[AppConfig SDKServiceType]];
+        //appConfigManager = [[self alloc] initWithType:[AppConfig SDKServiceType]];
+        appConfigManager = [[self alloc] initWithType:IFServiceTypePrivate];
+        
     });
     return appConfigManager;
 }
@@ -39,7 +41,7 @@ static NSString * const kAppConfigParametersPrivateKey = @"AppConfigParametersPr
     if (self) {
         _userId = UserId;
         _appId = IFHAppId;
-        _host = @"https://api.starrtc.com/public";
+        _host = @"http://www.starrtc.com/aec/list";
         _loginHost = @"ips2.starrtc.com:9920";
         
         NSString *appConfigParamsKey = (type == IFServiceTypePublic)? kAppConfigParametersPublicKey:kAppConfigParametersPrivateKey;
@@ -50,12 +52,12 @@ static NSString * const kAppConfigParametersPrivateKey = @"AppConfigParametersPr
             
         } else {
             if (type == IFServiceTypePrivate) {
-                _messageHost = @"129.204.145.78:19903";
-                _chatHost = @"129.204.145.78:19906";
-                _uploadHost = @"129.204.145.78:19931";
-                _downloadHost = @"129.204.145.78:19928";
-                _voipHost = @"129.204.145.78:10086";
-                _uploadProxyHost = @"129.204.145.78:19932";
+                _messageHost = @"demo.starrtc.com:19903";
+                _chatHost = @"demo.starrtc.com:19906";
+                _uploadHost = @"demo.starrtc.com:19931";
+                _downloadHost = @"demo.starrtc.com:19928";
+                _voipHost = @"demo.starrtc.com:10086";
+                _uploadProxyHost = @"demo.starrtc.com:19932";
 //                _messageHost = @"aisee.f3322.org:19903";
 //                _chatHost = @"aisee.f3322.org:19906";
 //                _uploadHost = @"aisee.f3322.org:19931";
@@ -161,12 +163,51 @@ static NSString * const kIFSDKServiceTypeKey = @"kIFSDKServiceTypeKey";
 
 + (IFServiceType)SDKServiceType
 {
+     return IFServiceTypePrivate;
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    if ([userDefaults objectForKey:kIFSDKServiceTypeKey]) {
+//        return [[userDefaults objectForKey:kIFSDKServiceTypeKey] integerValue];
+//    } else {
+//        return IFServiceTypePublic;
+//    }
+}
+
+static NSString * const AEventCenterEnable = @"AEventCenterEnable";
+
+//切换aec状态
++ (void)switchAecEnableStatus
+{
+    BOOL aecEnable = false;
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if ([userDefaults objectForKey:kIFSDKServiceTypeKey]) {
-        return [[userDefaults objectForKey:kIFSDKServiceTypeKey] integerValue];
-    } else {
-        return IFServiceTypePublic;
+    if (![userDefaults objectForKey:AEventCenterEnable])
+    {
+        aecEnable = true;
+       
     }
+    else
+    {
+        BOOL tmpType = [[userDefaults objectForKey:AEventCenterEnable] integerValue];
+        if (tmpType == true) {
+            aecEnable = false;
+        } else {
+            aecEnable = true;
+        }
+    }
+    
+    [userDefaults setObject:@(aecEnable) forKey:AEventCenterEnable];
+    [userDefaults synchronize];
+
+}
+//获取是否开启aec
++ (BOOL)AEventCenterEnable
+{
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        if ([userDefaults objectForKey:AEventCenterEnable]) {
+            return [[userDefaults objectForKey:AEventCenterEnable] integerValue];
+        } else {
+            return false;
+        }
 }
 
 @end

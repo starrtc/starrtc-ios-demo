@@ -42,7 +42,7 @@
     self.navigationItem.title = @"系统设置";
     [self addDelegate];
     
-    self.serviceTypeForTmp = [AppConfig SDKServiceType];
+    self.serviceTypeForTmp = IFServiceTypePrivate;
 
     [self adjustUI:self.serviceTypeForTmp];
     [self initTextField];
@@ -94,9 +94,9 @@
 }
 */
 - (IBAction)saveButtonClicked:(UIButton *)sender {
-    if (self.serviceTypeForTmp != [AppConfig SDKServiceType]) {
-        [AppConfig switchSDKServiceType];
-    }
+//    if (self.serviceTypeForTmp != [AppConfig SDKServiceType]) {
+//        [AppConfig switchSDKServiceType];
+//    }
     
     NSMutableDictionary *appParameters = [NSMutableDictionary dictionaryWithCapacity:1];
     [appParameters setObject:self.yewuTextField.text forKey:@"host"];
@@ -165,6 +165,9 @@
 
 - (void)adjustUI:(IFServiceType)serviceType
 {
+    // 隐藏公有私有切换
+    [self.serviceBtn setHidden:YES];
+    
     if (serviceType == IFServiceTypePublic) {
         [self.serviceBtn setTitle:@"公有云 >" forState:UIControlStateNormal];
         

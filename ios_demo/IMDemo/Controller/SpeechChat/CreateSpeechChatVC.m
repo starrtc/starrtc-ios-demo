@@ -10,6 +10,9 @@
 #import "XHClient.h"
 #import "IFNetworkingInterfaceHandle.h"
 #import "SpeechChatVC.h"
+#import "XHCustomConfig.h"
+#import "InterfaceUrls.h"
+
 @interface CreateSpeechChatVC ()
 @property (weak, nonatomic) IBOutlet UITextField *roomNameTextField;
 @property (weak, nonatomic) IBOutlet UISwitch *priviteStatusSwitch;
@@ -29,47 +32,74 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
 }
 - (IBAction)createButtonClicked:(UIButton *)sender {
-//    SpeechChatVC *vc = [SpeechChatVC instanceFromNib];
-//    vc.meettingName = @"meeting.meetingName";
-//    vc.meettingID = @"meeting.meetingName";
-//    [self.navigationController pushViewController:vc animated:YES];
-//    return;
-    if ([self.roomNameTextField.text length] > 0) {
+    if ([self.roomNameTextField.text length] > 0)
+    {
         XHLiveItem *meeting = [XHLiveItem new];
         meeting.liveName = self.roomNameTextField.text;
         meeting.liveType = XHLiveTypeGlobalPublic;
+        __weak typeof(self) weakSelf = self;
 //        if(self.priviteStatusSwitch.on){
 //            meeting.liveType = XHLiveTypeLoginPublic;
 //        } else {
 //            meeting.liveType = XHLiveTypeLoginSpecXHy;
 //        }
 //        ID=%@&Name=%@&Creator=%@
-        [[XHClient sharedClient].liveManager createLive:meeting completion:^(NSString *liveID, NSError *error) {
-            if (error == nil) {
-                NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:1];
-                [parameters setObject:liveID forKey:@"ID"];
-                [parameters setObject:meeting.liveName forKey:@"Name"];
-                [parameters setObject:[IMUserInfo shareInstance].userID forKey:@"Creator"];
-                [parameters setObject:[AppConfig shareConfig].appId forKey:@"appid"];
-                [IFNetworkingInterfaceHandle requestCreateAudioRoomWithParameters:parameters success:^(id  _Nullable responseObject) {
+         [[XHClient sharedClient].liveManager createLive:meeting completion:^(NSString *liveID, NSError *error) {
+            if (error == nil)
+            {
+                NSDictionary *infoDic = @{@"id":liveID,
+                                          @"creator":UserId,
+                                          @"name":meeting.liveName
+                                          };
+                NSString *infoStr = [infoDic ilg_jsonString];
+                if ([AppConfig AEventCenterEnable] )
+                {
+                    [[[InterfaceUrls alloc] init] demoSaveTolist:LIST_TYPE_AUDIO_LIVE ID:liveID data:[infoStr ilg_URLEncode]];
+                }
+                else
+                {
                     
-                    NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-                    if (status == 1) {
-                        SpeechChatVC *vc = [SpeechChatVC instanceFromNib];
-                        SpeechRoomModel *roomModel = [[SpeechRoomModel alloc] init];
-                        roomModel.Name = meeting.liveName;
-                        roomModel.ID = liveID;
-                        roomModel.Creator = UserId;
-                        roomModel.liveState = 1;
-                        vc.roomInfo = roomModel;
-                        [self.navigationController pushViewController:vc animated:YES];
-                    }
-                    
-                } failure:^(NSError * _Nonnull error) {
-                    
-                }];
+                    [[XHClient sharedClient].liveManager saveToList:UserId type:LIST_TYPE_AUDIO_LIVE liveId:liveID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
+                        
+                    }];
+                }
+                
+                SpeechChatVC *vc = [SpeechChatVC instanceFromNib];
+                SpeechRoomModel *roomModel = [[SpeechRoomModel alloc] init];
+                roomModel.liveName = meeting.liveName;
+                roomModel.ID = liveID;
+                roomModel.creatorID = UserId;
+                roomModel.liveState = 1;
+                vc.roomInfo = roomModel;
+                [self.navigationController pushViewController:vc animated:YES];
+                
+                
+//                NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:1];
+//                [parameters setObject:liveID forKey:@"ID"];
+//                [parameters setObject:meeting.liveName forKey:@"Name"];
+//                [parameters setObject:[IMUserInfo shareInstance].userID forKey:@"Creator"];
+//                [parameters setObject:[AppConfig shareConfig].appId forKey:@"appid"];
+//                [IFNetworkingInterfaceHandle requestCreateAudioRoomWithParameters:parameters success:^(id  _Nullable responseObject) {
+//
+//                    NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+//                    if (status == 1) {
+//                        SpeechChatVC *vc = [SpeechChatVC instanceFromNib];
+//                        SpeechRoomModel *roomModel = [[SpeechRoomModel alloc] init];
+//                        roomModel.liveName = meeting.liveName;
+//                        roomModel.ID = liveID;
+//                        roomModel.creatorID = UserId;
+//                        roomModel.liveState = 1;
+//                        vc.roomInfo = roomModel;
+//                        [self.navigationController pushViewController:vc animated:YES];
+//                    }
+//
+//                } failure:^(NSError * _Nonnull error) {
+//
+//                }];
             } else {
                 NSLog(@"%@",error);
+                
+                [weakSelf.view ilg_makeToast:[NSString stringWithFormat:@"创建直播失败：%@", error.localizedDescription] position:ILGToastPositionCenter];
             }
             
         }];

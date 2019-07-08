@@ -66,15 +66,17 @@
                 [weakSelf.view ilg_makeToast:[NSString stringWithFormat:@"创建会议失败：%@", error.localizedDescription] position:ILGToastPositionCenter];
                 
             } else {
-                if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-                    [[[InterfaceUrls alloc] init] reportMeeting:name ID:meetingID creator:[IMUserInfo shareInstance].userID];
-                } else {
-                    NSDictionary *infoDic = @{@"id":meetingID,
-                                           @"creator":UserId,
-                                           @"name":meetingItem.meetingName
-                                           };
-                    NSString *infoStr = [infoDic ilg_jsonString];
-                    [[XHClient sharedClient].meetingManager saveToList:UserId type:CHATROOM_LIST_TYPE_MEETING meetingId:meetingID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
+                NSDictionary *infoDic = @{@"id":meetingID,
+                                          @"creator":UserId,
+                                          @"name":meetingItem.meetingName
+                                          };
+                NSString *infoStr = [infoDic ilg_jsonString];
+                if ([AppConfig AEventCenterEnable] ) {
+                    [[[InterfaceUrls alloc] init] demoSaveTolist:LIST_TYPE_MEETING ID:meetingID data:[infoStr ilg_URLEncode]];
+                } else
+                {
+
+                    [[XHClient sharedClient].meetingManager saveToList:UserId type:LIST_TYPE_MEETING meetingId:meetingID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
                         
                     }];
                 }

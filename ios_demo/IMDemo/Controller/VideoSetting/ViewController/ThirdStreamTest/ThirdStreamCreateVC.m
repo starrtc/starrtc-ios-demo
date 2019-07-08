@@ -8,6 +8,7 @@
 
 #import "ThirdStreamCreateVC.h"
 #import "InterfaceUrls.h"
+#import "XHCustomConfig.h"
 
 @interface ThirdStreamCreateVC ()
 @property (weak, nonatomic) IBOutlet UITextField *rtspNameText;

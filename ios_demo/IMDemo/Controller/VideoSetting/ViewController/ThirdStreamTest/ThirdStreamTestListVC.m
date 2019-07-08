@@ -126,7 +126,7 @@
 {
     [self.view showProgressWithText:@"加载中..."];
     
-    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+    if ([AppConfig AEventCenterEnable]) {
         [self.m_interfaceUrls requestForThirdStreamList];
     } else {
         
@@ -154,21 +154,22 @@
     if (listArr.count != 0) {
         [_listArr removeAllObjects];
         
-        if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-            for (int index = 0; index < listArr.count; index++) {
-                NSDictionary *subDic = listArr[index];
-                
-//                IFMeetingItem *item = [[IFMeetingItem alloc] init];
-//                //                item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
-//                item.userIcon = @"meeting_list_icon";
-//                item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
-//                item.meetingName = subDic[@"Name"];
-//                item.creatorName = subDic[@"Creator"];
-//                item.meetingID = subDic[@"ID"];
-//
-//                [_listArr addObject:item];
-            }
-        } else {
+//        if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+//            for (int index = 0; index < listArr.count; index++) {
+//                NSDictionary *subDic = listArr[index];
+//                
+////                IFMeetingItem *item = [[IFMeetingItem alloc] init];
+////                //                item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
+////                item.userIcon = @"meeting_list_icon";
+////                item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
+////                item.meetingName = subDic[@"Name"];
+////                item.creatorName = subDic[@"Creator"];
+////                item.meetingID = subDic[@"ID"];
+////
+////                [_listArr addObject:item];
+//            }
+//        } else
+        {
             for (int index = 0; index < listArr.count; index++) {
                 NSString *str = listArr[index];
                 NSString *strDecoded = [str ilg_URLDecode];

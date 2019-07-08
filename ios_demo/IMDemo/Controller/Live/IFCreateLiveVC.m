@@ -66,19 +66,23 @@
                 [weakSelf.view ilg_makeToast:[NSString stringWithFormat:@"创建直播失败：%@", error.localizedDescription] position:ILGToastPositionCenter];
                 
             } else {
-                if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-                    [[[InterfaceUrls alloc] init] reportLive:name ID:liveID creator:[IMUserInfo shareInstance].userID];
-                } else {
+
                     NSDictionary *infoDic = @{@"id":liveID,
                                               @"creator":UserId,
                                               @"name":name
                                               };
                     NSString *infoStr = [infoDic ilg_jsonString];
-                    [[XHClient sharedClient].meetingManager saveToList:UserId type:CHATROOM_LIST_TYPE_LIVE meetingId:liveID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
+                if ([AppConfig AEventCenterEnable] )
+                {
+                    [[[InterfaceUrls alloc] init] demoSaveTolist:LIST_TYPE_LIVE ID:liveID data:[infoStr ilg_URLEncode]];
+                }
+                else
+                {
+                
+                    [[XHClient sharedClient].liveManager saveToList:UserId type:LIST_TYPE_LIVE liveId:liveID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
                         
                     }];
                 }
-                
                 IFLiveVC *receive = [[IFLiveVC alloc] initWithType:IFLiveVCTypeCreate];
                 receive.liveId = liveID;
                 receive.creator = [IMUserInfo shareInstance].userID;

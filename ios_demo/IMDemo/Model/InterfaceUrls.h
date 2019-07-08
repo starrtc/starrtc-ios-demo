@@ -12,16 +12,38 @@
 
 @protocol InterfaceUrlsdelegate <NSObject>
 @optional
+
+- (void)getListResponse:(id)responseContent;
+- (void)getMessageGroupListResponse:(id)responseContent;
+
 - (void)getMeetingListResponse:(id)respnseContent;
 - (void)getLiveListResponse:(id)respnseContent;
-- (void)getChatRoomListResponse:(id)respnseContent;
-- (void)getMessageGroupListResponse:(id)respnseContent;
+- (void)getChatRoomListResponse:(id)responseContent;
+
 - (void)getMessageGroupMemberResponse:(id)respnseContent;
 
 - (void)requestDidComplete:(id)respnseContent;
 @end
 
 @interface InterfaceUrls: NSObject
+
+
+-(void)demoSaveTolist:(NSInteger)listType
+                   ID:(NSString *)ID
+                 data:(NSString *)data;
+
+
+-(void)demoDeleteFromList:(NSString *)userId
+                 listType:(NSInteger)listType
+                       id:(NSString *)id;
+
+
+-(void)demoQueryList:(NSInteger)listType;
+
+
+-(void)demoQueryImGroupList:(NSString *)userId;
+
+
 
 - (void)reportMeeting:(NSString *)name ID:(NSString *)ID creator:(NSString *)creator;
 //会议室列表
@@ -37,9 +59,11 @@
 //互动直播列表
 - (void)demoRequestLiveList;
 
-- (void)reportChatroom:(NSString *)name ID:(NSString *)ID creator:(NSString *)creator;
+- (void)reportChatroom:(NSInteger)listType
+                    ID:(NSString *)ID
+                  data:(NSString *)data;
 //聊天室列表
-- (void)demoRequestChatroomList;
+- (void)demoRequestChatroomList:(NSInteger)listType;
 
 //群列表
 -(void)demoRequestGroupList;

@@ -29,6 +29,44 @@
     return [BASE_URL stringByAppendingString:relativePath];
 }
 
+
+-(void)demoSaveTolist:(NSInteger)listType
+                   ID:(NSString *)ID
+                 data:(NSString *)data
+{
+    NSString *urlStr =  [NSString stringWithFormat:@"%@?userId=%@&listType=%ld&roomId=%@&data=%@",[self absolutePath:@"/save.php"], UserId,(long)listType,ID,data];
+    
+    [self get:urlStr callback:^(id result, NSError *error) {
+        
+    }];
+}
+
+-(void)demoQueryList:(NSInteger)listType
+{
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@%ld",[self absolutePath:@"/query.php"],@"?listTypes=",(long)listType];
+    [self get:urlStr callback:^(id result, NSError *error) {
+        if (_delegate && [_delegate respondsToSelector:@selector(getListResponse:)])
+        {
+            
+            [_delegate getListResponse:result];
+        }
+    }];
+}
+
+
+-(void)demoQueryImGroupList:(NSString *)userId
+{
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@",@"http://www.starrtc.com/aec/group/list.php?userId=",userId];
+    [self get:urlStr callback:^(id result, NSError *error) {
+        if (_delegate && [_delegate respondsToSelector:@selector(getMessageGroupListResponse:)])
+        {
+            
+            [_delegate getMessageGroupListResponse:result];
+        }
+    }];
+}
+
+
 - (void)reportMeeting:(NSString *)name
                    ID:(NSString *)ID
               creator:(NSString *)creator
@@ -130,25 +168,26 @@
     }];
 }
 
-- (void)reportChatroom:(NSString *)name
+- (void)reportChatroom:(NSInteger)listType
                     ID:(NSString *)ID
-               creator:(NSString *)creator
+               data:(NSString *)data
 {
 //    [name url]
-    NSString *urlStr =  [NSString stringWithFormat:@"%@?appid=%@&ID=%@&Name=%@&Creator=%@",[self absolutePath:@"/chat/store"], [AppConfig shareConfig].appId, ID, [self URLEncodeString:name], [self URLEncodeString:creator]];
+    NSString *urlStr =  [NSString stringWithFormat:@"%@?userId=%@&listType=%ld&roomId=%@&data=%@",[self absolutePath:@"/save.php"], UserId,(long)listType,ID,data];
     
     [self get:urlStr callback:^(id result, NSError *error) {
         
     }];
 }
 //聊天室列表
-- (void)demoRequestChatroomList {
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@%@",[self absolutePath:@"/chat/list"],@"?appid=",[AppConfig shareConfig].appId];
+- (void)demoRequestChatroomList:(NSInteger)listType
+{
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@%ld",[self absolutePath:@"/query.php"],@"?listTypes=",(long)listType];
     [self get:urlStr callback:^(id result, NSError *error) {
-        if (_delegate && [_delegate respondsToSelector:@selector(getChatRoomListResponse:)])
+        if (_delegate && [_delegate respondsToSelector:@selector(getListResponse:)])
         {
-            // 收到呼叫
-            [_delegate getChatRoomListResponse:result];
+            
+            [_delegate getListResponse:result];
         }
     }];
 }

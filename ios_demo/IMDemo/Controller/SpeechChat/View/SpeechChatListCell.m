@@ -20,8 +20,8 @@
 }
 - (void)setupCellData:(SpeechRoomModel* _Nullable)data{
     if (data) {
-        self.headerImageView.image = [UIImage imageWithUserId:data.Creator];
-        self.nicknameLabel.text = [NSString stringWithFormat:@"%@",data.Name];
+        self.headerImageView.image = [UIImage imageWithUserId:data.creatorID];
+        self.nicknameLabel.text = [NSString stringWithFormat:@"%@",data.liveName];
     } else {
         self.nicknameLabel.text = @"";
     }
