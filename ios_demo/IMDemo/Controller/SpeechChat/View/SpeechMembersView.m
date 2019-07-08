@@ -38,7 +38,7 @@
 }
 
 - (void)addMember:(NSString*)uid{
-    if ([uid isEqualToString:self.roomInfo.Creator]) {
+    if ([uid isEqualToString:self.roomInfo.creatorID]) {
         [self.headerButton setImage:[UIImage imageWithUserId:uid] forState:UIControlStateNormal];
         self.nickNameLabel.text = [NSString stringWithFormat:@"%@",uid];
     } else {

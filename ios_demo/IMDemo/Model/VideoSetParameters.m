@@ -132,6 +132,8 @@
     
     [dic setObject:[NSNumber numberWithBool:self.logEnable] forKey:@"logEnable"];
     
+    [dic setObject:[NSNumber numberWithBool:self.aecEnable] forKey:@"aecEnable"];
+    
     return dic;
 }
 

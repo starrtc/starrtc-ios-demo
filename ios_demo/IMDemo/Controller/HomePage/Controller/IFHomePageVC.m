@@ -19,8 +19,9 @@
 #import "EMViewController.h"
 #import "XHClient.h"
 #import "InterfaceUrls.h"
-#import "SpeechChatListVC.h"
+#import "SuperRoomListVC.h"
 #import "IMMsgManager.h"
+#import "SpeechChatListVC.h"
 
 #import "IFSourceListVC.h"
 
@@ -160,9 +161,10 @@
     
     SpeechChatListVC *listVC = [SpeechChatListVC instanceFromNib];
     [self.navigationController pushViewController:listVC animated:YES];
-//    EMViewController *vc = [[EMViewController alloc] init];
-//    VideoSettingVC * vc = [[VideoSettingVC alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
+    
+//    SuperRoomListVC *listVC = [SuperRoomListVC instanceFromNib];
+//    [self.navigationController pushViewController:listVC animated:YES];
+    
     
 }
 - (IBAction)logoutButtonClicked:(UIButton *)sender {
@@ -197,44 +199,17 @@
 - (void)login
 {
     [UIWindow showProgressWithText:@"正在登录..."];
-    [InterfaceUrls getAuthKey:UserId appid:[AppConfig shareConfig].appId url:[NSString stringWithFormat:@"%@/authKey",[AppConfig shareConfig].host] callback:^(BOOL status, NSString *data) {
-        if (status) {
-            if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-                [[XHClient sharedClient].loginManager login:data completion:^(NSError *error) {
-                    [UIWindow hiddenProgress];
-                    if(error == nil){
-                        [UIWindow ilg_makeToast:@"登录成功"];
-                        self.userNickNameLabel.text = UserId;
-                        self.loginButton.selected = YES;
-                        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"UserOnline"];
-                    } else{
-                        [UIWindow ilg_makeToast:@"登录失败"];
-                        self.userNickNameLabel.text = @"登录失败";
-                        self.loginButton.selected = NO;
-                        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"UserOnline"];
-                    }
-                }];
-            } else {
-                [[XHClient sharedClient].loginManager loginFree:^(NSError *error) {
-                    [UIWindow hiddenProgress];
-                    if(error == nil){
-                        [UIWindow ilg_makeToast:@"登录成功"];
-                        self.userNickNameLabel.text = UserId;
-                        self.loginButton.selected = YES;
-                        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"UserOnline"];
-                    } else{
-                        [UIWindow ilg_makeToast:@"登录失败"];
-                        self.userNickNameLabel.text = @"登录失败";
-                        self.loginButton.selected = NO;
-                        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"UserOnline"];
-                    }
-                }];
-            }
-            
-        } else {
-            [UIWindow hiddenProgress];
-            NSLog(@"authKey 获取失败");
-            self.userNickNameLabel.text = @"AuthKey 获取失败";
+
+    [[XHClient sharedClient].loginManager loginFree:^(NSError *error) {
+        [UIWindow hiddenProgress];
+        if(error == nil){
+            [UIWindow ilg_makeToast:@"登录成功"];
+            self.userNickNameLabel.text = UserId;
+            self.loginButton.selected = YES;
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"UserOnline"];
+        } else{
+            [UIWindow ilg_makeToast:@"登录失败"];
+            self.userNickNameLabel.text = @"登录失败";
             self.loginButton.selected = NO;
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"UserOnline"];
         }

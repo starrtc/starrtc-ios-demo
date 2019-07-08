@@ -11,6 +11,7 @@
 @interface VideoSetParameters : XHVideoConfig
 
 @property (nonatomic, assign) BOOL logEnable;
+@property (nonatomic, assign) BOOL aecEnable;
 
 + (instancetype)locaParameters;
 + (NSString*)resolutionTextWithType:(XHCropTypeEnum) resolution;

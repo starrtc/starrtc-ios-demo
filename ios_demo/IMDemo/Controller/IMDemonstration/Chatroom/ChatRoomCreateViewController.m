@@ -39,6 +39,7 @@
     self.sessionView.alertTitle = @"专属聊天室的名称";
     self.sessionView.textFieldPlaceholder = @"输入聊天室名称";
     self.sessionView.funcBtnTitle = @"创建聊天室";
+    self.sessionView.isHasControl = NO;
 }
 
 
@@ -56,16 +57,17 @@
                 [UIView ilg_makeToast:error.localizedDescription];
                 
             } else {
-                if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-                    [[[InterfaceUrls alloc] init] reportChatroom:name ID:chatRoomID creator:[IMUserInfo shareInstance].userID];
+                NSDictionary *infoDic = @{@"id":chatRoomID,
+                                          @"creator":UserId,
+                                          @"name":name
+                                          };
+                NSString *infoStr = [infoDic ilg_jsonString];
+                if ([AppConfig AEventCenterEnable] ) {
+                    [[[InterfaceUrls alloc] init] demoSaveTolist:LIST_TYPE_CHATROOM ID:chatRoomID data:[infoStr ilg_URLEncode]];
                 } else {
-                    NSDictionary *infoDic = @{@"id":chatRoomID,
-                                              @"creator":UserId,
-                                              @"name":name
-                                              };
-                    NSString *infoStr = [infoDic ilg_jsonString];
-                    [[XHClient sharedClient].roomManager saveToList:UserId type:CHATROOM_LIST_TYPE_CHATROOM chatroomID:chatRoomID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
-                        
+
+                    [[XHClient sharedClient].roomManager saveToList:UserId type:LIST_TYPE_CHATROOM chatroomID:chatRoomID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
+
                     }];
                 }
                 

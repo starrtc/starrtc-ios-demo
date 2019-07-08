@@ -83,11 +83,11 @@
 
 #pragma mark - Delegate
 #pragma mark InterfaceUrlsdelegate
-- (void)getChatRoomListResponse:(id)respnseContent {
+- (void)getListResponse:(id)respnseContent {
     NSDictionary *dict = respnseContent;
     int status = [[dict objectForKey:@"status"] intValue];
     NSArray *listArr = [dict objectForKey:@"data"];
-    if (status == 1 && [listArr isKindOfClass:[NSArray class]]) {
+    if (status == 1) {
         [self refreshListDidEnd:listArr];
     } else {
         [self refreshListDidEnd:nil];
@@ -151,46 +151,133 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+
 - (void)refreshList
 {
     [self.view showProgressWithText:@"加载中..."];
     
-    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-        [m_interfaceUrls demoRequestChatroomList];
-    } else {
+    if([AppConfig AEventCenterEnable])
+    {
+        [m_interfaceUrls demoQueryList:LIST_TYPE_CHATROOM];
+    }
+    else
+    {
         __weak typeof(self) weakSelf = self;
-        [[XHClient sharedClient].roomManager queryChatroomList:UserId type:[NSString stringWithFormat:@"%d", CHATROOM_LIST_TYPE_CHATROOM] completion:^(NSString *listInfo, NSError *error) {
-            NSArray *listArr = nil;
+        [[XHClient sharedClient].roomManager queryChatroomList:UserId type:[NSString stringWithFormat:@"%d", LIST_TYPE_CHATROOM] completion:^(NSString *listInfo, NSError *error) {
+            NSData *jsonData = nil;
+            NSArray *listuserDefineDataList;
             if (listInfo) {
-                NSData *jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
-                listArr = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                          options:NSJSONReadingMutableContainers
-                                                            error:nil];
+                jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
+                id obj  = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+                
+                if ([obj isKindOfClass:[NSArray class]]) {
+                    
+                    NSMutableArray * array = obj;
+                    NSLog(@"*************%@",array);
+                }else{
+                    
+                    NSMutableDictionary * dict = obj;
+                    NSString * userDefineDataList = [dict objectForKey:@"userDefineDataList"] ;
+                    if(userDefineDataList)
+                    {
+                        listuserDefineDataList = [userDefineDataList componentsSeparatedByString:@","];
+                    }
+
+                }
             }
             
-            [weakSelf refreshListDidEnd:listArr];
-
+            [weakSelf refreshListDidEnd:listuserDefineDataList];
+            
         }];
     }
 }
 
+
 - (void)refreshListDidEnd:(NSArray *)listArr
+{
+    if(listArr)
+    {
+        if (_listArr.count != 0)
+        {
+            [_listArr removeAllObjects];
+        }
+       if([AppConfig AEventCenterEnable])
+       {
+           for (int index = 0; index < listArr.count; index++) {
+               NSString *str = [listArr[index] objectForKey:@"data"];
+               NSString *strDecoded = [str ilg_URLDecode];
+               NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
+               NSError *error = nil;
+               NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                      options:NSJSONReadingMutableContainers
+                                                                        error:&error];
+               if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
+                   continue;
+               }
+
+               IFChatroomItem *item = [[IFChatroomItem alloc] init];
+               item.name = subDic[@"name"];
+               item.creatorId = subDic[@"creator"];
+               item.ID = subDic[@"id"];
+
+               [_listArr addObject:item];
+           }
+       }
+     else
+     {
+        for (int index = 0; index < listArr.count; index++) {
+            NSString *str = listArr[index];
+            NSString *strDecoded = [str ilg_URLDecode];
+            NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
+            NSError *error = nil;
+            NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                   options:NSJSONReadingMutableContainers
+                                                                     error:&error];
+            if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
+                continue;
+            }
+            
+            IFChatroomItem *item = [[IFChatroomItem alloc] init];
+            item.name = subDic[@"name"];
+            item.creatorId = subDic[@"creator"];
+            item.ID = subDic[@"id"];
+            
+            [_listArr addObject:item];
+        }
+      }
+            
+            [_listView.tableView reloadData];
+
+//        }
+    }
+    [self.view hideProgress];
+    if ([_listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
+        if (_listView.tableView.refreshControl && _listView.tableView.refreshControl.refreshing) {
+            [_listView.tableView.refreshControl endRefreshing];
+        }
+    }
+}
+
+// data={"roomIdList":"a4alcSjTUWudiHOk,a4aKL1on4Wudgkjo,a4a@0X93MWudfqeS","creatorList":"142003,142003,142003","userDefineDataList":"Iij,Trr,Ttt"}
+
+- (void)refreshListDidEnd_BK:(NSArray *)listArr
 {
     if (listArr.count != 0) {
         [_listArr removeAllObjects];
         
-        if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-            for (int index = 0; index < listArr.count; index++) {
-                NSDictionary *subDic = listArr[index];
-                
-                IFChatroomItem *item = [[IFChatroomItem alloc] init];
-                item.name = subDic[@"Name"];
-                item.creatorId = subDic[@"Creator"];
-                item.ID = subDic[@"ID"];
-                
-                [_listArr addObject:item];
-            }
-        } else {
+        //if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+//            for (int index = 0; index < listArr.count; index++) {
+//                NSDictionary *subDic = listArr[index];
+//
+//                IFChatroomItem *item = [[IFChatroomItem alloc] init];
+//                item.name = subDic[@"Name"];
+//                item.creatorId = subDic[@"Creator"];
+//                item.ID = subDic[@"ID"];
+//
+//                [_listArr addObject:item];
+//            }
+//        } else
+        {
             for (int index = 0; index < listArr.count; index++) {
                 NSString *str = listArr[index];
                 NSString *strDecoded = [str ilg_URLDecode];
@@ -202,16 +289,16 @@
                 if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
                     continue;
                 }
-                
+
                 IFChatroomItem *item = [[IFChatroomItem alloc] init];
                 item.name = subDic[@"name"];
                 item.creatorId = subDic[@"creator"];
                 item.ID = subDic[@"id"];
-                
+
                 [_listArr addObject:item];
             }
         }
-        
+    
         [_listView.tableView reloadData];
     }
     
@@ -222,6 +309,8 @@
         }
     }
 }
+
+
 
 @end
 

@@ -26,7 +26,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 - (void)setupUI{
-    self.navigationItem.title = self.roomInfo.Name;
+    self.navigationItem.title = self.roomInfo.liveName;
     [self.view addSubview:self.chatMenuView];
     [self.view addSubview:self.membersView];
     [self.view addSubview:self.messagesView];
@@ -107,7 +107,7 @@
  @return 用于显示发言者视频画面的view
  */
 - (UIView *)onActorJoined:(NSString *)uid live:(NSString *)liveID{
-    if([uid isEqualToString:self.roomInfo.Creator])
+    if([uid isEqualToString:self.roomInfo.creatorID])
     {
        // 主持人进入后先将自己静音
         [[XHClient sharedClient].liveManager setAudioEnable:NO];

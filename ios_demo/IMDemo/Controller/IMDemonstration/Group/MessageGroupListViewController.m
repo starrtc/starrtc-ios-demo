@@ -145,52 +145,79 @@
 {
     [self.view showProgressWithText:@"加载中..."];
     
-    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-        [m_interfaceUrls demoRequestGroupList];
+    if ([AppConfig AEventCenterEnable])
+    {
+        [m_interfaceUrls demoQueryImGroupList:UserId];
     } else {
         __weak typeof(self) weakSelf = self;
         [[XHClient sharedClient].groupManager queryGroupList:^(NSString *listInfo, NSError *error) {
-            NSArray *listArr = nil;
+            NSData *jsonData = nil;
+            NSArray *listuserDefineDataList;
             if (listInfo) {
-                NSData *jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
-                listArr = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                          options:NSJSONReadingMutableContainers
-                                                            error:nil];
+                jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
+                id obj  = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+                
+                if ([obj isKindOfClass:[NSArray class]]) {
+                    
+                    NSMutableArray * array = obj;
+                    NSLog(@"*************%@",array);
+                }else{
+                    
+                    NSMutableDictionary * dict = obj;
+                    NSString * userDefineDataList = [dict objectForKey:@"userDefineDataList"] ;
+                    if(userDefineDataList)
+                    {
+                        listuserDefineDataList = [userDefineDataList componentsSeparatedByString:@","];
+                    }
+                    
+                }
             }
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf refreshListDidEnd:listArr];
-            });
+            [weakSelf refreshListDidEnd:listuserDefineDataList];
         }];
     }
 }
 
+
 - (void)refreshListDidEnd:(NSArray *)listArr
 {
-    if (listArr.count != 0) {
-        [_listArr removeAllObjects];
-        
-        if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+    //    NSString*str =  [[NSString alloc]initWithData:recvData encoding:NSUTF8StringEncoding];
+    //    NSLog(@"%@", str);
+    NSError * error = nil;
+    if(listArr)
+    {
+        if (_listArr.count != 0)
+        {
+            [_listArr removeAllObjects];
+        }
+        if([AppConfig AEventCenterEnable])
+        {
             for (int index = 0; index < listArr.count; index++) {
-                NSDictionary *subDic = listArr[index];
+                 NSDictionary *subDic = listArr[index];
                 
                 IFGroupItem *item = [[IFGroupItem alloc] init];
-                item.userIcon = @"im_groupList_icon";
                 item.groupName = subDic[@"groupName"];
                 item.creatorId = subDic[@"creator"];
                 item.groupId = subDic[@"groupId"];
                 
                 [_listArr addObject:item];
             }
-        } else {
+        }
+        else
+        {
             for (int index = 0; index < listArr.count; index++) {
-                NSDictionary *subDic = listArr[index];
+                NSString *str = listArr[index];
+                NSString *strDecoded = [str ilg_URLDecode];
+                NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
+                NSError *error = nil;
+                NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                       options:NSJSONReadingMutableContainers
+                                                                         error:&error];
                 if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
                     continue;
                 }
                 
                 IFGroupItem *item = [[IFGroupItem alloc] init];
-                item.userIcon = @"im_groupList_icon";
                 item.groupName = subDic[@"groupName"];
                 item.creatorId = subDic[@"creator"];
                 item.groupId = subDic[@"groupId"];
@@ -200,13 +227,82 @@
         }
         
         [_listView.tableView reloadData];
+        
+        //        }
     }
-    
     [self.view hideProgress];
     if ([_listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
         if (_listView.tableView.refreshControl && _listView.tableView.refreshControl.refreshing) {
             [_listView.tableView.refreshControl endRefreshing];
         }
+    }
+}
+
+
+
+- (void)refreshListDidEnd_bk:(NSData *)recvData
+{
+    NSString*str =  [[NSString alloc]initWithData:recvData encoding:NSUTF8StringEncoding];
+    NSLog(@"%@", str);
+    NSError * error = nil;
+    id obj  = [NSJSONSerialization JSONObjectWithData:recvData options:NSJSONReadingMutableContainers error:&error];
+    
+    NSArray *listroomIdList;
+    NSArray *listcreatorList;
+    NSArray *listuserDefineDataList;
+    
+    // 判断一下,id是NSMutableArray类型还是NSMutableDictionary
+    if ([obj isKindOfClass:[NSArray class]]) {
+        
+        NSMutableArray * array = obj;
+        NSLog(@"*************%@",array);
+    }else{
+        
+        NSMutableDictionary * dict = obj;
+        
+        NSString * roomIdList = [dict objectForKey:@"roomIdList"] ;
+        
+        NSString * creatorList = [dict objectForKey:@"creatorList"] ;
+        
+        NSString * userDefineDataList = [dict objectForKey:@"userDefineDataList"] ;
+        
+        if(roomIdList)
+        {
+            listroomIdList = [roomIdList componentsSeparatedByString:@","];
+        }
+        
+        if(creatorList)
+        {
+            listcreatorList = [creatorList componentsSeparatedByString:@","];
+        }
+        
+        if(userDefineDataList)
+        {
+            listuserDefineDataList = [userDefineDataList componentsSeparatedByString:@","];
+        }
+        
+        if (_listArr.count != 0)
+        {
+            [_listArr removeAllObjects];
+        }
+        for (int index = 0; index < listroomIdList.count; index++) {
+            
+            
+            IFGroupItem *item = [[IFGroupItem alloc] init];
+            item.groupName = listuserDefineDataList[index];
+            item.creatorId = listcreatorList[index];
+            item.groupId = listroomIdList[index];
+            
+            [_listArr addObject:item];
+        }
+        [_listView.tableView reloadData];
+        [self.view hideProgress];
+        if ([_listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
+            if (_listView.tableView.refreshControl && _listView.tableView.refreshControl.refreshing) {
+                [_listView.tableView.refreshControl endRefreshing];
+            }
+        }
+        
     }
 }
 

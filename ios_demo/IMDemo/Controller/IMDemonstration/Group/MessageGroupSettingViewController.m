@@ -62,10 +62,11 @@ static NSString *kMuteKey = @"kMuteKey";
 #pragma mark - getter
 
 - (BOOL)isMute {
-    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-        BOOL isOn = [[ILGLocalData userDefaultObject:kMuteKey] boolValue];
-        return isOn;
-    } else {
+//    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+//        BOOL isOn = [[ILGLocalData userDefaultObject:kMuteKey] boolValue];
+//        return isOn;
+//    } else
+    {
         return _isMute;
     }
 }
@@ -218,9 +219,10 @@ static NSString *kMuteKey = @"kMuteKey";
 - (void)switchValueChanged:(UISwitch *)switchControl {
     BOOL isMute = switchControl.on;
     
-    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-        [ILGLocalData userDefaultSave:@(isMute) key:kMuteKey];
-    } else {
+//    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+//        [ILGLocalData userDefaultSave:@(isMute) key:kMuteKey];
+//    } else
+    {
         [[XHClient sharedClient].groupManager setGroup:_groupID pushEnable:isMute completion:^(NSError *error) {
             
         }];
@@ -408,10 +410,11 @@ static NSString *kMuteKey = @"kMuteKey";
 }
 
 - (void)requestForGroupInfo {
-    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-        [m_interfaceUrls demoRequestGroupMembers:_groupID];
-        
-    } else {
+//    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
+//        [m_interfaceUrls demoRequestGroupMembers:_groupID];
+//        
+//    } else
+    {
         __weak typeof(self) weakSelf = self;
         [[XHClient sharedClient].groupManager queryGroupInfo:self.groupID completion:^(NSString *listInfo, NSError *error) {
             NSDictionary *dict = nil;

@@ -12,6 +12,8 @@
 
 #import "InterfaceUrls.h"
 
+#import "XHCustomConfig.h"
+
 @interface IFCreateSourceVC ()
 
 @end
@@ -62,7 +64,23 @@
                 [weakSelf.view ilg_makeToast:[NSString stringWithFormat:@"创建课程失败：%@", error.localizedDescription] position:ILGToastPositionCenter];
                 
             } else {
-                [[[InterfaceUrls alloc] init] reportSuorce:name ID:liveID creator:[IMUserInfo shareInstance].userID];
+
+                NSDictionary *infoDic = @{@"id":liveID,
+                                          @"creator":UserId,
+                                          @"name":name
+                                          };
+                NSString *infoStr = [infoDic ilg_jsonString];
+                if ([AppConfig AEventCenterEnable] )
+                {
+                    [[[InterfaceUrls alloc] init] demoSaveTolist:LIST_TYPE_CLASS ID:liveID data:[infoStr ilg_URLEncode]];
+                }
+                else
+                {
+                    
+                    [[XHClient sharedClient].liveManager saveToList:UserId type:LIST_TYPE_CLASS liveId:liveID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
+                        
+                    }];
+                }
                 
                 IFSourceVC *receive = [IFSourceVC viewControllerWithType:IFSourceVCTypeCreate];
                 receive.liveId = liveID;

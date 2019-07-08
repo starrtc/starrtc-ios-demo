@@ -1,0 +1,276 @@
+//
+//  GuestSuperRoomVC.m
+//  IMDemo
+//
+//  Created by 韩肖杰 on 2019/1/15.
+//  Copyright © 2019  Admin. All rights reserved.
+//
+
+#import "GuestSuperRoomVC.h"
+#import "SuperRoomMenuView.h"
+#import "SuperRoomMembersView.h"
+#import "SuperRoomMessagesView.h"
+#import "XHClient.h"
+
+@interface GuestSuperRoomVC ()<SuperRoomMenuViewDelegate,XHLiveManagerDelegate>
+@property (nonatomic, strong) SuperRoomMenuView *chatMenuView;
+@property (nonatomic, strong) SuperRoomMembersView *membersView;
+@property (nonatomic, strong) SuperRoomMessagesView *messagesView;
+@property (weak, nonatomic) IBOutlet UIButton *upMicButton;
+@end
+
+@implementation GuestSuperRoomVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setupUI];
+    [self setupHandle];
+    // Do any additional setup after loading the view from its nib.
+}
+- (void)setupUI{
+    self.navigationItem.title = self.roomInfo.Name;
+    [self.view addSubview:self.chatMenuView];
+    [self.view addSubview:self.membersView];
+    [self.chatMenuView hiddenAudioButton];
+    [self.view addSubview:self.messagesView];
+    [self.view bringSubviewToFront:self.upMicButton	];
+    //[self.view insertSubview:self.messagesView atIndex:0];
+}
+- (void)setupHandle{
+    
+    self.membersView.roomInfo = self.roomInfo;
+    
+    [[XHClient sharedClient].liveManager setVideoEnable:NO];
+    [[XHClient sharedClient].liveManager setAudioEnable:NO];
+    [[XHClient sharedClient].liveManager setRtcMediaType:IOS_STAR_RTC_MEDIA_TYPE_AUDIO_ONLY];
+    [[XHClient sharedClient].liveManager addDelegate:self];
+    [[XHClient sharedClient].liveManager watchLive:self.roomInfo.ID completion:^(NSError *error) {
+        
+    }];
+}
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    self.chatMenuView.frame = CGRectMake(0, self.view.height - 60, self.view.width, 60);
+    CGFloat topHeight = UIApplication.sharedApplication.statusBarFrame.size.height + 44;
+    self.membersView.frame = CGRectMake(0, topHeight + 10, self.view.width, 265);
+    self.messagesView.frame = CGRectMake(0, CGRectGetMaxY(self.membersView.frame), self.view.width, self.view.height - CGRectGetMaxY(self.membersView.frame) - self.chatMenuView.height);
+}
+#pragma mark - init
+- (SuperRoomMenuView*)chatMenuView{
+    if (!_chatMenuView) {
+        _chatMenuView = [SuperRoomMenuView instanceFromNib];
+        _chatMenuView.delegate = self;
+    }
+    return _chatMenuView;
+}
+- (SuperRoomMembersView*)membersView{
+    if (!_membersView) {
+        _membersView = [SuperRoomMembersView instanceFromNib];
+        //        _membersView.delegate = self;
+    }
+    return _membersView;
+}
+- (SuperRoomMessagesView*)messagesView{
+    if (!_messagesView) {
+        _messagesView = [SuperRoomMessagesView instanceFromNib];
+    }
+    return _messagesView;
+}
+
+#pragma mark - 点击
+
+- (IBAction)upVideoButtonClicked:(UIButton *)sender {
+    if([sender.titleLabel.text isEqualToString:@"上麦"])
+    {
+        [[XHClient sharedClient].liveManager applyToBroadcaster:self.roomInfo.Creator completion:^(NSError *error) {
+            [UIWindow ilg_makeToast:@"申请发送成功，正在等待房主同意..."];
+        }];
+        [sender setTitle:@"下麦" forState:UIControlStateNormal] ;
+        
+    }
+    else
+    {
+        [[XHClient sharedClient].liveManager changeToAudience];
+        [sender setTitle:@"上麦" forState:UIControlStateNormal] ;
+    }
+}
+
+//父类方法
+- (void)leftButtonClicked:(UIButton *)button
+{
+    [[XHClient sharedClient].liveManager leaveLive:self.roomInfo.ID completion:^(NSError *error) {
+        
+    }];
+    [super leftButtonClicked:button];
+}
+
+#pragma mark - SuperRoomMenuViewDelegate <NSObject>
+
+- (void)SuperRoomMenuView:(SuperRoomMenuView*)chatMenuView sendText:(NSString*)text{
+    [[XHClient sharedClient].liveManager sendMessage:text completion:^(NSError *error) {
+        if (error == nil) {
+            SuperRoomMessageModel *model = [[SuperRoomMessageModel alloc] initWithNickname:UserId content:text];
+            [self.messagesView addMessage:model];
+            NSLog(@"发送成功");
+        }
+        
+    }];
+}
+- (void)SuperRoomMenuViewStartSuperRoom:(SuperRoomMenuView*)chatMenuView{
+    [[XHClient sharedClient].liveManager setAudioEnable:YES];
+}
+- (void)SuperRoomMenuViewStopSuperRoom:(SuperRoomMenuView*)chatMenuView{
+    [[XHClient sharedClient].liveManager setAudioEnable:NO];
+}
+#pragma mark - XHLiveManagerDelegate <NSObject>
+
+/**
+ 有人加入直播
+ @param uid 加入用户的ID
+ @param liveID 直播间ID
+ @return 用于显示发言者视频画面的view
+ */
+- (UIView *)onActorJoined:(NSString *)uid live:(NSString *)liveID{
+    if([uid isEqualToString:UserId])
+    {
+        // 主持人进入后先将自己静音
+        [[XHClient sharedClient].liveManager setAudioEnable:NO];
+    }
+    [self.membersView addMember:uid];
+    return nil;
+}
+
+/**
+ 有人离开直播
+ 
+ @param uid 离开用户的ID
+ @param liveID 直播间ID
+ */
+- (void)onActorLeft:(NSString *)uid live:(NSString *)liveID{
+
+    [self.membersView removeMember:uid];
+    if([uid isEqualToString:UserId])
+    {
+        [self.chatMenuView hiddenAudioButton];
+    }
+    
+}
+
+/**
+ 申请上麦者收到 加入直播的审批回复
+ @param result 结果
+ @param liveID 直播间ID
+ */
+- (void)onBroadcastResponsed:(XHLiveJoinResult)result live:(NSString *)liveID{
+    NSString *content;
+    switch (result) {
+        case XHLiveJoinResult_Accept:
+            content = @"房主接收了您的申请";
+            [[XHClient sharedClient].liveManager changeToBroadcaster];
+            [self.chatMenuView showAudioButton];
+            break;
+        case XHLiveJoinResult_refuse:
+            content = @"房主拒绝了您的申请";
+            break;
+        default:
+            content = @"申请无应答，请尝试再次申请";
+            break;
+    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:content preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
+/**
+ 观众收到 加入直播的邀请
+ @param uid 邀请用户ID
+ @param liveID 直播间ID
+ */
+- (void)onInviteBroadcast:(NSString *)uid live:(NSString *)liveID{
+    
+}
+
+/**
+ 房间创建者收到 是否连麦的回复
+ @param result 结果
+ @param liveID 直播间ID
+ */
+- (void)onInviteResponsed:(XHLiveJoinResult)result live:(NSString *)liveID{
+    
+}
+
+
+/**
+ * 自己连麦被强制停止
+ @param liveID 直播间ID
+ */
+- (void)onCommandToStopPlay:(NSString *)liveID{
+    [UIWindow ilg_makeToast:@"连麦被强制停止"];
+}
+
+
+/**
+ 一些异常情况可能会引起会议出错，请在收到该回调后主动离开直播
+ @param error 错误信息
+ @param liveID 直播间ID
+ */
+- (void)onLiveError:(NSError *)error live:(NSString *)liveID{
+    
+    NSLog(@"onLiveError %@",error);
+    [self leftButtonClicked:nil];
+    [UIWindow ilg_makeToast:error.localizedDescription ];
+    
+}
+
+
+/**
+ 成员数发生变化
+ 
+ @param membersNumber 成员数
+ */
+- (void)liveMembersNumberUpdated:(NSInteger)membersNumber{
+    
+}
+
+/**
+ 自己被剔
+ */
+- (void)liveUserKicked{
+    
+}
+
+/**
+ 收到消息
+ 
+ @param message 消息
+ */
+- (void)liveMessageReceived:(NSString *)message fromID:(NSString *)fromID{
+    SuperRoomMessageModel *model = [[SuperRoomMessageModel alloc] initWithNickname:fromID content:message];
+    [self.messagesView addMessage:model];
+}
+
+/**
+ 收到私信消息
+ 
+ @param message 消息
+ @param fromID 消息来源
+ */
+- (void)livePrivateMessageReceived:(NSString *)message fromID:(NSString *)fromID{
+    
+}
+
+
+/**
+ * 收到实时数据
+ * @param data 数据
+ * @param upId  用户ID
+ */
+- (void)onReceiveRealtimeData:(NSString *)data
+                         upId:(NSString *)upId{
+    
+}
+@end
