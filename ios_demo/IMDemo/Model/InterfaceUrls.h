@@ -38,7 +38,7 @@
                        id:(NSString *)id;
 
 
--(void)demoQueryList:(NSInteger)listType;
+-(void)demoQueryList:(NSString *)listType;
 
 
 -(void)demoQueryImGroupList:(NSString *)userId;

@@ -158,12 +158,12 @@
     
     if([AppConfig AEventCenterEnable])
     {
-        [m_interfaceUrls demoQueryList:LIST_TYPE_CHATROOM];
+        [m_interfaceUrls demoQueryList:[NSString stringWithFormat:@"%d", LIST_TYPE_CHATROOM]];
     }
     else
     {
         __weak typeof(self) weakSelf = self;
-        [[XHClient sharedClient].roomManager queryChatroomList:UserId type:[NSString stringWithFormat:@"%d", LIST_TYPE_CHATROOM] completion:^(NSString *listInfo, NSError *error) {
+        [[XHClient sharedClient].roomManager queryChatroomList:@"" type:[NSString stringWithFormat:@"%d", LIST_TYPE_CHATROOM] completion:^(NSString *listInfo, NSError *error) {
             NSData *jsonData = nil;
             NSArray *listuserDefineDataList;
             if (listInfo) {
