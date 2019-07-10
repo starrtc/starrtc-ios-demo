@@ -66,6 +66,20 @@
     }];
 }
 
+-(void)demoQueryImGroupInfo:(NSString *)userId
+                    groupId:(NSString *)groupId
+{
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@%@%@",@"http://www.starrtc.com/aec/group/members.php?userId=",userId,@"&groupId=",groupId];
+    [self get:urlStr callback:^(id result, NSError *error) {
+        if (_delegate && [_delegate respondsToSelector:@selector(getGroupMemberList:)])
+        {
+            
+            [_delegate getGroupMemberList:result];
+        }
+    }];
+}
+
+
 
 - (void)reportMeeting:(NSString *)name
                    ID:(NSString *)ID

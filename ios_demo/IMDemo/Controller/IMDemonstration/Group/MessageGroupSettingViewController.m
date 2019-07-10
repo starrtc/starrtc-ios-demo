@@ -33,6 +33,7 @@ static NSString *kMuteKey = @"kMuteKey";
 
     UIView *_headerView;
     UIView *_footerView;
+    UISwitch *switchControl;
 }
 
 - (void)viewDidLoad {
@@ -60,17 +61,6 @@ static NSString *kMuteKey = @"kMuteKey";
 
 
 #pragma mark - getter
-
-- (BOOL)isMute {
-//    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-//        BOOL isOn = [[ILGLocalData userDefaultObject:kMuteKey] boolValue];
-//        return isOn;
-//    } else
-    {
-        return _isMute;
-    }
-}
-
 
 #pragma mark - UI
 
@@ -165,16 +155,21 @@ static NSString *kMuteKey = @"kMuteKey";
 }
 
 // 代理函数
-- (void)getMessageGroupMemberResponse:(id)respnseContent {
-    NSDictionary *dict = respnseContent;
+// {"userIdList":"294120,371007","isIgnore":"0"}
+-(void)getGroupMemberList:(id)responseContent
+{
+    NSDictionary *dict = responseContent;
     int status = [[dict objectForKey:@"status"] intValue];
     if(status == 1) {
         NSMutableArray *mutArr = [[NSMutableArray alloc] init];
-        NSArray *list = [dict objectForKey:@"data"];
+        NSDictionary *data = [dict objectForKey:@"data"];
+        NSString *newMemberID =  [data objectForKey:@"userIdList"];
+        NSArray *userIdList = [newMemberID componentsSeparatedByString:@","];
+         _isMute = [[data objectForKey:@"isIgnore"] boolValue];
+        [switchControl setOn:_isMute];
         
-        for (NSDictionary *dict in list) {
-            NSString *newMemberID =  [dict objectForKey:@"userId"];
-            [mutArr addObject:newMemberID];
+        for (int i = 0; i < userIdList.count; i++ ) {
+            [mutArr addObject:userIdList[i]];
         }
         if (self.isOwner) {
             [mutArr addObject:@""];
@@ -186,6 +181,7 @@ static NSString *kMuteKey = @"kMuteKey";
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
 
 #pragma mark - Event
 
@@ -218,15 +214,9 @@ static NSString *kMuteKey = @"kMuteKey";
 
 - (void)switchValueChanged:(UISwitch *)switchControl {
     BOOL isMute = switchControl.on;
-    
-//    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-//        [ILGLocalData userDefaultSave:@(isMute) key:kMuteKey];
-//    } else
-    {
-        [[XHClient sharedClient].groupManager setGroup:_groupID pushEnable:isMute completion:^(NSError *error) {
+    [[XHClient sharedClient].groupManager setGroup:_groupID pushEnable:isMute completion:^(NSError *error) {
             
         }];
-    }
 }
 
 #pragma mark - Delegate
@@ -310,7 +300,7 @@ static NSString *kMuteKey = @"kMuteKey";
     label.font = [UIFont systemFontOfSize:16];
     label.text = @"消息免打扰";
     
-    UISwitch *switchControl = [[UISwitch alloc] init];
+    switchControl = [[UISwitch alloc] init];
     [switchControl addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     [tableSecsionView addSubview:label];
@@ -410,10 +400,10 @@ static NSString *kMuteKey = @"kMuteKey";
 }
 
 - (void)requestForGroupInfo {
-//    if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-//        [m_interfaceUrls demoRequestGroupMembers:_groupID];
-//        
-//    } else
+    if ([AppConfig AEventCenterEnable]) {
+        [m_interfaceUrls demoQueryImGroupInfo:UserId groupId:_groupID];
+        
+    } else
     {
         __weak typeof(self) weakSelf = self;
         [[XHClient sharedClient].groupManager queryGroupInfo:self.groupID completion:^(NSString *listInfo, NSError *error) {
