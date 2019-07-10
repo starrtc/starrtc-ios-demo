@@ -2,7 +2,7 @@
 
 ![StarRTC_demo](assets/StarRTC_demo.jpg)
 
-iOS示例程序需要自己编译下。
+iOS示例程序需要自己编译下。注意：不支持模拟器！！！
 
 IM测试时，除了app之间可以互发消息，app也可以和这个页面互发消息进行测试：
 
@@ -55,6 +55,9 @@ https://github.com/starrtc/starrtc-server
 ==
 测试小车，人脸识别，在线教育等请参见：https://docs.starrtc.com/en/download/
 
+更新记录
+===
+https://github.com/starrtc/starrtc-ios-demo/wiki/Changelog
 
 Contact
 =====
