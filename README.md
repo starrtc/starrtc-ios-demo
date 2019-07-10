@@ -45,9 +45,7 @@ P2P直连
 
 后台api与数据库
 ===
-https://github.com/starrtc/starrtc-demo-server-api-php
-
-自行部署服务端程序
+https://github.com/starrtc/starrtc-server/tree/master/server-api
 ===
 https://github.com/starrtc/starrtc-server
 
