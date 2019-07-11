@@ -11,7 +11,6 @@
 #import "ReceiveVoipView.h"
 #import "VoipConversationView.h"
 #import "XHClient.h"
-#import "XQEchoCancellation.h"
 #import "VideoSetParameters.h"
 #define subPathPCM @"/Documents/xbMedia"
 #define stroePath [NSHomeDirectory() stringByAppendingString:subPathPCM]
