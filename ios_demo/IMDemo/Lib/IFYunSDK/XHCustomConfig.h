@@ -26,6 +26,15 @@ static  int LIST_TYPE_AUDIO_LIVE = 7;
 static  int LIST_TYPE_AUDIO_LIVE_PUSH = 8;
 static  int LIST_TYPE_SUPER_ROOM = 9;
 static  int LIST_TYPE_SUPER_ROOM_PUSH = 10;
+static NSString *LIST_TYPE_LIVE_ALL = @"1,2";
+static NSString * LIST_TYPE_MEETING_ALL = @"3,4";
+static NSString * LIST_TYPE_CLASS_ALL = @"5,6";
+static NSString * LIST_TYPE_AUDIO_LIVE_ALL  = @"7,8";
+static NSString * LIST_TYPE_SUPER_ROOM_ALL  = @"9,10";
+static NSString * LIST_TYPE_PUSH_ALL  = @"2,4,6,8,10";
+
+
+
 
 @interface XHCustomConfig : NSObject
 

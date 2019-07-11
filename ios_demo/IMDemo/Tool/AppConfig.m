@@ -52,12 +52,19 @@ static NSString * const kAppConfigParametersPrivateKey = @"AppConfigParametersPr
             
         } else {
             if (type == IFServiceTypePrivate) {
-                _messageHost = @"demo.starrtc.com:19903";
-                _chatHost = @"demo.starrtc.com:19906";
-                _uploadHost = @"demo.starrtc.com:19931";
-                _downloadHost = @"demo.starrtc.com:19928";
-                _voipHost = @"demo.starrtc.com:10086";
-                _uploadProxyHost = @"demo.starrtc.com:19932";
+                
+                            _messageHost = @"demo.starrtc.com:19903";
+                            _chatHost = @"demo.starrtc.com:19906";
+                            _uploadHost = @"demo.starrtc.com:19931";
+                            _downloadHost = @"demo.starrtc.com:19928";
+                            _voipHost = @"demo.starrtc.com:10086";
+                            _uploadProxyHost = @"demo.starrtc.com:19932";
+//                _messageHost = @"demo.starrtc.com:19903";
+//                _chatHost = @"demo.starrtc.com:19906";
+//                _uploadHost = @"demo.starrtc.com:19931";
+//                _downloadHost = @"demo.starrtc.com:19928";
+//                _voipHost = @"demo.starrtc.com:10086";
+//                _uploadProxyHost = @"demo.starrtc.com:19932";
 //                _messageHost = @"aisee.f3322.org:19903";
 //                _chatHost = @"aisee.f3322.org:19906";
 //                _uploadHost = @"aisee.f3322.org:19931";

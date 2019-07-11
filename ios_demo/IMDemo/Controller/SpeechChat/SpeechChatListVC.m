@@ -128,11 +128,11 @@
     
     if([AppConfig AEventCenterEnable])
     {
-        [m_interfaceUrls demoQueryList:LIST_TYPE_AUDIO_LIVE];
+        [m_interfaceUrls demoQueryList:LIST_TYPE_AUDIO_LIVE_ALL];
     }
     else
     {
-        [[XHClient sharedClient].liveManager queryLiveList:UserId type:[NSString stringWithFormat:@"%d", LIST_TYPE_LIVE] completion:^(NSString *listInfo, NSError *error)
+        [[XHClient sharedClient].liveManager queryLiveList:@"" type:LIST_TYPE_AUDIO_LIVE_ALL completion:^(NSString *listInfo, NSError *error)
          {
             NSData *jsonData = nil;
             NSArray *listuserDefineDataList;

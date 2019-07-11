@@ -15,6 +15,9 @@
 
 - (void)getListResponse:(id)responseContent;
 - (void)getMessageGroupListResponse:(id)responseContent;
+-(void)getGroupMemberList:(id)responseContent;
+
+
 
 - (void)getMeetingListResponse:(id)respnseContent;
 - (void)getLiveListResponse:(id)respnseContent;
@@ -38,10 +41,18 @@
                        id:(NSString *)id;
 
 
--(void)demoQueryList:(NSInteger)listType;
+-(void)demoQueryList:(NSString *)listType;
 
 
 -(void)demoQueryImGroupList:(NSString *)userId;
+
+-(void)demoQueryImGroupInfo:(NSString *)userId
+                    groupId:(NSString *)groupId;
+
+
+
+
+
 
 
 

@@ -141,6 +141,18 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+//[
+// {
+//     "creator" : "993767",
+//     "groupId" : "1",
+//     "groupName" : "通天塔"
+// },
+// {
+//     "creator" : "993767",
+//     "groupId" : "2",
+//     "groupName" : "在线"
+// }
+// ]
 - (void)refreshList
 {
     [self.view showProgressWithText:@"加载中..."];
@@ -161,19 +173,16 @@
                     
                     NSMutableArray * array = obj;
                     NSLog(@"*************%@",array);
-                }else{
                     
-                    NSMutableDictionary * dict = obj;
-                    NSString * userDefineDataList = [dict objectForKey:@"userDefineDataList"] ;
-                    if(userDefineDataList)
-                    {
-                        listuserDefineDataList = [userDefineDataList componentsSeparatedByString:@","];
-                    }
-                    
+                    [weakSelf refreshListDidEnd:array];
+                }
+                else
+                {
+                    [weakSelf refreshListDidEnd:nil];
                 }
             }
             
-            [weakSelf refreshListDidEnd:listuserDefineDataList];
+            
         }];
     }
 }
@@ -206,16 +215,7 @@
         else
         {
             for (int index = 0; index < listArr.count; index++) {
-                NSString *str = listArr[index];
-                NSString *strDecoded = [str ilg_URLDecode];
-                NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
-                NSError *error = nil;
-                NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                       options:NSJSONReadingMutableContainers
-                                                                         error:&error];
-                if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
-                    continue;
-                }
+                NSDictionary *subDic = listArr[index];
                 
                 IFGroupItem *item = [[IFGroupItem alloc] init];
                 item.groupName = subDic[@"groupName"];

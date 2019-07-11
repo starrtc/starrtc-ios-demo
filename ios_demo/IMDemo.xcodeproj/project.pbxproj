@@ -109,7 +109,6 @@
 		7BC4C2E721EDE49700809204 /* GuestSpeechChatVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BC4C2E521EDE49700809204 /* GuestSpeechChatVC.xib */; };
 		7BCE7C0E20C52E92003A3FFF /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCE7C0C20C52E92003A3FFF /* AboutUsVC.m */; };
 		7BCE7C0F20C52E92003A3FFF /* AboutUsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BCE7C0D20C52E92003A3FFF /* AboutUsVC.xib */; };
-		7BCFCB9920EDBB59003CDAEB /* XQEchoCancellation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BCFCB9720EDBB59003CDAEB /* XQEchoCancellation.m */; };
 		7BD33C0120CA7D5900038402 /* UIImage+utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD33C0020CA7D5900038402 /* UIImage+utils.m */; };
 		7BD47D6B206E2ED50000E9A1 /* SenderVoipVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD47D69206E2ED50000E9A1 /* SenderVoipVideoVC.m */; };
 		7BD47D6C206E2ED50000E9A1 /* SenderVoipVideoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD47D6A206E2ED50000E9A1 /* SenderVoipVideoVC.xib */; };
@@ -166,14 +165,14 @@
 		845EE3D922CB6B7800A6DB91 /* SuperRoomMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EE3D322CB6B7700A6DB91 /* SuperRoomMessageModel.m */; };
 		845EE3DA22CB6B7800A6DB91 /* SuperRoomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EE3D522CB6B7800A6DB91 /* SuperRoomModel.m */; };
 		845EE3DB22CB6B7800A6DB91 /* SuperRoomMemberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EE3D722CB6B7800A6DB91 /* SuperRoomMemberModel.m */; };
+		84AC40B122D42EB00028D0C0 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5E4C38520A96D5B00F7D34A /* Bugly.framework */; };
+		84AC40F722D4A0A90028D0C0 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AC40F622D4A0A90028D0C0 /* libz.tbd */; };
 		84D494451FFB967500D151BE /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E59D9B1FE9FEC000048219 /* VideoToolbox.framework */; };
 		84D4944C1FFF5C9800D151BE /* MessageGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4944B1FFF5C9800D151BE /* MessageGroupViewController.m */; };
 		84D4944F1FFF5CBC00D151BE /* MessageGroupListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4944E1FFF5CBC00D151BE /* MessageGroupListViewController.m */; };
 		84D494521FFF5CCC00D151BE /* MessageGroupCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D494511FFF5CCC00D151BE /* MessageGroupCreateViewController.m */; };
 		84D4945520046C2900D151BE /* ShowMsgElem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4945420046C2900D151BE /* ShowMsgElem.m */; };
 		84D494582005E87D00D151BE /* MessageGroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D494572005E87D00D151BE /* MessageGroupSettingViewController.m */; };
-		84E59D9E1FEA010E00048219 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E59D9D1FEA010E00048219 /* libc++.tbd */; };
-		84E59DA01FEA019000048219 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E59D9F1FEA019000048219 /* libstdc++.tbd */; };
 		84E59DA21FEA01A800048219 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E59DA11FEA01A800048219 /* libiconv.tbd */; };
 		84E59DAB1FF118A700048219 /* ChatRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E59DAA1FF118A700048219 /* ChatRoomViewController.m */; };
 		84E59DAE1FF1198300048219 /* ChatRoomListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E59DAD1FF1198300048219 /* ChatRoomListViewController.m */; };
@@ -252,7 +251,6 @@
 		A5DAA6922089E43200A76FEA /* UIButton+ILGUIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A5DAA6912089E43200A76FEA /* UIButton+ILGUIKit.m */; };
 		A5E15F8C208F12C800A6EA85 /* IFGroupMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E15F8B208F12C800A6EA85 /* IFGroupMemberCell.m */; };
 		A5E15F9020900EE600A6EA85 /* IFVideoListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E15F8F20900EE600A6EA85 /* IFVideoListView.m */; };
-		A5E4C38620A96D5B00F7D34A /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5E4C38520A96D5B00F7D34A /* Bugly.framework */; };
 		A5F4CDE422684F5200398268 /* libstarRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5F4CDE022684F5200398268 /* libstarRTC.a */; };
 /* End PBXBuildFile section */
 
@@ -459,8 +457,6 @@
 		7BCE7C0B20C52E92003A3FFF /* AboutUsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
 		7BCE7C0C20C52E92003A3FFF /* AboutUsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
 		7BCE7C0D20C52E92003A3FFF /* AboutUsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutUsVC.xib; sourceTree = "<group>"; };
-		7BCFCB9720EDBB59003CDAEB /* XQEchoCancellation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQEchoCancellation.m; sourceTree = "<group>"; };
-		7BCFCB9820EDBB59003CDAEB /* XQEchoCancellation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQEchoCancellation.h; sourceTree = "<group>"; };
 		7BD33BFF20CA7D5900038402 /* UIImage+utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+utils.h"; sourceTree = "<group>"; };
 		7BD33C0020CA7D5900038402 /* UIImage+utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+utils.m"; sourceTree = "<group>"; };
 		7BD47D68206E2ED50000E9A1 /* SenderVoipVideoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SenderVoipVideoVC.h; sourceTree = "<group>"; };
@@ -556,6 +552,8 @@
 		845EE3D622CB6B7800A6DB91 /* SuperRoomMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomMessageModel.h; sourceTree = "<group>"; };
 		845EE3D722CB6B7800A6DB91 /* SuperRoomMemberModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomMemberModel.m; sourceTree = "<group>"; };
 		845EE3D822CB6B7800A6DB91 /* SuperRoomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomModel.h; sourceTree = "<group>"; };
+		84AC40B022D42DB70028D0C0 /* StarVideoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarVideoData.h; sourceTree = "<group>"; };
+		84AC40F622D4A0A90028D0C0 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		84D4944A1FFF5C9800D151BE /* MessageGroupViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageGroupViewController.h; sourceTree = "<group>"; };
 		84D4944B1FFF5C9800D151BE /* MessageGroupViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageGroupViewController.m; sourceTree = "<group>"; };
 		84D4944D1FFF5CBC00D151BE /* MessageGroupListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageGroupListViewController.h; sourceTree = "<group>"; };
@@ -746,12 +744,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84AC40F722D4A0A90028D0C0 /* libz.tbd in Frameworks */,
+				84AC40B122D42EB00028D0C0 /* Bugly.framework in Frameworks */,
 				844050C3228D5C02002831CE /* libbz2.1.0.5.tbd in Frameworks */,
-				A5E4C38620A96D5B00F7D34A /* Bugly.framework in Frameworks */,
 				84D494451FFB967500D151BE /* VideoToolbox.framework in Frameworks */,
 				84E59DA21FEA01A800048219 /* libiconv.tbd in Frameworks */,
-				84E59DA01FEA019000048219 /* libstdc++.tbd in Frameworks */,
-				84E59D9E1FEA010E00048219 /* libc++.tbd in Frameworks */,
 				A5F4CDE422684F5200398268 /* libstarRTC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -928,8 +925,6 @@
 			children = (
 				7B8F129F20A18AB200E7C30F /* VoipHistoryManage.h */,
 				7B8F12A020A18AB200E7C30F /* VoipHistoryManage.m */,
-				7BCFCB9820EDBB59003CDAEB /* XQEchoCancellation.h */,
-				7BCFCB9720EDBB59003CDAEB /* XQEchoCancellation.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1350,6 +1345,7 @@
 		84E59D9A1FE9FEC000048219 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84AC40F622D4A0A90028D0C0 /* libz.tbd */,
 				844050C2228D5C01002831CE /* libbz2.1.0.5.tbd */,
 				84E59DA11FEA01A800048219 /* libiconv.tbd */,
 				84E59D9F1FEA019000048219 /* libstdc++.tbd */,
@@ -1975,6 +1971,7 @@
 				A5F4CDE022684F5200398268 /* libstarRTC.a */,
 				A5F4CDE122684F5200398268 /* XHVoipManager.h */,
 				A5F4CDE222684F5200398268 /* XHChatManager.h */,
+				84AC40B022D42DB70028D0C0 /* StarVideoData.h */,
 				A5F4CDE322684F5200398268 /* EchoTest.h */,
 			);
 			path = IFYunSDK;
@@ -2250,7 +2247,6 @@
 				A58DFF3F206CE6A80074DB7B /* MASViewAttribute.m in Sources */,
 				7B5BF0D9221BED4B00F82A42 /* IQUIScrollView+Additions.m in Sources */,
 				A5B1B9BD20A02F5A00EF4DEB /* InterfaceUrls.m in Sources */,
-				7BCFCB9920EDBB59003CDAEB /* XQEchoCancellation.m in Sources */,
 				7B7D1F1321EC31A00043F096 /* IFAutoPurgingDataCache.m in Sources */,
 				7B7D1F0021EC2F320043F096 /* AFSecurityPolicy.m in Sources */,
 				7B7D1EFE21EC2F320043F096 /* AFURLRequestSerialization.m in Sources */,

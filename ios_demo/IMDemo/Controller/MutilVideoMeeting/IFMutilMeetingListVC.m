@@ -142,12 +142,12 @@
     
     if([AppConfig AEventCenterEnable])
     {
-        [m_interfaceUrls demoQueryList:LIST_TYPE_MEETING];
+        [m_interfaceUrls demoQueryList:LIST_TYPE_MEETING_ALL];
     }
     else
     {
         __weak typeof(self) weakSelf = self;
-        [[XHClient sharedClient].meetingManager queryMeetingList:UserId type:[NSString stringWithFormat:@"%d", LIST_TYPE_MEETING] completion:^(NSString *listInfo, NSError *error) {
+        [[XHClient sharedClient].meetingManager queryMeetingList:@"" type: LIST_TYPE_MEETING_ALL completion:^(NSString *listInfo, NSError *error) {
             NSData *jsonData = nil;
             NSArray *listuserDefineDataList;
             if (listInfo) {
