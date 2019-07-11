@@ -26,8 +26,6 @@
     
     [self setupForIFSDK];
     
-    [Bugly startWithAppId:@"9b09df1886"];
-    
     return YES;
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
