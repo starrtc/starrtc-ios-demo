@@ -159,11 +159,11 @@
 }
 - (IBAction)videoSetButtonClicked:(UIButton *)sender {
     
-    SpeechChatListVC *listVC = [SpeechChatListVC instanceFromNib];
-    [self.navigationController pushViewController:listVC animated:YES];
-    
-//    SuperRoomListVC *listVC = [SuperRoomListVC instanceFromNib];
+//    SpeechChatListVC *listVC = [SpeechChatListVC instanceFromNib];
 //    [self.navigationController pushViewController:listVC animated:YES];
+    
+    SuperRoomListVC *listVC = [SuperRoomListVC instanceFromNib];
+    [self.navigationController pushViewController:listVC animated:YES];
     
     
 }

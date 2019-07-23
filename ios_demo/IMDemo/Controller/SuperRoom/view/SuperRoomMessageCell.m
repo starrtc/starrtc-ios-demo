@@ -23,6 +23,7 @@
         self.nicknameLabel.text = data.nickname;
         self.contentLabel.text = data.content;
         self.contentView.hidden = NO;
+        self.selected = YES;
     } else {
         self.contentView.hidden = YES;
         self.nicknameLabel.text = @"";

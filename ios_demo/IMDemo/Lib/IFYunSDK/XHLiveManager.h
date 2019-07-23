@@ -296,12 +296,10 @@
  
  @param member 用户id
  @param seconds 禁言时长，单位为秒
- @param liveId 会议id
  @param completion 回调
  */
 - (void)muteMember:(NSString *)member
         muteSeconds:(NSInteger)seconds
-        fromLive:(NSString *)liveId
          completion:(void(^)(NSError *error))completion;
 
 /**

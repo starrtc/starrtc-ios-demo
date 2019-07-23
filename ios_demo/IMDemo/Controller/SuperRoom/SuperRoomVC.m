@@ -11,7 +11,7 @@
 #import "SuperRoomMembersView.h"
 #import "SuperRoomMessagesView.h"
 #import "XHClient.h"
-@interface SuperRoomVC ()<SuperRoomMenuViewDelegate,XHLiveManagerDelegate>
+@interface SuperRoomVC ()<SuperRoomMenuViewDelegate,XHLiveManagerDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) SuperRoomMenuView *chatMenuView;
 @property (nonatomic, strong) SuperRoomMembersView *membersView;
 @property (nonatomic, strong) SuperRoomMessagesView *messagesView;
@@ -26,18 +26,18 @@
     // Do any additional setup after loading the view from its nib.
 }
 - (void)setupUI{
-    self.navigationItem.title = self.roomInfo.Name;
+    self.navigationItem.title = [NSString stringWithFormat:@"%@:%d人在线",_roomInfo.liveName,0];
     [self.view addSubview:self.chatMenuView];
     [self.view addSubview:self.membersView];
     [self.view addSubview:self.messagesView];
+    
+    [self.view bringSubviewToFront:self.messagesView];
 }
 - (void)setupHandle{
     self.membersView.roomInfo = self.roomInfo;
-    [[XHClient sharedClient].liveManager setRtcMediaType:IOS_STAR_RTC_MEDIA_TYPE_AUDIO_ONLY];
-    [[XHClient sharedClient].liveManager setVideoEnable:NO];
-    [[XHClient sharedClient].liveManager setAudioEnable:NO];
-    [[XHClient sharedClient].liveManager addDelegate:self];
-    [[XHClient sharedClient].liveManager startLive:self.roomInfo.ID completion:^(NSError *error) {
+    [[XHClient sharedClient].superRoomManager setRtcMediaType:IOS_STAR_RTC_MEDIA_TYPE_AUDIO_ONLY];
+    [[XHClient sharedClient].superRoomManager addDelegate:self];
+    [[XHClient sharedClient].superRoomManager joinSuperRoom:self.roomInfo.ID completion:^(NSError *error) {
         if (error) {
             [UIWindow ilg_makeToast:@"开播失败"];
         }
@@ -47,7 +47,7 @@
     [super viewDidLayoutSubviews];
     self.chatMenuView.frame = CGRectMake(0, self.view.height - 60, self.view.width, 60);
     CGFloat topHeight = UIApplication.sharedApplication.statusBarFrame.size.height + 44;
-    self.membersView.frame = CGRectMake(0, topHeight + 10, self.view.width, 265);
+    self.membersView.frame = CGRectMake(0, topHeight + 10, self.view.width, 365);
     self.messagesView.frame = CGRectMake(0, CGRectGetMaxY(self.membersView.frame), self.view.width, self.view.height - CGRectGetMaxY(self.membersView.frame) - self.chatMenuView.height);
 }
 #pragma mark - init
@@ -68,6 +68,8 @@
 - (SuperRoomMessagesView*)messagesView{
     if (!_messagesView) {
         _messagesView = [SuperRoomMessagesView instanceFromNib];
+        _messagesView.messageTableView.delegate = self;
+        //_messagesView.delegate = self;
     }
     return _messagesView;
 }
@@ -75,7 +77,7 @@
 //父类方法
 - (void)leftButtonClicked:(UIButton *)button
 {
-    [[XHClient sharedClient].liveManager leaveLive:self.roomInfo.ID completion:^(NSError *error) {
+    [[XHClient sharedClient].superRoomManager leaveSuperRoom:^(NSError *error) {
         
     }];
     [super leftButtonClicked:button];
@@ -84,7 +86,7 @@
 #pragma mark - SuperRoomMenuViewDelegate <NSObject>
 
 - (void)SuperRoomMenuView:(SuperRoomMenuView*)chatMenuView sendText:(NSString*)text{
-    [[XHClient sharedClient].liveManager sendMessage:text completion:^(NSError *error) {
+    [[XHClient sharedClient].superRoomManager sendMessage:text completion:^(NSError *error) {
         if (error == nil) {
             SuperRoomMessageModel *model = [[SuperRoomMessageModel alloc] initWithNickname:UserId content:text];
             [self.messagesView addMessage:model];
@@ -93,12 +95,105 @@
     }];
 }
 - (void)SuperRoomMenuViewStartSpeech:(SuperRoomMenuView*)chatMenuView{
-    [[XHClient sharedClient].liveManager setAudioEnable:YES];
+    [[XHClient sharedClient].superRoomManager pickUpMic:^(NSError * _Nonnull error) {
+        if(error)
+        {
+             [UIWindow ilg_makeToast:@"发言失败"];
+        }
+        else
+        {
+            [UIWindow ilg_makeToast:@"可以发言了"];
+        }
+    }];
 }
 - (void)SuperRoomMenuViewStopSpeech:(SuperRoomMenuView*)chatMenuView{
-    [[XHClient sharedClient].liveManager setAudioEnable:NO];
+    [[XHClient sharedClient].superRoomManager layDownMic:^(NSError * _Nonnull error) {
+        if(error)
+        {
+            [UIWindow ilg_makeToast:@"交出发言权限failed"];
+        }
+        else
+        {
+            [UIWindow ilg_makeToast:@"已经交出发言权限"];
+        }
+    }];
 }
-#pragma mark - XHLiveManagerDelegate <NSObject>
+
+#pragma mark - SuperRoomMessagesViewDelegate <NSObject>
+
+-(void)chooseItem:(NSString *)userID
+{
+    
+}
+
+
+-(void)showAlertChoose:(SuperRoomMessageModel *)message
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    if(![message.nickname isEqualToString:UserId])
+    {
+        if(message.isMic)
+        {
+            NSArray *titles = @[@"踢出房间", @"禁止发言",@"下麦"];
+            for (int index = 0; index < titles.count; index++)
+            {
+                
+                UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                         {
+                                             if (index == 0 )
+                                             {
+                                                 [[XHClient sharedClient].superRoomManager kickMember:message.nickname completion:^(NSError * _Nonnull error) {
+                                                     
+                                                 }];
+                                             }
+                                             else if(index == 1)
+                                             {
+                                                 [[XHClient sharedClient].superRoomManager muteMember:message.nickname muteSeconds:10 completion:^(NSError * _Nonnull error) {
+                                                     
+                                                 }];
+                                             }
+                                             else
+                                             {
+                                                 [[XHClient sharedClient].superRoomManager commandToAudience:message.nickname completion:^(NSError * _Nonnull error) {
+                                                     
+                                                 }];
+                                             }
+                                         }];
+                [alertController addAction:action];
+            }
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+        else
+        {
+            NSArray *titles = @[@"踢出房间", @"禁止发言",@"上麦"];
+            for (int index = 0; index < titles.count; index++)
+            {
+                
+                UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                                         {
+                                             if (index == 0 )
+                                             {
+                                                 [[XHClient sharedClient].superRoomManager kickMember:message.nickname completion:^(NSError * _Nonnull error) {
+                                                     
+                                                 }];
+                                             }
+                                             else if(index == 1)
+                                             {
+                                                 [[XHClient sharedClient].superRoomManager muteMember:message.nickname muteSeconds:10 completion:^(NSError * _Nonnull error) {
+                                                     
+                                                 }];
+                                             }
+                                         }];
+                [alertController addAction:action];
+            }
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+    }
+}
+
+#pragma mark - XHSuperRoomManagerDelegate <NSObject>
 
 /**
  有人加入直播
@@ -107,11 +202,6 @@
  @return 用于显示发言者视频画面的view
  */
 - (UIView *)onActorJoined:(NSString *)uid live:(NSString *)liveID{
-    if([uid isEqualToString:self.roomInfo.Creator])
-    {
-       // 主持人进入后先将自己静音
-        [[XHClient sharedClient].liveManager setAudioEnable:NO];
-    }
     [self.membersView addMember:uid];
     return nil;
 }
@@ -126,44 +216,9 @@
     [self.membersView removeMember:uid];
 }
 
-/**
- 房间创建者收到 加入直播的申请
- @param uid 申请用户的ID
- @param liveID 直播间ID
- */
-- (void)onApplyBroadcast:(NSString *)uid live:(NSString *)liveID{
-    
-    NSString *content = [NSString stringWithFormat:@"%@正在向您申请连麦",uid];
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:content preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"同意" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[XHClient sharedClient].liveManager agreeApplyToBroadcaster:uid completion:nil];
-    }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"拒绝" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [[XHClient sharedClient].liveManager refuseApplyToBroadcaster:uid completion:nil];
-    }];
-    [alert addAction:ok];
-    [alert addAction:cancel];
-    [self presentViewController:alert animated:YES completion:nil];
-}
 
 
-/**
- 观众收到 加入直播的邀请
- @param uid 邀请用户ID
- @param liveID 直播间ID
- */
-- (void)onInviteBroadcast:(NSString *)uid live:(NSString *)liveID{
-    
-}
 
-/**
- 房间创建者收到 是否连麦的回复
- @param result 结果
- @param liveID 直播间ID
- */
-- (void)onInviteResponsed:(XHLiveJoinResult)result live:(NSString *)liveID{
-    
-}
 
 
 /**
@@ -180,7 +235,7 @@
  @param error 错误信息
  @param liveID 直播间ID
  */
-- (void)onLiveError:(NSError *)error live:(NSString *)liveID{
+- (void)onSuperRoomError:(NSError *)error live:(NSString *)liveID{
     
 }
 
@@ -191,7 +246,8 @@
  @param membersNumber 成员数
  */
 - (void)liveMembersNumberUpdated:(NSInteger)membersNumber{
-    
+    NSLog(@"############# superRoom liveMembersNumberUpdated ############# ");
+    self.navigationItem.title = [NSString stringWithFormat:@"%@:%ld人在线",_roomInfo.liveName,(long)membersNumber];
 }
 
 /**
@@ -207,7 +263,12 @@
  @param message 消息
  */
 - (void)liveMessageReceived:(NSString *)message fromID:(NSString *)fromID{
+    
+    SuperRoomMemberModel *roomModel = [SuperRoomMemberModel new];
+    roomModel.uid = fromID;
+    BOOL isMic =  [self.membersView.membersDataSource containsObject:roomModel];
     SuperRoomMessageModel *model = [[SuperRoomMessageModel alloc] initWithNickname:fromID content:message];
+    model.isMic = isMic;
     [self.messagesView addMessage:model];
 }
 
@@ -231,4 +292,10 @@
                          upId:(NSString *)upId{
     
 }
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"选中了第%li个cell", (long)indexPath.row);
+}
+
 @end

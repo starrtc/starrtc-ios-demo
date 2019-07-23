@@ -8,6 +8,9 @@
 
 #import "SpeechChatMenuView.h"
 @interface SpeechChatMenuView ()<UITextFieldDelegate>
+{
+    
+}
 
 @property (weak, nonatomic) IBOutlet UIButton *switchButton;
 @property (weak, nonatomic) IBOutlet UITextField *inputTextField;

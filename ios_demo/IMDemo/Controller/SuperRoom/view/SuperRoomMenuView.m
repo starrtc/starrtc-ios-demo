@@ -8,11 +8,15 @@
 
 #import "SuperRoomMenuView.h"
 @interface SuperRoomMenuView ()<UITextFieldDelegate>
+{
+
+}
 
 @property (weak, nonatomic) IBOutlet UIButton *switchButton;
 @property (weak, nonatomic) IBOutlet UITextField *inputTextField;
 @property (weak, nonatomic) IBOutlet UIView *speechView;
 @property (weak, nonatomic) IBOutlet UIView *textInputView;
+@property (weak, nonatomic) IBOutlet UIButton *micButton;
 
 @end
 @implementation SuperRoomMenuView
@@ -22,18 +26,25 @@
     self.inputTextField.delegate = self;
 }
 
+
+// 停止说话
 - (IBAction)speechTouchInside:(UIButton *)sender {
+
     NSLog(@"speechTouchInside");
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(SuperRoomMenuViewStopSpeech:)]) {
         [self.delegate SuperRoomMenuViewStopSpeech:self];
     }
 }
+
+
+// 按住说话
 - (IBAction)speechTouchDown:(UIButton *)sender {
     NSLog(@"speechTouchDown");
-    
     if (self.delegate && [self.delegate respondsToSelector:@selector(SuperRoomMenuViewStartSpeech:)]) {
         [self.delegate SuperRoomMenuViewStartSpeech:self];
     }
+    
 }
 
 - (IBAction)sendButtonClicked:(UIButton *)sender {
@@ -49,23 +60,6 @@
     self.speechView.hidden = sender.selected;
 }
 
--(void)hiddenAudioButton
-{
-   dispatch_async(dispatch_get_main_queue(), ^{
-    self.textInputView.hidden = NO;
-    self.speechView.hidden = YES;
-    self.switchButton.hidden = YES;
-    });
-}
-
--(void)showAudioButton
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-    self.textInputView.hidden = YES;
-    self.speechView.hidden = NO;
-    self.switchButton.hidden = NO;
-    });
-}
 
 
 #pragma mark - UITextFieldDelegate

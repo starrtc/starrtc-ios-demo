@@ -11,6 +11,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UILabel *createIdlabel;
 @end
 @implementation SuperRoomListCell
 
@@ -20,8 +21,10 @@
 }
 - (void)setupCellData:(SuperRoomModel* _Nullable)data{
     if (data) {
-        self.headerImageView.image = [UIImage imageWithUserId:data.Creator];
-        self.nicknameLabel.text = [NSString stringWithFormat:@"%@",data.Name];
+        self.headerImageView.image = [UIImage imageWithUserId:data.creatorID];
+        self.nicknameLabel.text = [NSString stringWithFormat:@"%@",data.liveName];
+        self.createIdlabel.text = data.creatorID;
+        
     } else {
         self.nicknameLabel.text = @"";
     }

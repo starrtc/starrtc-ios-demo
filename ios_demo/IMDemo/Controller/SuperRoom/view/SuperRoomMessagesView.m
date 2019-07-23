@@ -13,12 +13,15 @@
 @end
 
 @implementation SuperRoomMessagesView
+
+
 - (void)awakeFromNib{
     [super awakeFromNib];
     self.messagesDataSource = [NSMutableArray arrayWithCapacity:1];
     [self.messagesDataSource addObjectsFromArray:@[@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@""]];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+
     
     UINib *cellNib = [SuperRoomMessageCell nib];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"SuperRoomMessageCell"];
@@ -49,6 +52,25 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.messagesDataSource.count;
 }
+
+
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"选中了第%li个cell", (long)indexPath.row);
+}
+
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    SuperRoomMessageModel *message = _messagesDataSource[indexPath.row];
+//    if (self.delegate && [self.delegate respondsToSelector:@selector(chooseItem:)]) {
+//        [self.delegate chooseItem:message.nickname];
+//    }
+//
+//
+//}
 
 
 @end

@@ -36,6 +36,12 @@
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twI-VL-CtI">
+                        <rect key="frame" x="553" y="33" width="16" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="sXn-zV-wi3" secondAttribute="bottom" constant="8" id="JZy-vN-KHb"/>
@@ -46,7 +52,13 @@
                     <constraint firstItem="sXn-zV-wi3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="dBb-YV-Jrx"/>
                 </constraints>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="twI-VL-CtI" firstAttribute="top" secondItem="KGk-i7-Jjw" secondAttribute="top" constant="33" id="ZHL-NZ-X5f"/>
+                <constraint firstAttribute="bottom" secondItem="twI-VL-CtI" secondAttribute="bottom" constant="13" id="e3a-Q3-HiK"/>
+                <constraint firstAttribute="trailing" secondItem="twI-VL-CtI" secondAttribute="trailing" constant="9" id="vTg-BD-J5e"/>
+            </constraints>
             <connections>
+                <outlet property="createIdlabel" destination="twI-VL-CtI" id="014-Hz-akq"/>
                 <outlet property="headerImageView" destination="sXn-zV-wi3" id="4N4-gF-KPM"/>
                 <outlet property="nicknameLabel" destination="j56-ik-eqg" id="IpS-Z1-dc0"/>
             </connections>

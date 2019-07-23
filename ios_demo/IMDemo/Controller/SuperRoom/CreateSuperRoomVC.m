@@ -11,6 +11,7 @@
 #import "IFNetworkingInterfaceHandle.h"
 #import "SuperRoomVC.h"
 #import "XHCustomConfig.h"
+#import "InterfaceUrls.h"
 
 @interface CreateSuperRoomVC ()
 @property (weak, nonatomic) IBOutlet UITextField *roomNameTextField;
@@ -31,47 +32,48 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
 }
 - (IBAction)createButtonClicked:(UIButton *)sender {
-//    SuperRoomVC *vc = [SuperRoomVC instanceFromNib];
-//    vc.meettingName = @"meeting.meetingName";
-//    vc.meettingID = @"meeting.meetingName";
-//    [self.navigationController pushViewController:vc animated:YES];
-//    return;
     if ([self.roomNameTextField.text length] > 0) {
-        XHLiveItem *meeting = [XHLiveItem new];
-        meeting.liveName = self.roomNameTextField.text;
-        meeting.liveType = XHLiveTypeGlobalPublic;
+        XHSuperRoomItem *superRoom = [XHSuperRoomItem new];
+        superRoom.superRoomName = self.roomNameTextField.text;
+        superRoom.superRoomType = XHLiveTypeGlobalPublic;
+        __weak typeof(self) weakSelf = self;
 //        if(self.priviteStatusSwitch.on){
 //            meeting.liveType = XHLiveTypeLoginPublic;
 //        } else {
 //            meeting.liveType = XHLiveTypeLoginSpecXHy;
 //        }
 //        ID=%@&Name=%@&Creator=%@
-        [[XHClient sharedClient].liveManager createLive:meeting  completion:^(NSString *liveID, NSError *error) {
-            if (error == nil) {
-                NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:1];
-                [parameters setObject:liveID forKey:@"ID"];
-                [parameters setObject:meeting.liveName forKey:@"Name"];
-                [parameters setObject:[IMUserInfo shareInstance].userID forKey:@"Creator"];
-                [parameters setObject:[AppConfig shareConfig].appId forKey:@"appid"];
-                [IFNetworkingInterfaceHandle requestCreateAudioRoomWithParameters:parameters success:^(id  _Nullable responseObject) {
+        [[XHClient sharedClient].superRoomManager createSuperRoom:superRoom  completion:^(NSString *liveID, NSError *error) {
+            if (error == nil)
+            {
+                NSDictionary *infoDic = @{@"id":liveID,
+                                          @"creator":UserId,
+                                          @"name":superRoom.superRoomName
+                                          };
+                NSString *infoStr = [infoDic ilg_jsonString];
+                if ([AppConfig AEventCenterEnable] )
+                {
+                    [[[InterfaceUrls alloc] init] demoSaveTolist:LIST_TYPE_SUPER_ROOM ID:liveID data:[infoStr ilg_URLEncode]];
+                }
+                else
+                {
                     
-                    NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-                    if (status == 1) {
-                        SuperRoomVC *vc = [SuperRoomVC instanceFromNib];
-                        SuperRoomModel *roomModel = [[SuperRoomModel alloc] init];
-                        roomModel.Name = meeting.liveName;
-                        roomModel.ID = liveID;
-                        roomModel.Creator = UserId;
-                        roomModel.liveState = 1;
-                        vc.roomInfo = roomModel;
-                        [self.navigationController pushViewController:vc animated:YES];
-                    }
-                    
-                } failure:^(NSError * _Nonnull error) {
-                    
-                }];
+                    [[XHClient sharedClient].liveManager saveToList:UserId type:LIST_TYPE_SUPER_ROOM liveId:liveID info:[infoStr ilg_URLEncode] completion:^(NSError *error) {
+                        
+                    }];
+                }
+                
+                SuperRoomVC *vc = [SuperRoomVC instanceFromNib];
+                SuperRoomModel *roomModel = [[SuperRoomModel alloc] init];
+                roomModel.liveName = superRoom.superRoomName;
+                roomModel.ID = liveID;
+                roomModel.creatorID = UserId;
+                roomModel.liveState = 1;
+                vc.roomInfo = roomModel;
+                [self.navigationController pushViewController:vc animated:YES];
             } else {
                 NSLog(@"%@",error);
+                [weakSelf.view ilg_makeToast:[NSString stringWithFormat:@"创建直播失败：%@", error.localizedDescription] position:ILGToastPositionCenter];
             }
             
         }];

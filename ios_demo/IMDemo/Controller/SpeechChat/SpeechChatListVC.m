@@ -41,13 +41,13 @@
     // Do any additional setup after loading the view from its nib.
 }
 - (void)setupUI{
-    self.navigationItem.title = @"语音直播列表";
+    self.navigationItem.title = @"语音对讲列表";
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.estimatedRowHeight = 100;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    UINib * nibCell = [UINib nibWithNibName:@"SpeechChatListCell" bundle:[NSBundle mainBundle]];
-    [self.tableView registerNib:nibCell forCellReuseIdentifier:@"SpeechChatListCell"];
+    UINib * nibCell = [UINib nibWithNibName:@"SuperRoomListCell" bundle:[NSBundle mainBundle]];
+    [self.tableView registerNib:nibCell forCellReuseIdentifier:@"SuperRoomListCell"];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self requetRefreshAudioList];
