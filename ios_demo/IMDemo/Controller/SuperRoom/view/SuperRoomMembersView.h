@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SuperRoomMembersView : UIView
 @property (nonatomic, strong) SuperRoomModel *roomInfo;
+@property (nonatomic, strong) NSMutableArray<SuperRoomMemberModel*> *membersDataSource;
 - (void)addMember:(NSString*)uid;
 - (void)removeMember:(NSString*)uid;
 @end

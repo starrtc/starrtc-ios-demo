@@ -10,7 +10,7 @@
 
 @interface SuperRoomMembersView()<UICollectionViewDelegate,UICollectionViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray<SuperRoomMemberModel*> *membersDataSource;
+
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIButton *headerButton;
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
@@ -37,16 +37,21 @@
     flowLayout.minimumInteritemSpacing = (self.collectionView.frame.size.width - 60 * 3 )/2.0 - 1;
 }
 
-- (void)addMember:(NSString*)uid{
-    if ([uid isEqualToString:self.roomInfo.Creator]) {
-        [self.headerButton setImage:[UIImage imageWithUserId:uid] forState:UIControlStateNormal];
-        self.nickNameLabel.text = [NSString stringWithFormat:@"%@",uid];
-    } else {
-        SuperRoomMemberModel *model = [SuperRoomMemberModel new];
-        model.uid = uid;
-        [self.membersDataSource addObject:model];
-        [self.collectionView reloadData];
+- (void)addMember:(NSString*)uid
+{
+    
+    for(int i = 0; i < self.membersDataSource.count; i++)
+    {
+        SuperRoomMemberModel *temp = self.membersDataSource[i];
+        if(temp.uid == uid)
+            return;
     }
+    SuperRoomMemberModel *model = [SuperRoomMemberModel new];
+    model.uid = uid;
+    [self.membersDataSource addObject:model];
+    [self.collectionView reloadData];
+
+    
 }
 - (void)removeMember:(NSString*)uid{
     [self.membersDataSource enumerateObjectsUsingBlock:^(SuperRoomMemberModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -70,7 +75,7 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 6;
+    return 12;
 }
 
 

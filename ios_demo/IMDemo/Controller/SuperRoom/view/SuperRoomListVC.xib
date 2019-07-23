@@ -14,7 +14,6 @@
             <connections>
                 <outlet property="tableView" destination="RTe-8j-AIe" id="d7d-CY-DeB"/>
                 <outlet property="tableViewTopConstraint" destination="wFE-r6-GZE" id="cP0-3e-hBI"/>
-                <outlet property="tableview" destination="RTe-8j-AIe" id="2Az-Sn-3Z3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -45,7 +44,6 @@
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="SuperRoomBtnclicked:" destination="-1" eventType="touchUpInside" id="96s-MU-S0b"/>
-                                <action selector="createSpeechButtonClicked:" destination="-1" eventType="touchUpInside" id="VA1-PP-moP"/>
                             </connections>
                         </button>
                     </subviews>

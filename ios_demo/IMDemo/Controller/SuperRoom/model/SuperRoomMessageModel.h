@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SuperRoomMessageModel : NSObject
 
 @property (nonatomic, strong) NSString *nickname;
+@property (nonatomic) BOOL isMic;
 @property (nonatomic, strong) NSString *content;
 - (instancetype)initWithNickname:(NSString*)nickname content:(NSString*)content;
 

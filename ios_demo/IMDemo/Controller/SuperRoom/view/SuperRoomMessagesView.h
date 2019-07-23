@@ -10,7 +10,19 @@
 #import "SuperRoomMessageCell.h"
 NS_ASSUME_NONNULL_BEGIN
 
+
+@protocol SuperRoomMessagesViewDelegate <NSObject>
+
+-(void)chooseItem:(NSString *)userID;
+
+@end
+
+
 @interface SuperRoomMessagesView : UIView
+
+@property (nonatomic, weak) id<SuperRoomMessagesViewDelegate> delegate;
+
+@property (copy,nonatomic) UITableView *messageTableView;
 
 - (void)addMessage:(SuperRoomMessageModel*)message;
 

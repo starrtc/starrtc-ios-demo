@@ -9,13 +9,19 @@
 #import "SuperRoomListVC.h"
 #import "SuperRomListCell.h"
 #import "SuperRoomVC.h"
-#import "GuestSuperRoomVC.h"
+#import "CreateSuperRoomVC.h"
 #import "MJRefresh.h"
-
+#import "InterfaceUrls.h"
+#import "XHCustomConfig.h"
 
 @interface SuperRoomListVC ()<UITableViewDelegate,UITableViewDataSource>
+{
+    InterfaceUrls *m_interfaceUrls;
+}
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopConstraint;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *listArr;
 
 @end
 
@@ -23,7 +29,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    _listArr = [NSMutableArray array];
+    m_interfaceUrls = [[InterfaceUrls alloc] init];
+    m_interfaceUrls.delegate = self;
     self.tableViewDataSource = [NSMutableArray arrayWithCapacity:1];
     [self setupUI];
 }
@@ -38,7 +46,7 @@
     [self.tableView registerNib:nibCell forCellReuseIdentifier:@"SuperRoomListCell"];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self requetRefreshAudioList];
+        [self requetRefreshSuperRoomList];
     }];
     //    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
     //        [self requestLoadAudioList];
@@ -46,31 +54,134 @@
     [self.tableView.mj_header beginRefreshing];
 }
 
+#pragma mark - Delegate
+#pragma mark InterfaceUrlsdelegate
+- (void)getListResponse:(id)responseContent {
+    NSDictionary *dict = responseContent;
+    int status = [[dict objectForKey:@"status"] intValue];
+    NSArray *listArr = [dict objectForKey:@"data"];
+    if (status == 1) {
+        [self.tableViewDataSource removeAllObjects];
+        [_listArr removeAllObjects];
+        if([AppConfig AEventCenterEnable])
+        {
+            for (int index = 0; index < listArr.count; index++)
+            {
+                NSString *str = [listArr[index] objectForKey:@"data"];
+                if(str)
+                {
+                    NSString *strDecoded = [str ilg_URLDecode];
+                    if(!strDecoded)
+                    {
+                        continue;
+                    }
+                    NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
+                    if(!jsonData)
+                    {
+                        continue;
+                    }
+                    NSError *error = nil;
+                    NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                           options:NSJSONReadingMutableContainers
+                                                                             error:&error];
+                    if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
+                        continue;
+                    }
+                    
+                    SuperRoomModel *item = [[SuperRoomModel alloc] init];
+                    item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
+                    item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
+                    item.liveName = subDic[@"name"];
+                    item.creatorID = subDic[@"creator"];
+                    item.ID = subDic[@"id"];
+                    
+                    [_listArr addObject:item];
+                }
+            }
+            [self.tableViewDataSource addObjectsFromArray:_listArr];
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
+        }
+        else
+        {
+            
+        }
+        
+    }
+    else
+    {
+        [self.tableView.mj_header endRefreshing];
+    }
+}
 
-- (void)requetRefreshAudioList{
-    //    ID=%@&Name=%@&Creator=%@
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:1];
-    [parameters setObject:[AppConfig shareConfig].appId forKey:@"appid"];
-//    [IFNetworkingInterfaceHandle requestAudioListWithParameters:parameters success:^(id  _Nullable responseObject) {
-//        [self.tableView.mj_header endRefreshing];
-//        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-//        switch (status) {
-//            case 1:{
-//                [self.tableViewDataSource removeAllObjects];
-//                NSArray *dataList = [responseObject objectForKey:@"data"];
-//                NSArray<SpeechRoomModel*> *list = [AssignToObject QGCustomModel:@"SpeechRoomModel" ToArray:dataList];
-//                [self.tableViewDataSource addObjectsFromArray:list];
-//            }
-//                break;
-//
-//            default:
-//                break;
-//        }
-//        [self.tableView reloadData];
-//
-//    } failure:^(NSError * _Nonnull error) {
-//        [self.tableView.mj_header endRefreshing];
-//    }];
+- (void)requetRefreshSuperRoomList{
+    if([AppConfig AEventCenterEnable])
+    {
+        [m_interfaceUrls demoQueryList:LIST_TYPE_SUPER_ROOM_ALL];
+    }
+    else
+    {
+        [[XHClient sharedClient].liveManager queryLiveList:@"" type:LIST_TYPE_SUPER_ROOM_ALL completion:^(NSString *listInfo, NSError *error)
+         {
+             NSData *jsonData = nil;
+             NSArray *listuserDefineDataList;
+             if (listInfo) {
+                 jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
+                 id obj  = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+                 
+                 if ([obj isKindOfClass:[NSArray class]]) {
+                     
+                     NSMutableArray * array = obj;
+                     NSLog(@"*************%@",array);
+                 }else{
+                     
+                     if (_listArr.count != 0)
+                     {
+                         [_listArr removeAllObjects];
+                     }
+                     
+                     NSMutableDictionary * dict = obj;
+                     NSString * userDefineDataList = [dict objectForKey:@"userDefineDataList"] ;
+                     if(userDefineDataList)
+                     {
+                         listuserDefineDataList = [userDefineDataList componentsSeparatedByString:@","];
+                         
+                         for (int index = 0; index < listuserDefineDataList.count; index++)
+                         {
+                             NSString *str = listuserDefineDataList[index];
+                             if(str)
+                             {
+                                 NSString *strDecoded = [str ilg_URLDecode];
+                                 NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
+                                 NSError *error = nil;
+                                 NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                                        options:NSJSONReadingMutableContainers
+                                                                                          error:&error];
+                                 if (!subDic || ![subDic isKindOfClass:[NSDictionary class]])
+                                 {
+                                     continue;
+                                 }
+                                 
+                                 SuperRoomModel *item = [[SuperRoomModel alloc] init];
+                                 item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
+                                 item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
+                                 item.liveName = subDic[@"name"];
+                                 item.creatorID = subDic[@"creator"];
+                                 item.ID = subDic[@"id"];
+                                 
+                                 [_listArr addObject:item];
+                             }
+                         }
+                     }
+                     
+                     [self.tableViewDataSource addObjectsFromArray:_listArr];
+                     [self.tableView reloadData];
+                     [self.tableView.mj_header endRefreshing];
+                     
+                 }
+             }
+         }];
+    }
 }
 
 
@@ -97,16 +208,10 @@
     if (indexPath.row < self.tableViewDataSource.count) {
         
         SuperRoomModel *model = self.tableViewDataSource[indexPath.row];
-        
-        if ([model.Creator isEqualToString:UserId]) {
-            SuperRoomVC *vc = [SuperRoomVC instanceFromNib];
-            vc.roomInfo = model;
-            [self.navigationController pushViewController:vc animated:YES];
-        } else {
-            GuestSuperRoomVC * vc = [GuestSuperRoomVC instanceFromNib];
-            vc.roomInfo = model;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
+        SuperRoomVC *vc = [SuperRoomVC instanceFromNib];
+        vc.roomInfo = model;
+        [self.navigationController pushViewController:vc animated:YES];
+
         
     }
 }
@@ -115,6 +220,8 @@
 
 
 - (IBAction)SuperRoomBtnclicked:(id)sender {
+    CreateSuperRoomVC *vc = [CreateSuperRoomVC instanceFromNib];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 /*

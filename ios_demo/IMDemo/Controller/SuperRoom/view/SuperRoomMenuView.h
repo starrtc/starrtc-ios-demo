@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+
 @class SuperRoomMenuView;
 @protocol SuperRoomMenuViewDelegate <NSObject>
 
@@ -25,9 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<SuperRoomMenuViewDelegate> delegate;
 
--(void)hiddenAudioButton;
-
--(void)showAudioButton;
 
 
 

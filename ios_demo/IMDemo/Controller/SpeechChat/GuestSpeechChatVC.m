@@ -77,23 +77,6 @@
     return _messagesView;
 }
 
-#pragma mark - 点击
-
-- (IBAction)upVideoButtonClicked:(UIButton *)sender {
-    if([sender.titleLabel.text isEqualToString:@"上麦"])
-    {
-        [[XHClient sharedClient].liveManager applyToBroadcaster:self.roomInfo.creatorID completion:^(NSError *error) {
-            [UIWindow ilg_makeToast:@"申请发送成功，正在等待房主同意..."];
-        }];
-        [sender setTitle:@"下麦" forState:UIControlStateNormal] ;
-        
-    }
-    else
-    {
-        [[XHClient sharedClient].liveManager changeToAudience];
-        [sender setTitle:@"上麦" forState:UIControlStateNormal] ;
-    }
-}
 
 //父类方法
 - (void)leftButtonClicked:(UIButton *)button
@@ -130,7 +113,8 @@
  @param liveID 直播间ID
  @return 用于显示发言者视频画面的view
  */
-- (UIView *)onActorJoined:(NSString *)uid live:(NSString *)liveID{
+- (UIView *)onActorJoined:(NSString *)uid live:(NSString *)liveID
+{
     if([uid isEqualToString:UserId])
     {
         // 主持人进入后先将自己静音
