@@ -17,6 +17,7 @@
 @interface SuperRoomListVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     InterfaceUrls *m_interfaceUrls;
+    SuperRoomModel *waitingDeleteItem;
 }
 @property (nonatomic, strong) NSMutableArray *tableViewDataSource;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopConstraint;
@@ -34,6 +35,9 @@
     m_interfaceUrls.delegate = self;
     self.tableViewDataSource = [NSMutableArray arrayWithCapacity:1];
     [self setupUI];
+    
+
+
 }
 
 - (void)setupUI{
@@ -52,10 +56,87 @@
     //        [self requestLoadAudioList];
     //    }];
     [self.tableView.mj_header beginRefreshing];
+    
+    //添加长按事件
+    UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(didLongPressTableViewCell:)];
+    gesture.minimumPressDuration = 1.0;
+    [self.tableView addGestureRecognizer:gesture];
 }
+
+
+
+//tableViewCell长按事件
+- (void)didLongPressTableViewCell:(UILongPressGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateBegan)
+    {
+        //获取到点击的位置
+        CGPoint point = [gesture locationInView:self.tableView];
+        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+        if(indexPath == nil) return;
+        
+        //do something...
+        waitingDeleteItem = [_tableViewDataSource objectAtIndex:indexPath.row];
+        
+        
+        NSString *content = @"删除该条数据";
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:content preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self deleteItem];
+        }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alert addAction:ok];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+-(void)deleteItem
+{
+    if([AppConfig AEventCenterEnable])
+    {
+        [m_interfaceUrls demoDeleteFromList:waitingDeleteItem.creatorID listType:LIST_TYPE_SUPER_ROOM_ALL roomId:waitingDeleteItem.ID];
+    }
+    else
+    {
+        
+        NSString *m_chatRoomID = [waitingDeleteItem.ID substringFromIndex:16];
+        [[XHClient sharedClient].superRoomManager deleteFromSuperRoomList:m_chatRoomID listType:LIST_TYPE_SUPER_ROOM completion:^(NSError * _Nonnull error) {
+            if(error == nil)
+            {
+                NSLog(@"删除成功");
+                [self.tableViewDataSource removeObject:waitingDeleteItem];
+                [self.tableView reloadData];
+                [self.tableView.mj_header endRefreshing];
+            }
+            else
+            {
+                NSLog(@"删除失败");
+            }
+        }];
+    }
+}
+
 
 #pragma mark - Delegate
 #pragma mark InterfaceUrlsdelegate
+
+-(void)getDemoDeleteFromListFin:(id)responseContent
+{
+    NSDictionary *dict = responseContent;
+    int status = [[dict objectForKey:@"status"] intValue];
+    if (status == 1)
+    {
+        NSLog(@"删除成功");
+        [self.tableViewDataSource removeObject:waitingDeleteItem];
+        [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
+        
+    }
+}
+
 - (void)getListResponse:(id)responseContent {
     NSDictionary *dict = responseContent;
     int status = [[dict objectForKey:@"status"] intValue];
@@ -121,8 +202,19 @@
     }
     else
     {
-        [[XHClient sharedClient].liveManager queryLiveList:@"" type:LIST_TYPE_SUPER_ROOM_ALL completion:^(NSString *listInfo, NSError *error)
+        [[XHClient sharedClient].superRoomManager querySuperRoomList:@"" type:LIST_TYPE_SUPER_ROOM_ALL completion:^(NSString *listInfo, NSError *error)
          {
+             if(error != nil)
+             {
+                 NSLog(@"%@", [error localizedDescription]);
+                 if (_listArr.count != 0)
+                 {
+                     [_listArr removeAllObjects];
+                 }
+                 [self.tableViewDataSource addObjectsFromArray:_listArr];
+                 [self.tableView reloadData];
+                 [self.tableView.mj_header endRefreshing];
+             }
              NSData *jsonData = nil;
              NSArray *listuserDefineDataList;
              if (listInfo) {

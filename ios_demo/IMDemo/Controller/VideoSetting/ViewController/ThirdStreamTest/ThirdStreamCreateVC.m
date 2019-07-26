@@ -37,7 +37,16 @@
         [[XHClient sharedClient].roomManager createChatroom:_rtspNameText.text type:XHChatroomTypePublic completion:^(NSString *chatRoomID, NSError *error) {
             if(!error)
             {
-                    [[[InterfaceUrls alloc] init] demopushRtsp:[AppConfig shareConfig].uploadProxyHost name:_rtspNameText.text chatroomId:chatRoomID listType:2 rtspUrl:_rtspInfoUrl.text];
+                NSString *streamType = @"";
+                if([_rtspInfoUrl.text containsString:@"rtsp://"])
+                {
+                    streamType = @"rtsp";
+                }
+                else if ([_rtspInfoUrl.text containsString:@"rtmp://"])
+                {
+                    streamType = @"rtmp";
+                }
+                [[[InterfaceUrls alloc] init] demopushRtsp:[AppConfig shareConfig].uploadProxyHost name:_rtspNameText.text chatroomId:chatRoomID listType:2 rtspUrl:_rtspInfoUrl.text];
 
             }
         }];

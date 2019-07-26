@@ -80,6 +80,26 @@
 }
 
 
+-(void)demoDeleteFromList:(NSString *)userId
+                 listType:(NSString *)listType
+                       roomId:(NSString *)roomId
+{
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@%@%@%@%@",@"http://www.starrtc.com/aec/list/del.php?userId=",userId,@"&listType=",listType,@"&roomId=",roomId];
+    [self get:urlStr callback:^(id result, NSError *error) {
+        if (_delegate && [_delegate respondsToSelector:@selector(getDemoDeleteFromListFin:)])
+        {
+            
+            [_delegate getDemoDeleteFromListFin:result];
+        }
+    }];
+}
+
+
+
+
+
+
+
 
 - (void)reportMeeting:(NSString *)name
                    ID:(NSString *)ID
@@ -254,10 +274,11 @@
 }
 
 // 转发rtsp流
--(void)demopushRtsp:(NSString *)server
+-(void)demopushStreamUrl:(NSString *)server
                name:(NSString *)name
          chatroomId:(NSString *)chatroomId
            listType:(NSInteger)listType
+              streamType:(NSString *)streamType
             rtspUrl:(NSString *)rtspUrl
 {
     NSString *urlStr = [NSString stringWithFormat:@"http://%@/push?streamType=rtsp&streamUrl=%@&roomLiveType=%ld&roomId=%@&extra=%@",server,

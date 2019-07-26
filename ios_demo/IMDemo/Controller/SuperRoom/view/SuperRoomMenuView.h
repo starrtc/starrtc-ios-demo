@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class SuperRoomMenuView;
 @protocol SuperRoomMenuViewDelegate <NSObject>
 
-- (void)SuperRoomMenuView:(SuperRoomMenuView*)chatMenuView sendText:(NSString*)text;
+- (void)SuperRoomMenuView:(SuperRoomMenuView*)chatMenuView sendText:(NSString*)text toId:(NSString *)toId;
 - (void)SuperRoomMenuViewStartSpeech:(SuperRoomMenuView*)chatMenuView;
 - (void)SuperRoomMenuViewStopSpeech:(SuperRoomMenuView*)chatMenuView;
 
@@ -27,8 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<SuperRoomMenuViewDelegate> delegate;
 
+@property (nonatomic, strong)NSString *mPrivateMsgTargetId;
 
-
+@property (weak, nonatomic) IBOutlet UITextField *inputTextField;
 
 @end
 

@@ -242,6 +242,7 @@
  * @param completion 结果回调
  */
 -(void)deleteFromMeetingList:(NSString *)meetingId
+                    listType:(NSInteger)listType
     completion:(void(^)(NSError *error))completion;
 
 

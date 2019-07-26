@@ -169,7 +169,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)commandToAudience:(NSString *)toID
                completion:(void(^)(NSError *error))completion;
 
-
 /**
  返回切换后的摄像头方向
  
@@ -284,9 +283,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 从直播列表删除
  * @param liveId 直播ID
+* @param listType list 类型
  * @param completion 结果回调
  */
 - (void)deleteFromSuperRoomList:(NSString *)liveId
+                       listType:(NSInteger)listType
                 completion:(void(^)(NSError *error))completion;
 
 @end

@@ -22,7 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<SuperRoomMessagesViewDelegate> delegate;
 
-@property (copy,nonatomic) UITableView *messageTableView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) NSMutableArray *messagesDataSource;
 
 - (void)addMessage:(SuperRoomMessageModel*)message;
 

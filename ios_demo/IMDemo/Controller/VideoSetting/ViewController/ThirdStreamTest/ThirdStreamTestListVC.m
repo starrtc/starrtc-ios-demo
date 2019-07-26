@@ -14,6 +14,10 @@
 
 #import "InterfaceUrls.h"
 
+#import "XHCustomConfig.h"
+#import "XHClient.h"
+#import "RtspInfo.h"
+
 @interface ThirdStreamTestListVC () <InterfaceUrlsdelegate>
 @property (nonatomic, strong) NSMutableArray *listArr;
 @property (nonatomic, strong) IFListView *listView;
@@ -68,11 +72,15 @@
 
 #pragma mark - delegate
 #pragma mark InterfaceUrlsdelegate
-- (void)requestDidComplete:(id)respnseContent {
+- (void)getListResponse:(id)respnseContent {
     NSDictionary *dict = respnseContent;
-    //    int status = [[dict objectForKey:@"status"] intValue];
+    int status = [[dict objectForKey:@"status"] intValue];
     NSArray *listArr = [dict objectForKey:@"data"];
-    [self refreshListDidEnd:listArr];
+    if (status == 1) {
+        [self refreshListDidEnd:listArr];
+    } else {
+        [self refreshListDidEnd:nil];
+    }
 }
 
 #pragma mark tableView delegate
@@ -92,12 +100,14 @@
     IFListViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
                             TableSampleIdentifier];
     
-//    NSUInteger row = [indexPath row];
-//    IFMeetingItem *item = [_listArr objectAtIndex:row];
-//    cell.topL.text = item.meetingName;
-//    cell.bottomL.text = [NSString stringWithFormat:@"创建者:%@", item.creatorName];
-//    cell.bgImageView.backgroundColor = [[IMUserInfo shareInstance] listIconColor:[NSString stringWithFormat:@"%@%@", item.meetingName, item.creatorName]];
-//    [cell.iconBtn setImage:[UIImage imageNamed:item.userIcon] forState:UIControlStateNormal];
+    RtspInfo *item = [_listArr objectAtIndex:indexPath.row];
+    cell.topL.text = item.Name;
+    cell.bottomL.text = [NSString stringWithFormat:@"创建者:%@", item.Creator];
+    cell.bgImageView.backgroundColor = [[IMUserInfo shareInstance] listIconColor:[NSString stringWithFormat:@"%@%@", item.Name, item.ID]];
+    [cell.iconBtn setImage:[UIImage imageNamed:@"list_list_icon"] forState:UIControlStateNormal];
+    //To do:直播状态处理
+    //    BOOL liveState = [dic[@"liveState"] boolValue];
+    //    cell.rightL.hidden = !liveState;
     
     return cell;
 }
@@ -126,77 +136,132 @@
 {
     [self.view showProgressWithText:@"加载中..."];
     
-    if ([AppConfig AEventCenterEnable]) {
-        [self.m_interfaceUrls requestForThirdStreamList];
-    } else {
+    if ([AppConfig AEventCenterEnable])
+    {
+        [self.m_interfaceUrls demoQueryList:LIST_TYPE_PUSH_ALL];
+    }
+    else
+    {
         
-        [self.m_interfaceUrls requestForThirdStreamList];
-        
-//        __weak typeof(self) weakSelf = self;
-//        [[XHClient sharedClient].meetingManager queryMeetingList:@"" type:[NSString stringWithFormat:@"%d", CHATROOM_LIST_TYPE_MEETING] completion:^(NSString *listInfo, NSError *error) {
-//            NSArray *listArr = nil;
-//            if (listInfo) {
-//                NSData *jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
-//                listArr = [NSJSONSerialization JSONObjectWithData:jsonData
-//                                                          options:NSJSONReadingMutableContainers
-//                                                            error:nil];
-//            }
-//
-//            [weakSelf refreshListDidEnd:listArr];
-//        }];
-        
-        [self refreshListDidEnd:nil];
+        __weak typeof(self) weakSelf = self;
+        [[XHClient sharedClient].roomManager queryChatroomList:UserId type:LIST_TYPE_PUSH_ALL completion:^(NSString *listInfo, NSError *error) {
+            NSData *jsonData = nil;
+            NSArray *listuserDefineDataList;
+            if (listInfo) {
+                jsonData = [listInfo dataUsingEncoding:NSUTF8StringEncoding];
+                id obj  = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+                
+                if ([obj isKindOfClass:[NSArray class]]) {
+                    
+                    NSMutableArray * array = obj;
+                    NSLog(@"*************%@",array);
+                }else{
+                    
+                    NSMutableDictionary * dict = obj;
+                    NSString * userDefineDataList = [dict objectForKey:@"userDefineDataList"] ;
+                    if(userDefineDataList)
+                    {
+                        listuserDefineDataList = [userDefineDataList componentsSeparatedByString:@","];
+                    }
+                    
+                }
+            }
+            
+            [weakSelf refreshListDidEnd:listuserDefineDataList];
+            
+        }];
     }
 }
 
 - (void)refreshListDidEnd:(NSArray *)listArr
 {
-    if (listArr.count != 0) {
-        [_listArr removeAllObjects];
-        
-//        if ([AppConfig SDKServiceType] == IFServiceTypePublic) {
-//            for (int index = 0; index < listArr.count; index++) {
-//                NSDictionary *subDic = listArr[index];
-//                
-////                IFMeetingItem *item = [[IFMeetingItem alloc] init];
-////                //                item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
-////                item.userIcon = @"meeting_list_icon";
-////                item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
-////                item.meetingName = subDic[@"Name"];
-////                item.creatorName = subDic[@"Creator"];
-////                item.meetingID = subDic[@"ID"];
-////
-////                [_listArr addObject:item];
-//            }
-//        } else
+    if(listArr)
+    {
+        if (_listArr.count != 0)
+        {
+            [_listArr removeAllObjects];
+        }
+        if([AppConfig AEventCenterEnable])
+        {
+            for (int index = 0; index < listArr.count; index++)
+            {
+                NSString *str = [listArr[index] objectForKey:@"data"];
+                if(str)
+                {
+                    NSString *strDecoded = [str ilg_URLDecode];
+                    if(!strDecoded)
+                    {
+                        continue;
+                    }
+                    NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
+                    if(!jsonData)
+                    {
+                        continue;
+                    }
+                    NSError *error = nil;
+                    NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                           options:NSJSONReadingMutableContainers
+                                                                             error:&error];
+                    if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
+                        continue;
+                    }
+                    
+                    RtspInfo *item = [[RtspInfo alloc] init];
+                    item.Name = subDic[@"name"];
+                    item.Creator = subDic[@"creator"];
+                    item.rtsp = subDic[@"rtsp"];
+                    item.ID = subDic[@"id"];
+                    if(subDic[@"type"])
+                    {
+                        item.type = [subDic[@"type"] integerValue];
+                    }
+                    else
+                    {
+                        item.type = LIST_TYPE_CHATROOM;
+                    }
+                    
+                    [_listArr addObject:item];
+                }
+            }
+        }
+        else
         {
             for (int index = 0; index < listArr.count; index++) {
                 NSString *str = listArr[index];
-                NSString *strDecoded = [str ilg_URLDecode];
-                NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
-                NSError *error = nil;
-                NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                       options:NSJSONReadingMutableContainers
-                                                                         error:&error];
-                if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
-                    continue;
+                if(str)
+                {
+                    NSString *strDecoded = [str ilg_URLDecode];
+                    NSData *jsonData = [strDecoded dataUsingEncoding:NSUTF8StringEncoding];
+                    NSError *error = nil;
+                    NSDictionary *subDic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                           options:NSJSONReadingMutableContainers
+                                                                             error:&error];
+                    if (!subDic || ![subDic isKindOfClass:[NSDictionary class]]) {
+                        continue;
+                    }
+                    
+                    RtspInfo *item = [[RtspInfo alloc] init];
+                    item.Name = subDic[@"name"];
+                    item.Creator = subDic[@"creator"];
+                    item.rtsp = subDic[@"rtsp"];
+                    item.ID = subDic[@"id"];
+                    if(subDic[@"type"])
+                    {
+                        item.type = [subDic[@"type"] integerValue];
+                    }
+                    else
+                    {
+                        item.type = LIST_TYPE_CHATROOM;
+                    }
+                    
+                    [_listArr addObject:item];
                 }
-                
-//                IFMeetingItem *item = [[IFMeetingItem alloc] init];
-//                //                item.userIcon = [NSString stringWithFormat:@"userListIcon%d", (int)random()%5 + 1];
-//                item.userIcon = @"meeting_list_icon";
-//                item.coverIcon = [NSString stringWithFormat:@"videoList%d", (int)random()%6 + 1];
-//                item.meetingName = subDic[@"name"];
-//                item.creatorName = subDic[@"creator"];
-//                item.meetingID = subDic[@"id"];
-//
-//                [_listArr addObject:item];
             }
         }
         
         [_listView.tableView reloadData];
+        
     }
-    
     [self.view hideProgress];
     if ([_listView.tableView respondsToSelector:@selector(setRefreshControl:)]) {
         if (_listView.tableView.refreshControl && _listView.tableView.refreshControl.refreshing) {

@@ -171,6 +171,7 @@
 		84D494521FFF5CCC00D151BE /* MessageGroupCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D494511FFF5CCC00D151BE /* MessageGroupCreateViewController.m */; };
 		84D4945520046C2900D151BE /* ShowMsgElem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4945420046C2900D151BE /* ShowMsgElem.m */; };
 		84D494582005E87D00D151BE /* MessageGroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D494572005E87D00D151BE /* MessageGroupSettingViewController.m */; };
+		84E555D722E7ED8A0042D017 /* SuperRoomChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E555D622E7ED890042D017 /* SuperRoomChatView.m */; };
 		84E59DA21FEA01A800048219 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E59DA11FEA01A800048219 /* libiconv.tbd */; };
 		84E59DAB1FF118A700048219 /* ChatRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E59DAA1FF118A700048219 /* ChatRoomViewController.m */; };
 		84E59DAE1FF1198300048219 /* ChatRoomListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E59DAD1FF1198300048219 /* ChatRoomListViewController.m */; };
@@ -560,6 +561,8 @@
 		84D4945420046C2900D151BE /* ShowMsgElem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShowMsgElem.m; sourceTree = "<group>"; };
 		84D494562005E87D00D151BE /* MessageGroupSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageGroupSettingViewController.h; sourceTree = "<group>"; };
 		84D494572005E87D00D151BE /* MessageGroupSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageGroupSettingViewController.m; sourceTree = "<group>"; };
+		84E555D522E7ED890042D017 /* SuperRoomChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperRoomChatView.h; sourceTree = "<group>"; };
+		84E555D622E7ED890042D017 /* SuperRoomChatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperRoomChatView.m; sourceTree = "<group>"; };
 		84E59D9B1FE9FEC000048219 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		84E59D9D1FEA010E00048219 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		84E59D9F1FEA019000048219 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -1297,6 +1300,8 @@
 		845EE3CC22CB691100A6DB91 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				84E555D522E7ED890042D017 /* SuperRoomChatView.h */,
+				84E555D622E7ED890042D017 /* SuperRoomChatView.m */,
 				845EE3C522CB2C0D00A6DB91 /* SuperRoomListVC.h */,
 				845EE3C622CB2C0D00A6DB91 /* SuperRoomListVC.m */,
 				845EE3CA22CB64B900A6DB91 /* SuperRoomListVC.xib */,
@@ -2139,6 +2144,7 @@
 				7B7D1F1221EC31A00043F096 /* IFNetworking.m in Sources */,
 				7B7D1EF221EC2F320043F096 /* UIProgressView+AFNetworking.m in Sources */,
 				A58DFF3C206CE6A80074DB7B /* MASConstraint.m in Sources */,
+				84E555D722E7ED8A0042D017 /* SuperRoomChatView.m in Sources */,
 				A5DAA6892089B65300A76FEA /* ILGImageCropViewController.m in Sources */,
 				84D4944F1FFF5CBC00D151BE /* MessageGroupListViewController.m in Sources */,
 				A588BFEA227E887600EBA23B /* ThirdStreamTestListVC.m in Sources */,

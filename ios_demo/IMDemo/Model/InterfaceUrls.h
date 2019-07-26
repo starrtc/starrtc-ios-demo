@@ -16,6 +16,7 @@
 - (void)getListResponse:(id)responseContent;
 - (void)getMessageGroupListResponse:(id)responseContent;
 -(void)getGroupMemberList:(id)responseContent;
+-(void)getDemoDeleteFromListFin:(id)responseContent;
 
 
 
@@ -37,8 +38,8 @@
 
 
 -(void)demoDeleteFromList:(NSString *)userId
-                 listType:(NSInteger)listType
-                       id:(NSString *)id;
+                 listType:(NSString *)listType
+                       roomId:(NSString *)roomId;
 
 
 -(void)demoQueryList:(NSString *)listType;

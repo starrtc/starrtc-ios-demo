@@ -13,7 +13,6 @@
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *switchButton;
-@property (weak, nonatomic) IBOutlet UITextField *inputTextField;
 @property (weak, nonatomic) IBOutlet UIView *speechView;
 @property (weak, nonatomic) IBOutlet UIView *textInputView;
 @property (weak, nonatomic) IBOutlet UIButton *micButton;
@@ -24,13 +23,14 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
     self.inputTextField.delegate = self;
+    _mPrivateMsgTargetId = nil;
 }
 
 
 // 停止说话
 - (IBAction)speechTouchInside:(UIButton *)sender {
 
-    NSLog(@"speechTouchInside");
+    NSLog(@"stop mic");
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(SuperRoomMenuViewStopSpeech:)]) {
         [self.delegate SuperRoomMenuViewStopSpeech:self];
@@ -40,7 +40,7 @@
 
 // 按住说话
 - (IBAction)speechTouchDown:(UIButton *)sender {
-    NSLog(@"speechTouchDown");
+    NSLog(@"star mic");
     if (self.delegate && [self.delegate respondsToSelector:@selector(SuperRoomMenuViewStartSpeech:)]) {
         [self.delegate SuperRoomMenuViewStartSpeech:self];
     }
@@ -48,8 +48,8 @@
 }
 
 - (IBAction)sendButtonClicked:(UIButton *)sender {
-    if ([self.inputTextField.text length] > 0 && self.delegate && [self.delegate respondsToSelector:@selector(SuperRoomMenuView:sendText:)]) {
-        [self.delegate SuperRoomMenuView:self sendText:self.inputTextField.text];
+    if ([self.inputTextField.text length] > 0 && self.delegate && [self.delegate respondsToSelector:@selector(SuperRoomMenuView:sendText:toId:)]) {
+        [self.delegate SuperRoomMenuView:self sendText:self.inputTextField.text toId:_mPrivateMsgTargetId];
     }
     [self.inputTextField resignFirstResponder];
     self.inputTextField.text = @"";
@@ -64,8 +64,8 @@
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if ([self.inputTextField.text length] > 0 && self.delegate && [self.delegate respondsToSelector:@selector(SuperRoomMenuView:sendText:)]) {
-        [self.delegate SuperRoomMenuView:self sendText:self.inputTextField.text];
+    if ([self.inputTextField.text length] > 0 && self.delegate && [self.delegate respondsToSelector:@selector(SuperRoomMenuView:sendText:toId:)]) {
+        [self.delegate SuperRoomMenuView:self sendText:self.inputTextField.text toId:_mPrivateMsgTargetId];
     }
     [textField resignFirstResponder];
     return YES;
