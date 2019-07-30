@@ -15,6 +15,7 @@
 #import "SystemSettingVC.h"
 #import "IFInnerHomeVC.h"
 #import "ThirdStreamTestListVC.h"
+#import "SpeechChatListVC.h"
 
 #import "IFFrameAndBitSetView.h"
 
@@ -340,6 +341,15 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 - (IBAction)switchForAudioHandle:(UISwitch *)sender {
     [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
 }
+
+- (IBAction)audioLiveDemoBtnClicked:(id)sender {
+    
+        SpeechChatListVC *listVC = [SpeechChatListVC instanceFromNib];
+        [self.navigationController pushViewController:listVC animated:YES];
+    
+}
+
+
 
 //- (IBAction)switchForLowAECHandle:(UISwitch *)sender {
 //    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];

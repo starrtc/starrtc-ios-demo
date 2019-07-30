@@ -135,7 +135,6 @@
 		8408FECC22B3866F0087ED25 /* RtspInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408FECB22B3866F0087ED25 /* RtspInfo.m */; };
 		8408FECF22B730800087ED25 /* ThirdStreamCreateVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8408FECE22B730800087ED25 /* ThirdStreamCreateVC.xib */; };
 		8412C49320189AC60061F7A9 /* videoReadyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8412C48F20189AC40061F7A9 /* videoReadyViewController.m */; };
-		8412C49420189AC60061F7A9 /* voipControllerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8412C49120189AC50061F7A9 /* voipControllerView.m */; };
 		8442C89322CC4DF20092FECB /* CreateSuperRoomVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8442C88A22CC4DF10092FECB /* CreateSuperRoomVC.xib */; };
 		8442C89422CC4DF20092FECB /* SuperRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442C88C22CC4DF10092FECB /* SuperRoomVC.m */; };
 		8442C89522CC4DF20092FECB /* CreateSuperRoomVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442C88D22CC4DF10092FECB /* CreateSuperRoomVC.m */; };
@@ -498,8 +497,6 @@
 		8408FECD22B3868D0087ED25 /* RtspInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RtspInfo.h; sourceTree = "<group>"; };
 		8408FECE22B730800087ED25 /* ThirdStreamCreateVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThirdStreamCreateVC.xib; sourceTree = "<group>"; };
 		8412C48F20189AC40061F7A9 /* videoReadyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = videoReadyViewController.m; sourceTree = "<group>"; };
-		8412C49020189AC50061F7A9 /* voipControllerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = voipControllerView.h; sourceTree = "<group>"; };
-		8412C49120189AC50061F7A9 /* voipControllerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = voipControllerView.m; sourceTree = "<group>"; };
 		8412C49220189AC50061F7A9 /* videoReadyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videoReadyViewController.h; sourceTree = "<group>"; };
 		844050C2228D5C01002831CE /* libbz2.1.0.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.1.0.5.tbd; path = usr/lib/libbz2.1.0.5.tbd; sourceTree = SDKROOT; };
 		8442C88A22CC4DF10092FECB /* CreateSuperRoomVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateSuperRoomVC.xib; sourceTree = "<group>"; };
@@ -894,8 +891,6 @@
 				7BD47D6F206E2EF70000E9A1 /* ReceiverVoipVideoVC.xib */,
 				8412C49220189AC50061F7A9 /* videoReadyViewController.h */,
 				8412C48F20189AC40061F7A9 /* videoReadyViewController.m */,
-				8412C49020189AC50061F7A9 /* voipControllerView.h */,
-				8412C49120189AC50061F7A9 /* voipControllerView.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2314,7 +2309,6 @@
 				7B7D1F5721EC34AB0043F096 /* MJRefreshFooter.m in Sources */,
 				7B5BF0DA221BED4B00F82A42 /* IQUIView+Hierarchy.m in Sources */,
 				A5C71DB3226EA6DF001B4306 /* IFBaseTableVC.m in Sources */,
-				8412C49420189AC60061F7A9 /* voipControllerView.m in Sources */,
 				7B7D1F5521EC34AB0043F096 /* MJRefreshStateHeader.m in Sources */,
 				7BC4C2D021ED783E00809204 /* SpeechChatMenuView.m in Sources */,
 				A58DFF3E206CE6A80074DB7B /* MASLayoutConstraint.m in Sources */,

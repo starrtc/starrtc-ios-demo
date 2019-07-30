@@ -117,4 +117,21 @@
     [[VoipVideoVC shareInstance] backup];
 }
 
+/**
+ * 传输模式切换
+ * 1是P2P，0是中转
+ */
+- (void)onTransStateChanged:(NSInteger)state
+{
+    NSString * info = nil;
+    if(state == 1)
+    {
+        info = @"传输模式切换为P2P";
+    }
+    else
+    {
+        info = @"传输模式切换为中转";
+    }
+    [UIWindow ilg_makeToast:info];
+}
 @end

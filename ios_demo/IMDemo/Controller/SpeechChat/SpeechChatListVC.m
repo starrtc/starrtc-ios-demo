@@ -46,8 +46,8 @@
     self.tableView.delegate = self;
     self.tableView.estimatedRowHeight = 100;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    UINib * nibCell = [UINib nibWithNibName:@"SuperRoomListCell" bundle:[NSBundle mainBundle]];
-    [self.tableView registerNib:nibCell forCellReuseIdentifier:@"SuperRoomListCell"];
+    UINib * nibCell = [UINib nibWithNibName:@"SpeechChatListCell" bundle:[NSBundle mainBundle]];
+    [self.tableView registerNib:nibCell forCellReuseIdentifier:@"SpeechChatListCell"];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 70)];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self requetRefreshAudioList];
