@@ -22,8 +22,8 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eeV-ZC-J6t">
-                    <rect key="frame" x="16" y="49" width="343" height="380"/>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eeV-ZC-J6t">
+                    <rect key="frame" x="16" y="100" width="343" height="421"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请在下方输入拉流名称" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAe-ds-lsP">
                             <rect key="frame" x="10" y="20" width="323" height="20.5"/>
@@ -32,7 +32,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rk2-wJ-grv">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rk2-wJ-grv">
                             <rect key="frame" x="35" y="165" width="263" height="1"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -48,7 +48,7 @@
                                 <action selector="createLiveButtonClicked:" destination="-1" eventType="touchUpInside" id="mz7-Sl-viN"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="填写名称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dmJ-Pb-Z2j">
+                        <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="填写名称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dmJ-Pb-Z2j">
                             <rect key="frame" x="22" y="136" width="298" height="30"/>
                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -60,23 +60,40 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R28-Q2-eay">
+                            <rect key="frame" x="22" y="346" width="298" height="55"/>
+                            <state key="normal" title="创建视频会议" backgroundImage="big_button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="createLiveButtonClicked:" destination="-1" eventType="touchUpInside" id="7vL-j9-H96"/>
+                                <action selector="createMeetingButtonClicked:" destination="-1" eventType="touchUpInside" id="MA7-M0-NTO"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="hAe-ds-lsP" secondAttribute="trailing" constant="10" id="0Ow-5R-ciA"/>
                         <constraint firstItem="hAe-ds-lsP" firstAttribute="leading" secondItem="eeV-ZC-J6t" secondAttribute="leading" constant="10" id="31X-v9-Tuo"/>
+                        <constraint firstItem="R28-Q2-eay" firstAttribute="leading" secondItem="IX2-nc-yRw" secondAttribute="leading" id="C6a-CD-HIJ"/>
                         <constraint firstItem="dmJ-Pb-Z2j" firstAttribute="top" secondItem="hAe-ds-lsP" secondAttribute="bottom" constant="95.5" id="D0P-jW-ntc"/>
+                        <constraint firstItem="rk2-wJ-grv" firstAttribute="top" secondItem="eeV-ZC-J6t" secondAttribute="top" constant="165" id="IbW-7a-4vh"/>
                         <constraint firstItem="dmJ-Pb-Z2j" firstAttribute="leading" secondItem="eeV-ZC-J6t" secondAttribute="leading" constant="22" id="O0F-WA-DAa"/>
                         <constraint firstItem="IX2-nc-yRw" firstAttribute="top" secondItem="eeV-ZC-J6t" secondAttribute="top" constant="283" id="QlH-6d-jW9"/>
                         <constraint firstItem="hAe-ds-lsP" firstAttribute="top" secondItem="eeV-ZC-J6t" secondAttribute="top" constant="20" id="TCW-4D-klg"/>
+                        <constraint firstItem="R28-Q2-eay" firstAttribute="trailing" secondItem="IX2-nc-yRw" secondAttribute="trailing" id="VkD-se-f26"/>
                         <constraint firstAttribute="width" constant="343" id="ZE9-n3-aO2"/>
                         <constraint firstAttribute="trailing" secondItem="dmJ-Pb-Z2j" secondAttribute="trailing" constant="23" id="aCk-rr-yIw"/>
                         <constraint firstItem="IX2-nc-yRw" firstAttribute="leading" secondItem="eeV-ZC-J6t" secondAttribute="leading" constant="22" id="b1S-Nu-LUG"/>
+                        <constraint firstItem="rk2-wJ-grv" firstAttribute="leading" secondItem="eeV-ZC-J6t" secondAttribute="leading" constant="35" id="eVS-Xk-zid"/>
                         <constraint firstItem="IX2-nc-yRw" firstAttribute="top" secondItem="IB6-3H-Pfd" secondAttribute="bottom" constant="55" id="iNe-ti-Axe"/>
                         <constraint firstItem="IB6-3H-Pfd" firstAttribute="leading" secondItem="eeV-ZC-J6t" secondAttribute="leading" constant="22" id="jP1-8b-T6H"/>
                         <constraint firstAttribute="trailing" secondItem="IB6-3H-Pfd" secondAttribute="trailing" constant="23" id="kba-dI-Ek7"/>
+                        <constraint firstItem="rk2-wJ-grv" firstAttribute="bottom" secondItem="dmJ-Pb-Z2j" secondAttribute="bottom" id="sn6-eL-vVM"/>
+                        <constraint firstAttribute="trailing" secondItem="rk2-wJ-grv" secondAttribute="trailing" constant="45" id="xUp-fy-H0G"/>
                         <constraint firstItem="IB6-3H-Pfd" firstAttribute="top" secondItem="dmJ-Pb-Z2j" secondAttribute="bottom" constant="32" id="yGb-NK-rZQ"/>
-                        <constraint firstAttribute="bottom" secondItem="IX2-nc-yRw" secondAttribute="bottom" constant="42" id="ydE-At-hXX"/>
+                        <constraint firstItem="R28-Q2-eay" firstAttribute="top" secondItem="IX2-nc-yRw" secondAttribute="bottom" constant="8" id="ycD-w0-LJt"/>
+                        <constraint firstAttribute="bottom" secondItem="IX2-nc-yRw" secondAttribute="bottom" constant="83" id="ydE-At-hXX"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -87,6 +104,7 @@
             </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
+                <constraint firstItem="7d9-nz-Txa" firstAttribute="bottom" secondItem="R28-Q2-eay" secondAttribute="bottom" constant="166" id="54B-9K-Nik"/>
                 <constraint firstItem="7d9-nz-Txa" firstAttribute="trailing" secondItem="IX2-nc-yRw" secondAttribute="trailing" constant="39" id="8Ag-5p-Jti"/>
                 <constraint firstItem="eeV-ZC-J6t" firstAttribute="leading" secondItem="7d9-nz-Txa" secondAttribute="leading" constant="16" id="mJa-Au-KLR"/>
                 <constraint firstItem="eeV-ZC-J6t" firstAttribute="top" secondItem="u1C-1M-YUc" secondAttribute="top" constant="100" id="oj6-bh-jX3"/>

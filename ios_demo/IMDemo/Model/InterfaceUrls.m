@@ -94,7 +94,72 @@
     }];
 }
 
+// 转发rtsp流
+-(void)demopushStreamUrl:(NSString *)userId
+                  server:(NSString *)server
+                    name:(NSString *)name
+              chatroomId:(NSString *)chatroomId
+                listType:(NSInteger)listType
+              streamType:(NSString *)streamType
+               streamUrl:(NSString *)streamUrl
+{
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@/push?userId=%@&streamType=%@&streamUrl=%@&roomLiveType=%ld&roomId=%@&extra=%@",server,
+                        userId,streamType,streamUrl, (long)listType, chatroomId, [self URLEncodeString:name]];
+    [self get:urlStr callback:^(id result, NSError *error) {
+        if (_delegate && [_delegate respondsToSelector:@selector(getRtspForwardFin:)])
+        {
+            [_delegate getRtspForwardFin:result];
+        }
+    }];
+}
 
+// 恢复转发rtsp流
+-(void)demoResumePushRtsp:(NSString *)userId
+                 server:(NSString *)server
+                 liveId:(NSString *)liveId
+                     rtsp:(NSString *)rtsp
+{
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@/push?userId=%@&streamType=rtsp&streamUrl=%@&channelId=%@",server,
+                        userId,rtsp,[liveId substringFromIndex:0]];
+    [self get:urlStr callback:^(id result, NSError *error) {
+        if (_delegate && [_delegate respondsToSelector:@selector(getRtspResumeFin:)])
+        {
+            [_delegate getRtspResumeFin:result];
+        }
+    }];
+}
+
+
+
+// 停止转发rtsp流
+-(void)demoStopPushRtsp:(NSString *)userId
+                 server:(NSString *)server
+                 liveId:(NSString *)liveId
+{
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@/close?userId=%@&channelId=%@",server,
+                        userId,[liveId substringFromIndex:0]];
+    [self get:urlStr callback:^(id result, NSError *error) {
+        if (_delegate && [_delegate respondsToSelector:@selector(getRtspStopFin:)])
+        {
+            [_delegate getRtspStopFin:result];
+        }
+    }];
+}
+
+//删除rtsp流记录
+-(void)demoDeleteRtsp:(NSString *)userId
+               server:(NSString *)server
+               liveId:(NSString *)liveId
+{
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@/delete?userId=%@&channelId=%@",server,
+                        userId,[liveId substringToIndex:16]];
+    [self get:urlStr callback:^(id result, NSError *error) {
+        if (_delegate && [_delegate respondsToSelector:@selector(getRtspDeleteFin:)])
+        {
+            [_delegate getRtspDeleteFin:result];
+        }
+    }];
+}
 
 
 
@@ -273,20 +338,7 @@
     }];
 }
 
-// 转发rtsp流
--(void)demopushStreamUrl:(NSString *)server
-               name:(NSString *)name
-         chatroomId:(NSString *)chatroomId
-           listType:(NSInteger)listType
-              streamType:(NSString *)streamType
-            rtspUrl:(NSString *)rtspUrl
-{
-    NSString *urlStr = [NSString stringWithFormat:@"http://%@/push?streamType=rtsp&streamUrl=%@&roomLiveType=%ld&roomId=%@&extra=%@",server,
-                        rtspUrl, (long)listType, chatroomId, name];
-    [self get:urlStr callback:^(id result, NSError *error) {
-       
-    }];
-}
+
 
 
 - (void)get:(NSString *)urlStr callback:(void(^)(id result, NSError *error))callback {

@@ -306,14 +306,17 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     [self handleEventForAbout];
 }
 
+// 禁止音频
 - (IBAction)audioEnable:(UISwitch *)sender {
     _videoSetParameters.audioEnable = !sender.isOn;
 }
 
+// 禁止视频
 - (IBAction)videoEnabled:(UISwitch *)sender {
     _videoSetParameters.videoEnable = !sender.isOn;
 }
 
+// 动态调节码率帧率
 - (IBAction)autoAdjustFrameAndBit:(UISwitch *)sender {
     _videoSetParameters.dynamicBitrateAndFPSEnable = sender.on;
 }
@@ -338,9 +341,9 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
     [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
 }
 
-- (IBAction)switchForLowAECHandle:(UISwitch *)sender {
-    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
-}
+//- (IBAction)switchForLowAECHandle:(UISwitch *)sender {
+//    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
+//}
 
 - (IBAction)switchForLogWindow:(UISwitch *)sender {
     _videoSetParameters.logEnable = sender.on;
@@ -418,7 +421,6 @@ typedef NS_ENUM(NSUInteger, IFVideoSettingType) {
 {
     ThirdStreamTestListVC *vc = [[ThirdStreamTestListVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-    [self.view ilg_makeToast:@"暂未实现" position:ILGToastPositionBottom];
 }
 
 - (void)handleEventForInnerTest

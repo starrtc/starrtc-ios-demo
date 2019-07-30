@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSString *isLiveOn;
 
-@property (nonatomic, assign) NSString *rtsp;
+@property (nonatomic, strong) NSString *rtsp;
 
 
 @end

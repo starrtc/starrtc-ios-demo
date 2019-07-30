@@ -17,9 +17,13 @@
 - (void)getMessageGroupListResponse:(id)responseContent;
 -(void)getGroupMemberList:(id)responseContent;
 -(void)getDemoDeleteFromListFin:(id)responseContent;
+-(void)getRtspForwardFin:(id)responseContent;
+-(void)getRtspStopFin:(id)responseContent;
+-(void)getRtspResumeFin:(id)responseContent;
+-(void)getRtspDeleteFin:(id)responseContent;
 
 
-
+// 暂时没用
 - (void)getMeetingListResponse:(id)respnseContent;
 - (void)getLiveListResponse:(id)respnseContent;
 - (void)getChatRoomListResponse:(id)responseContent;
@@ -49,6 +53,36 @@
 
 -(void)demoQueryImGroupInfo:(NSString *)userId
                     groupId:(NSString *)groupId;
+
+// 转发rtsp流
+-(void)demopushStreamUrl:(NSString *)userId
+                  server:(NSString *)server
+                    name:(NSString *)name
+              chatroomId:(NSString *)chatroomId
+                listType:(NSInteger)listType
+              streamType:(NSString *)streamType
+               streamUrl:(NSString *)streamUrl;
+
+// 恢复转发rtsp流
+-(void)demoResumePushRtsp:(NSString *)userId
+                   server:(NSString *)server
+                   liveId:(NSString *)liveId
+                     rtsp:(NSString *)rtsp;
+
+// 停止转发rtsp流
+-(void)demoStopPushRtsp:(NSString *)userId
+                 server:(NSString *)server
+                 liveId:(NSString *)liveId;
+
+//删除rtsp流记录
+-(void)demoDeleteRtsp:(NSString *)userId
+               server:(NSString *)server
+               liveId:(NSString *)liveId;
+
+
+
+
+
 
 
 
@@ -89,12 +123,7 @@
 //公有部署下第三方流列表
 - (void)requestForThirdStreamList;
 
-// 转发rtsp流
--(void)demopushRtsp:(NSString *)server
-               name:(NSString *)name
-         chatroomId:(NSString *)chatroomId
-           listType:(NSInteger)listType
-            rtspUrl:(NSString *)rtspUrl;
+
 
 //获取authKey
 +(void)getAuthKey:(NSString * ) userID

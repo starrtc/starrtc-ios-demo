@@ -33,9 +33,13 @@
     
     [self createUI];
     
+//    [self refreshList];
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self refreshList];
 }
-
 
 #pragma mark - Data
 
@@ -83,6 +87,74 @@
     }
 }
 
+-(void)getRtspStopFin:(id)responseContent
+{
+    NSDictionary *dict = responseContent;
+    int status = [[dict objectForKey:@"status"] intValue];
+    
+    if (status == 1) {
+        [self.view ilg_makeToast:@"操作成功" position:ILGToastPositionCenter];
+        
+    } else {
+        [self.view ilg_makeToast:@"操作失败" position:ILGToastPositionCenter];
+    }
+}
+-(void)getRtspResumeFin:(id)responseContent
+{
+    NSDictionary *dict = responseContent;
+    int status = [[dict objectForKey:@"status"] intValue];
+
+    if (status == 1) {
+        [self.view ilg_makeToast:@"操作成功" position:ILGToastPositionCenter];
+       
+    } else {
+        [self.view ilg_makeToast:@"操作失败" position:ILGToastPositionCenter];
+    }
+}
+/*
+ {
+ channelId = "Wz@NWuVjfM5waaya";
+ errstr = "LIVESRC_MOONSERVER_ERRID_CHANNEL_NOT_FOUND";
+ status = 0;
+ }
+ */
+-(void)getRtspDeleteFin:(id)responseContent
+{
+    NSLog(@"getRtspDeleteFin");
+    NSDictionary *dict = responseContent;
+    int status = [[dict objectForKey:@"status"] intValue];
+    
+    if (status == 1) {
+        [self.view ilg_makeToast:@"操作成功" position:ILGToastPositionCenter];
+        [self refreshList];
+        
+    } else {
+        NSString *errStr = [dict objectForKey:@"errstr"] ;
+        if(errStr)
+        {
+            errStr = [NSString stringWithFormat:@"操作失败:%@",errStr];
+        }
+        else
+        {
+            errStr = @"操作失败";
+        }
+        [self.view ilg_makeToast:errStr position:ILGToastPositionCenter];
+    }
+}
+
+-(void)getDemoDeleteFromListFin:(id)responseContent
+{
+    NSLog(@"getDemoDeleteFromListFin");
+    NSDictionary *dict = responseContent;
+    int status = [[dict objectForKey:@"status"] intValue];
+    NSLog(@"status = %d",status);
+    if (status == 1) {
+        [self refreshList];
+        
+    } else {
+    }
+}
+
 #pragma mark tableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     return 1;
@@ -115,12 +187,46 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-//    IFMeetingItem *item = [_listArr objectAtIndex:indexPath.row];
-//
-//    IFMutilMeetingVC *vc = [[IFMutilMeetingVC alloc] initWithType:IFMutilMeetingVCTypeJoin];
-//    vc.meetingId = item.meetingID;
-//    vc.meetingName = item.meetingName;
-//    [self.navigationController pushViewController:vc animated:YES];
+    RtspInfo *rtspInfo = [_listArr objectAtIndex:indexPath.row];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    NSArray *titles = @[@"停止拉流", @"恢复拉流",@"删除记录",@"取消"];
+    for (int index = 0; index < titles.count; index++)
+    {
+        UIAlertActionStyle style = UIAlertActionStyleDefault;
+        if (index == titles.count - 1)
+        {
+            style = UIAlertActionStyleCancel;
+        }
+        UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:style handler:^(UIAlertAction * _Nonnull action)
+                                 {
+                                     if (index == 0 )
+                                     {
+                                         [_m_interfaceUrls demoStopPushRtsp:UserId server:[AppConfig shareConfig].uploadProxyHost liveId:rtspInfo.ID];
+                                     }
+                                     else if(index == 1)
+                                     {
+                                         [_m_interfaceUrls demoResumePushRtsp:UserId server:[AppConfig shareConfig].uploadProxyHost liveId:rtspInfo.ID rtsp:rtspInfo.rtsp];
+                                     }
+                                     else if(index == 2)
+                                     {
+                                        
+                                         [_m_interfaceUrls demoDeleteRtsp:rtspInfo.Creator server:[AppConfig shareConfig].uploadProxyHost liveId:rtspInfo.ID];
+                                         if([AppConfig AEventCenterEnable])
+                                         {
+                                             [_m_interfaceUrls demoDeleteFromList:rtspInfo.Creator listType:[NSString stringWithFormat:@"%ld",(long)rtspInfo.type] roomId:rtspInfo.ID];
+                                         }
+                                         else
+                                         {
+                                             [[XHClient sharedClient].roomManager deleteFromChatroomList:[rtspInfo.ID substringFromIndex:16]  listType:rtspInfo.type completion:^(NSError *error) {
+                                                 
+                                             }];
+                                         }
+                                     }
+                                 }];
+        [alertController addAction:action];
+    }
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 
