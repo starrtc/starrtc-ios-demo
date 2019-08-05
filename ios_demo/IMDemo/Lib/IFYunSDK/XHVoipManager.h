@@ -82,6 +82,12 @@
  */
 - (void)onReceiveRealtimeData:(NSString *)data;
 
+/**
+ * 传输模式切换
+ * 1是P2P，0是中转
+ */
+- (void)onTransStateChanged:(NSInteger)state;
+
 @end
 
 typedef NS_ENUM(NSInteger, XHVideoConnectionType)

@@ -181,6 +181,10 @@
                     [weakSelf refreshListDidEnd:nil];
                 }
             }
+            else
+            {
+                [weakSelf refreshListDidEnd:nil];
+            }
             
             
         }];
