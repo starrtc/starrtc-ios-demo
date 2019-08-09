@@ -36,8 +36,10 @@
  收到群组消息
 
  @param aMessage 消息
+ @param fromID 消息来源
+ @param groupID 群组id
  */
-- (void)groupMessagesDidReceive:(NSString *)aMessage fromID:(NSString *)fromID;
+- (void)groupMessagesDidReceive:(NSString *)aMessage fromID:(NSString *)fromID groupID:(NSString *)groupID;
 
 @end
 

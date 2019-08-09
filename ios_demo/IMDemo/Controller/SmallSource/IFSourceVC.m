@@ -310,6 +310,7 @@
 
 - (void)onReceiveRealtimeData:(NSString *)data
                          upId:(NSString *)upId {
+    NSLog(@"SourceVC onReceiveRealtimeData");
     [self.whitePanel setPaintData:upId.integerValue data:data];
 }
 

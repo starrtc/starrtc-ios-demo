@@ -125,7 +125,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)groupMessagesDidReceive:(NSString *)aMessage fromID:(NSString *)fromID {
+- (void)groupMessagesDidReceive:(NSString *)aMessage fromID:(NSString *)fromID groupID:(NSString *)groupID{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self showTrace:aMessage userID:fromID];
     });

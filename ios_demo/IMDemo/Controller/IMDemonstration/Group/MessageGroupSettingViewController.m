@@ -114,14 +114,21 @@ static NSString *kMuteKey = @"kMuteKey";
     containerView.backgroundColor = [UIColor clearColor];
     _footerView = containerView;
     
-    UIButton *manageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [manageBtn setTitle:@"成员管理" forState:UIControlStateNormal];
-    [manageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    manageBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-    manageBtn.backgroundColor = [UIColor greenColor];
-    manageBtn.layer.masksToBounds = YES;
-    manageBtn.layer.cornerRadius = 22;
-    [manageBtn addTarget:self action:@selector(manageBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    UIButton *manageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [manageBtn setTitle:@"成员管理" forState:UIControlStateNormal];
+//    [manageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    manageBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+//    manageBtn.backgroundColor = [UIColor greenColor];
+//    manageBtn.layer.masksToBounds = YES;
+//    manageBtn.layer.cornerRadius = 22;
+//    [manageBtn addTarget:self action:@selector(manageBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *groupIDLabel = [ [UILabel alloc]initWithFrame:CGRectMake(0,260,self.view.width,30 )];;
+    groupIDLabel.backgroundColor = [UIColor clearColor];
+    groupIDLabel.text = [NSString stringWithFormat:@"     群号:                                                %@",self.groupID]  ;
+    groupIDLabel.backgroundColor = [UIColor yellowColor];
+    groupIDLabel.layer.masksToBounds = YES;
+    groupIDLabel.layer.cornerRadius = 22;
     
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [deleteBtn setTitle:@"删除群" forState:UIControlStateNormal];
@@ -132,8 +139,9 @@ static NSString *kMuteKey = @"kMuteKey";
     deleteBtn.layer.cornerRadius = 22;
     [deleteBtn addTarget:self action:@selector(deleteBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
+    [containerView addSubview:groupIDLabel];
     if (self.isOwner) {
-        //    [containerView addSubview:manageBtn];
+        //[containerView addSubview:manageBtn];
         [containerView addSubview:deleteBtn];
         
         [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -143,12 +151,12 @@ static NSString *kMuteKey = @"kMuteKey";
             make.height.mas_equalTo(44);
         }];
         
-        //    [manageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        //        make.bottom.equalTo(deleteBtn.mas_top).offset(-12);
-        //        make.leading.equalTo(deleteBtn);
-        //        make.trailing.equalTo(deleteBtn);
-        //        make.height.equalTo(deleteBtn);
-        //    }];
+            [groupIDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(deleteBtn.mas_top).offset(-12);
+                make.leading.equalTo(deleteBtn);
+                make.trailing.equalTo(deleteBtn);
+                make.height.equalTo(deleteBtn);
+            }];
     }
     
     return containerView;
