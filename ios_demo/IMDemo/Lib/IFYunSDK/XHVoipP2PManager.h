@@ -87,13 +87,6 @@
  */
 -(void)stopStarDircetLink;
 
-
-/**
- * 设置拍摄时 设备的方向
- * @param deviceDirection 方向
- */
-- (void)setDeviceDirection:(XHDeviceDirectionEnum) deviceDirection;
-
 /**
  * 设置媒体类型
  * @param mediaType 类型

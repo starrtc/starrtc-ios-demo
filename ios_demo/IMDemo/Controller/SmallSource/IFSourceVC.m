@@ -18,6 +18,9 @@
 #import "IFLiveMessage.h"
 
 @interface IFSourceVC () <UITableViewDelegate, UITableViewDataSource, XHLiveManagerDelegate, UITextFieldDelegate>
+{
+    NSString *sendMessageTargetID;
+}
 @property (nonatomic, strong) NSMutableArray *videoViewArr;
 @property (nonatomic, strong) NSMutableDictionary *videoViewDic;
 
@@ -89,6 +92,7 @@
     self.videoViewArr = [NSMutableArray array];
     self.videoViewDic = [NSMutableDictionary dictionary];
     _messageArr = [NSMutableArray array];
+    sendMessageTargetID = nil;
     
     [self createUI];
     
@@ -110,7 +114,6 @@
     } else if (_vcType == IFSourceVCTypeStart || _vcType == IFSourceVCTypeCreate) {
         [self.whitePanel publish];
         
-        [[XHClient sharedClient].liveManager setDeviceDirection:STAR_DEVICE_DIRECTION_HOME_BOTTOM];
         [[XHClient sharedClient].liveManager startLive:self.liveId completion:^(NSError *error) {
             if (error) {
                 [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -314,6 +317,30 @@
     [self.whitePanel setPaintData:upId.integerValue data:data];
 }
 
+#pragma mark private function
+-(NSString *)decodeMiniClassMsgContentData:(NSString *)txt
+{
+    NSError * error = nil;
+    NSString *text = nil;
+    NSData *recvMessage = [txt dataUsingEncoding:NSUTF8StringEncoding];
+    
+    id obj  = [NSJSONSerialization JSONObjectWithData:recvMessage options:NSJSONReadingMutableContainers error:&error];
+    
+    // 判断一下,id是NSMutableArray类型还是NSMutableDictionary
+    if ([obj isKindOfClass:[NSArray class]]) {
+        
+        NSMutableArray * array = obj;
+        NSLog(@"*************%@",array);
+    }else{
+        
+        NSMutableDictionary * dict = obj;
+        
+         text = [dict objectForKey:@"text"] ;
+    }
+    return text;
+}
+
+
 #pragma mark tableView
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     return self.messageArr.count;
@@ -374,7 +401,38 @@
         
         [self presentViewController:alertController animated:YES completion:nil];
     }
+    else
+    {
+        [self showChooseAlert:message];
+    }
 }
+
+
+-(void)showChooseAlert:(IFLiveMessage *)message
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    NSArray *titles = @[@"私信",@"取消"];
+    for (int index = 0; index < titles.count; index++)
+    {
+        UIAlertActionStyle style = UIAlertActionStyleDefault;
+        if (index == titles.count - 1)
+        {
+            style = UIAlertActionStyleCancel;
+        }
+        UIAlertAction *action = [UIAlertAction actionWithTitle:titles[index] style:style handler:^(UIAlertAction * _Nonnull action)
+                                 {
+                                     if(index == 0)
+                                     {
+                                         sendMessageTargetID = message.uid;
+                                         _chatTF.text = [NSString stringWithFormat:@"[私%@]",message.uid];
+                                         
+                                     }
+                                 }];
+        [alertController addAction:action];
+    }
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView
 {
@@ -427,6 +485,7 @@
     
     UIColor *color = [self colorWithBtnTag:sender.tag];
     self.penBtn.backgroundColor = color;
+    [self.whitePanel setSelectColor:color];
 }
 
 - (IBAction)switchToChatContainer:(id)sender {
@@ -602,9 +661,28 @@
     NSString *uid = [IMUserInfo shareInstance].userID;
     self.chatTF.text = nil;
     
-    [[XHClient sharedClient].liveManager sendMessage:text completion:^(NSError *error) {
-        
-    }];
+    NSMutableDictionary *mdict1 = [NSMutableDictionary dictionary];
+    [mdict1 setObject:@"text" forKey:@"type"];
+    [mdict1 setObject:[IMUserInfo shareInstance].userID forKey:@"from"];
+    [mdict1 setObject:@"" forKey:@"fromAvatar"];
+    [mdict1 setObject:[IMUserInfo shareInstance].userID forKey:@"fromNick"];
+    [mdict1 setObject:text forKey:@"text"];
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:mdict1 options:0 error:nil];
+    NSString* strMessage = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    if(sendMessageTargetID == nil)
+    {
+        [[XHClient sharedClient].liveManager sendMessage:strMessage completion:^(NSError *error) {
+            
+        }];
+    }
+    else
+    {
+        [[XHClient sharedClient].liveManager sendMessage:strMessage toID:sendMessageTargetID completion:^(NSError *error) {
+            
+        }];
+        sendMessageTargetID = nil;
+    }
     
     IFLiveMessage *message = [[IFLiveMessage alloc] init];
     message.msgText = [NSString stringWithFormat:@"%@:%@", uid, text];

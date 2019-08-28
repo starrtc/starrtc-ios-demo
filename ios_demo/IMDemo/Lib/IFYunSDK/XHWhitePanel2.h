@@ -52,4 +52,11 @@
  *  关闭激光笔
  */
 -(void) laserPenOff;
+
+/**
+ *  设置画笔颜色
+ */
+
+-(void)setSelectColor:(UIColor *)color;
+
 @end
