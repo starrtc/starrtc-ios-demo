@@ -78,7 +78,7 @@ const static int subTitleFontNum = 16;
     }
 
     UILabel *label = [[UILabel alloc] init];
-    label.textColor = [UIColor whiteColor];
+    label.textColor = [UIColor grayColor];
     label.font = [UIFont systemFontOfSize:18];
     _titleLabel = label;
     
@@ -90,32 +90,32 @@ const static int subTitleFontNum = 16;
     
     [self addSubview:imageView];
     [self addSubview:textBGIV];
-//    [self addSubview:label];
+    [self addSubview:label];
     [self addSubview:label2];
     
-//    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(imageView).offset(0);
-//        make.leading.equalTo(imageView.mas_trailing).offset(leadingSpace);
-//        make.trailing.equalTo(self).offset(-leadingSpace);
-//        make.height.mas_equalTo(titleLabelHeight);
-//    }];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(imageView).offset(0);
+        make.leading.equalTo(imageView.mas_trailing).offset(leadingSpace);
+        make.trailing.equalTo(self).offset(-leadingSpace);
+        make.height.mas_equalTo(20);
+    }];
     
     if (_layoutType == IFChatCellStyleLeft || _layoutType == IFChatCellStyleLeftAndNoBG) {
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.leading.equalTo(self).offset(leadingSpace);
-            make.top.equalTo(self);
+            make.top.equalTo(label).offset(20);
             make.size.mas_equalTo(CGSizeMake(iconHeight, iconHeight));
         }];
         
         [label2 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(imageView).offset(textTopSpace);
+            make.top.equalTo(imageView).offset(2*textTopSpace);
             make.leading.equalTo(imageView.mas_trailing).offset(textLeadingSpace);
             make.trailing.lessThanOrEqualTo(self).offset(-textTrailingSpace);
-            make.bottom.equalTo(self).offset(-textBottomSpace);
+            make.bottom.equalTo(self).offset(-10);
         }];
         
         [textBGIV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(label2).offset(-textTopSpace);
+            make.top.equalTo(label2).offset(-5); // -textTopSpace
             make.leading.equalTo(label2).offset(-13);
             make.trailing.equalTo(label2).offset(13);
             make.bottom.equalTo(label2).offset(textTopSpace);
@@ -144,7 +144,7 @@ const static int subTitleFontNum = 16;
 }
 
 + (CGFloat)reserveWithForCell {
-    return leadingSpace + iconHeight + textLeadingSpace + textTrailingSpace;
+    return 3*leadingSpace + iconHeight + textLeadingSpace + textTrailingSpace;
 }
 
 + (CGFloat)caculateTextHeightWithMaxWidth:(CGFloat)maxWidth text:(NSString *)text {
@@ -154,6 +154,6 @@ const static int subTitleFontNum = 16;
     if (height < iconHeight - textTopSpace*2) {
         height = iconHeight - textTopSpace*2;
     }
-    return  height + textTopSpace + textBottomSpace;
+    return  height + textTopSpace + 2*textBottomSpace;
 }
 @end
