@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   // [[XHClient sharedClient].beautyManager addDelegate:self];
+    [[XHClient sharedClient].beautyManager addDelegate:self];
     _loopTest = [[LoopTest alloc] init];
     [_loopTest setupView:self.bigVideoPreview1 self_small_view:self.smallVideoPreview1 target_big_view:self.bigVideoPreview2 target_small_view:self.smallVideoPreview2];
     
@@ -70,15 +70,22 @@
 #pragma mark - XHBeautyManagerDelegate
 
 /**
- 收到待处理的美颜数据
+ 暴露每帧视频数据(同步返回处理后的数据)
  @param videoData 数据
  */
--(void) onFrame:(StarVideoData *) videoData
+-(StarVideoData *) onVideoFrame:(StarVideoData *) videoData
 {
-   // 直接回填数据
-    [[XHClient sharedClient].beautyManager backfillData:videoData];
+    return videoData;
 }
 
+/**
+ 暴露每帧音频数据(同步返回处理后的数据)
+ @param audioData 数据
+ */
+-(StarAudioData *) onAudioFrame:(StarAudioData *) audioData
+{
+    return audioData;
+}
 
 /*
 #pragma mark - Navigation
