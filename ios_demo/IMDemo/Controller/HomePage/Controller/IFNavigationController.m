@@ -15,12 +15,12 @@
 @implementation IFNavigationController
 
 - (BOOL)shouldAutorotate {
-    return NO;
+    return YES;
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+//    return UIInterfaceOrientationMaskPortrait;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

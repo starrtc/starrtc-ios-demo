@@ -10,7 +10,6 @@
 #import "VideoSettingVC.h"
 #import "VoipListVC.h"
 #import "ViewController.h"
-#import "SenderVoipVideoVC.h"
 #import "IFLiveListVC.h"
 #import "IFMutilMeetingListVC.h"
 #import "IMHelp.h"
@@ -38,7 +37,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *liveButton;
 @property (weak, nonatomic) IBOutlet UIButton *meettingButton;
 @property (weak, nonatomic) IBOutlet UIButton *circleButton;
-@property (nonatomic, strong) SenderVoipVideoVC * senderVoipVideoVC;
 @property (weak, nonatomic) IBOutlet UIView *manyVideoView;
 @property (weak, nonatomic) IBOutlet UIView *circleView;
 @property (weak, nonatomic) IBOutlet UIView *liveView;

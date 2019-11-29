@@ -52,7 +52,7 @@ static NSString * const kAppConfigParametersPrivateKey = @"AppConfigParametersPr
             
         } else {
             if (type == IFServiceTypePrivate) {
-                                        _messageHost = @"test.starrtc.com:19903";
+                                        _messageHost = @"test.starrtc.com:19903";  // test.starrtc.com
                                         _chatHost = @"test.starrtc.com:19906";
                                         _uploadHost = @"test.starrtc.com:19931";
                                         _downloadHost = @"test.starrtc.com:19928";

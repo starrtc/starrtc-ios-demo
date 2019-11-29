@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SenderVoipVideoVC.h"
 #import "VoipVideoVC.h"
 @interface IMHelp : NSObject
 
