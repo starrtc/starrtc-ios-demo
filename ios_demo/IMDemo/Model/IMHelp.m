@@ -9,7 +9,6 @@
 #import "IMHelp.h"
 #import "VoipReadyVC.h"
 #import "VoipVideoVC.h"
-#import "SenderVoipVideoVC.h"
 #import "XHClient.h"
 #import "VoipHistoryManage.h"
 
