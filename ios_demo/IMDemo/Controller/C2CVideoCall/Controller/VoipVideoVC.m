@@ -70,6 +70,8 @@
     [self.view addSubview:self.callingView];
     [self.view addSubview:self.receiveView];
     [self.view addSubview:self.conversationView];
+    
+    [[XHClient sharedClient].beautyManager addDelegate:self];
 
 }
 
@@ -285,6 +287,27 @@
 
 - (void)showError:(NSError*)error{
 //    [UIWindow ilg_makeToast:[NSString stringWithFormat:@"%@",error.userInfo]];
+}
+
+
+#pragma mark - XHBeautyManagerDelegate
+
+/**
+ 暴露每帧视频数据(同步返回处理后的数据)
+ @param videoData 数据
+ */
+-(StarVideoData *) onVideoFrame:(StarVideoData *) videoData
+{
+    return videoData;
+}
+
+/**
+ 暴露每帧音频数据(同步返回处理后的数据)
+ @param audioData 数据
+ */
+-(StarAudioData *) onAudioFrame:(StarAudioData *) audioData
+{
+    return audioData;
 }
 
 
