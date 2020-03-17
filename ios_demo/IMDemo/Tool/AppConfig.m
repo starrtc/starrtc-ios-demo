@@ -41,7 +41,7 @@ static NSString * const kAppConfigParametersPrivateKey = @"AppConfigParametersPr
     if (self) {
         _userId = UserId;
         _appId = IFHAppId;
-        _host = @"http://www.starrtc.com/aec/list";
+        _host = @"http://call.skyinfor.cc:28080/aec/list";   // http://www.starrtc.com/aec/list
         _loginHost = @"ips2.starrtc.com:9920";
         
         NSString *appConfigParamsKey = (type == IFServiceTypePublic)? kAppConfigParametersPublicKey:kAppConfigParametersPrivateKey;
@@ -52,25 +52,31 @@ static NSString * const kAppConfigParametersPrivateKey = @"AppConfigParametersPr
             
         } else {
             if (type == IFServiceTypePrivate) {
-                                        _messageHost = @"test.starrtc.com:19903";  // test.starrtc.com
-                                        _chatHost = @"test.starrtc.com:19906";
-                                        _uploadHost = @"test.starrtc.com:19931";
-                                        _downloadHost = @"test.starrtc.com:19928";
-                                        _voipHost = @"test.starrtc.com:10086";
-                                        _uploadProxyHost = @"test.starrtc.com:19932";
+//                                        _messageHost = @"call.skyinfor.cc:19903";  //  call.skyinfor.cc test.starrtc.com  demo.starrtc.com
+//                                        _chatHost = @"call.skyinfor.cc:19906";
+//                                        _uploadHost = @"call.skyinfor.cc:19931";
+//                                        _downloadHost = @"call.skyinfor.cc:19928";
+//                                        _voipHost = @"call.skyinfor.cc:10086";
+//                                        _uploadProxyHost = @"call.skyinfor.cc:19932";
                 
+                _getIMGroupListHost = @"http://www.starrtc.com/aec/group/list.php";
+                _getIMGroupInfoHost =  @"http://www.starrtc.com/aec/group/members.php";
+                _otherListSaveHost = @"http://www.starrtc.com/aec/list/save.php";
+                _otherListQueryHost = @"http://www.starrtc.com/aec/list/query.php";
+                _otherListDeleteHost = @"http://www.starrtc.com/aec/list/del.php";
+//
 //                            _messageHost = @"beta.starrtc.com:19903";
 //                            _chatHost = @"beta.starrtc.com:19906";
 //                            _uploadHost = @"beta.starrtc.com:19931";
 //                            _downloadHost = @"beta.starrtc.com:19928";
 //                            _voipHost = @"beta.starrtc.com:10086";
 //                            _uploadProxyHost = @"beta.starrtc.com:19932";
-//                _messageHost = @"demo.starrtc.com:19903";
-//                _chatHost = @"demo.starrtc.com:19906";
-//                _uploadHost = @"demo.starrtc.com:19931";
-//                _downloadHost = @"demo.starrtc.com:19928";
-//                _voipHost = @"demo.starrtc.com:10086";
-//                _uploadProxyHost = @"demo.starrtc.com:19932";
+                _messageHost = @"demo.starrtc.com:19903";
+                _chatHost = @"demo.starrtc.com:19906";
+                _uploadHost = @"demo.starrtc.com:19931";
+                _downloadHost = @"demo.starrtc.com:19928";
+                _voipHost = @"demo.starrtc.com:10086";
+                _uploadProxyHost = @"demo.starrtc.com:19932";
 //                _messageHost = @"aisee.f3322.org:19903";
 //                _chatHost = @"aisee.f3322.org:19906";
 //                _uploadHost = @"aisee.f3322.org:19931";

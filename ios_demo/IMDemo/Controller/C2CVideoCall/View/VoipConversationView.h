@@ -27,7 +27,9 @@
 - (void)setupUserNickname:(NSString*)nickname isAudio:(BOOL)isAudio;
 
 @property (nonatomic, weak) id<VoipConversationViewDelegate> delegate;
-@property (weak, nonatomic) IBOutlet UIView *selfView;
+@property (strong, nonatomic) IBOutlet UIView *selfView;
 @property (weak, nonatomic) IBOutlet UIView *targetView;
+@property (weak, nonatomic) IBOutlet UIButton *hangUpButton;
+@property (weak, nonatomic) IBOutlet UILabel *hangUpLabel;
 
 @end

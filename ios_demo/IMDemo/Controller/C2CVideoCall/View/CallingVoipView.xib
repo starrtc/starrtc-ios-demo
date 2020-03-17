@@ -16,9 +16,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="voip_bg" translatesAutoresizingMaskIntoConstraints="NO" id="6hk-Cu-Y1Q">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D7Z-NW-C4V">
                     <rect key="frame" x="0.0" y="226" width="375" height="160"/>
                     <subviews>
@@ -67,7 +64,9 @@
                         <constraint firstAttribute="width" constant="66" id="2Et-gS-M68"/>
                         <constraint firstAttribute="height" constant="66" id="rQo-Dt-9XZ"/>
                     </constraints>
-                    <state key="normal" image="hangup"/>
+                    <state key="normal" image="hangup">
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
                     <connections>
                         <action selector="cancelButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="TFG-iX-ZkX"/>
                     </connections>
@@ -79,20 +78,16 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="D7Z-NW-C4V" secondAttribute="trailing" id="0ed-9w-9cO"/>
-                <constraint firstAttribute="trailing" secondItem="6hk-Cu-Y1Q" secondAttribute="trailing" id="7Ba-7L-gix"/>
                 <constraint firstItem="D7Z-NW-C4V" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ANT-R8-ZXk"/>
                 <constraint firstItem="m9c-4e-wrx" firstAttribute="top" secondItem="Xrv-ZH-teD" secondAttribute="bottom" constant="15" id="JXW-z8-vab"/>
                 <constraint firstItem="m9c-4e-wrx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="Lhx-Jh-B2s"/>
-                <constraint firstItem="6hk-Cu-Y1Q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Lzn-DW-4qG"/>
                 <constraint firstItem="m9c-4e-wrx" firstAttribute="centerX" secondItem="Xrv-ZH-teD" secondAttribute="centerX" id="M8U-jh-GnL"/>
                 <constraint firstItem="D7Z-NW-C4V" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-100" id="Max-Qu-Ui6"/>
-                <constraint firstAttribute="bottom" secondItem="6hk-Cu-Y1Q" secondAttribute="bottom" id="Va2-3A-TZm"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="m9c-4e-wrx" secondAttribute="trailing" constant="50" id="cxk-Q9-d67"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="m9c-4e-wrx" secondAttribute="bottom" constant="30" id="lIn-Dv-OZ8"/>
-                <constraint firstItem="6hk-Cu-Y1Q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vVB-u0-4uk"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -107,6 +102,5 @@
     <resources>
         <image name="hangup" width="65" height="65"/>
         <image name="starfox_500" width="485" height="500"/>
-        <image name="voip_bg" width="375" height="667"/>
     </resources>
 </document>

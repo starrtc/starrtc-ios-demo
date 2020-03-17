@@ -56,7 +56,7 @@
 
 -(void)demoQueryImGroupList:(NSString *)userId
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@",@"http://www.starrtc.com/aec/group/list.php?userId=",userId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@",@"http://call.skyinfor.cc:28080/aec/group/list.php?userId=",userId];  // http://www.starrtc.com/aec/group/list.php
     [self get:urlStr callback:^(id result, NSError *error) {
         if (_delegate && [_delegate respondsToSelector:@selector(getMessageGroupListResponse:)])
         {
@@ -69,7 +69,7 @@
 -(void)demoQueryImGroupInfo:(NSString *)userId
                     groupId:(NSString *)groupId
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@%@%@%@",@"http://www.starrtc.com/aec/group/members.php?userId=",userId,@"&groupId=",groupId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@%@%@",@"http://call.skyinfor.cc:28080/aec/group/members.php?userId=",userId,@"&groupId=",groupId];  // http://www.starrtc.com/aec/group/members.php
     [self get:urlStr callback:^(id result, NSError *error) {
         if (_delegate && [_delegate respondsToSelector:@selector(getGroupMemberList:)])
         {

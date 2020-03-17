@@ -57,14 +57,6 @@
                         <constraint firstItem="AA6-ju-s6B" firstAttribute="top" secondItem="Lqf-cs-K1m" secondAttribute="top" constant="178" id="mko-YJ-Bc7"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LOM-9y-w8b">
-                    <rect key="frame" x="15" y="46" width="116" height="155"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="155" id="XY9-T1-pyG"/>
-                        <constraint firstAttribute="width" constant="116" id="aa4-Eg-8Vh"/>
-                    </constraints>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSP-7L-LL4">
                     <rect key="frame" x="154.5" y="516" width="66" height="66"/>
                     <constraints>
@@ -134,8 +126,6 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="u08-AX-VoM" secondAttribute="bottom" constant="49" id="Jen-9v-7NS"/>
                 <constraint firstItem="dat-1y-rTJ" firstAttribute="centerX" secondItem="eSP-7L-LL4" secondAttribute="centerX" id="JqC-FY-pb6"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="dat-1y-rTJ" secondAttribute="bottom" constant="49" id="OW5-dm-W3a"/>
-                <constraint firstItem="LOM-9y-w8b" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="a3H-kc-xiO"/>
-                <constraint firstItem="LOM-9y-w8b" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="b5H-nr-mmM"/>
                 <constraint firstItem="Lqf-cs-K1m" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="dfZ-O3-4Ch"/>
                 <constraint firstItem="eSP-7L-LL4" firstAttribute="leading" secondItem="4UI-Ew-kp2" secondAttribute="trailing" constant="40" id="ehF-6Q-zB7"/>
                 <constraint firstItem="5Vr-gU-XIl" firstAttribute="top" secondItem="4UI-Ew-kp2" secondAttribute="bottom" constant="15" id="oHp-ve-NEk"/>
@@ -147,9 +137,9 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="callTimeLabel" destination="1UI-uG-hRO" id="H4E-hc-fHx"/>
+                <outlet property="hangUpButton" destination="eSP-7L-LL4" id="io2-vT-gbs"/>
                 <outlet property="nickImage" destination="AA6-ju-s6B" id="9c9-6d-pAm"/>
                 <outlet property="nickNameLabel" destination="WVj-fi-0WG" id="p1h-SN-LA6"/>
-                <outlet property="selfView" destination="LOM-9y-w8b" id="y83-xO-0Qk"/>
                 <outlet property="targetView" destination="Lqf-cs-K1m" id="x0q-41-EGE"/>
             </connections>
             <point key="canvasLocation" x="32.799999999999997" y="93.103448275862078"/>

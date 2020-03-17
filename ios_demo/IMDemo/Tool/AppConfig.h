@@ -26,6 +26,14 @@ typedef NS_ENUM(NSInteger, IFServiceType) {
 @property (nonatomic, strong, readonly) NSString *uploadProxyHost;
 @property (nonatomic, strong, readonly) NSString *voipHost;
 
+@property (nonatomic, strong, readonly) NSString *getIMGroupListHost;
+@property (nonatomic, strong, readonly) NSString *getIMGroupInfoHost;
+@property (nonatomic, strong, readonly) NSString *otherListDeleteHost;
+@property (nonatomic, strong, readonly) NSString *otherListSaveHost;
+@property (nonatomic, strong, readonly) NSString *otherListQueryHost;
+
+
+
 @property (nonatomic, assign) BOOL audioEnabled;
 @property (nonatomic, assign) BOOL videoEnabled;
 
