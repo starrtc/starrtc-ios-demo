@@ -95,6 +95,16 @@
 - (void)sendMessage:(NSString *)message toGroup:(NSString *)groupID atUsers:(NSArray<NSString*> *)atUsers completion:(void(^)(NSError *error))completion;
 
 /**
+ 发送在线消息
+ 
+ @param message 消息内容
+ @param groupID 群组ID
+ @param atUsers @人员
+ @param completion 回调
+ */
+- (void)sendGroupOnlineMessage:(NSString *)message toGroup:(NSString *)groupID atUsers:(NSArray<NSString*> *)atUsers completion:(void(^)(NSError *error))completion;
+
+/**
  * 查询群列表  私有
  * @param completion 结果回调
  */
