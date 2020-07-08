@@ -266,6 +266,7 @@
                          }
                      }
                      
+                     _listArr = (NSMutableArray *)[[_listArr reverseObjectEnumerator] allObjects];
                      [self.tableViewDataSource addObjectsFromArray:_listArr];
                      [self.tableView reloadData];
                      [self.tableView.mj_header endRefreshing];
