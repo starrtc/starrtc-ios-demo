@@ -67,16 +67,20 @@
     self.callingView.frame = CGRectMake(0, 200, self.view.size.width, 400);
     self.receiveView.frame = self.view.bounds;
     self.conversationView.frame = self.view.bounds;
+    self.conversationView.selfView = [[UIView alloc] init];
+    [self.conversationView.selfView setFrame:CGRectMake(15, 20, 116, 155)];
+    [self.conversationView addSubview:self.conversationView.selfView];
+    
+    
     
     [self.view addSubview:self.callingView];
     [self.view addSubview:self.receiveView];
     [self.view addSubview:self.conversationView];
     [self.view sendSubviewToBack:self.conversationView];
     
-    // [[XHClient sharedClient].beautyManager addDelegate:self];
+     [[XHClient sharedClient].beautyManager addDelegate:self];
 
 }
-
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 }
@@ -107,6 +111,7 @@
         //设置用于视频显示的View
         [[XHClient sharedClient].voipManager setupView:self.conversationView.selfView targetView:self.conversationView.targetView];
         if (_voipStatus == VoipVCStatus_Calling) {
+
             [[XHClient sharedClient].voipManager call:self.targetId completion:^(NSError *error) {
                 if (error) {
                     [self showError:error];
@@ -159,22 +164,23 @@
             self.receiveView.hidden = YES;
             self.conversationView.hidden = NO;
 //            smallFrame = self.conversationView.selfView.frame;
-            self.conversationView.selfView = [[UIView alloc] init];
-            self.conversationView.selfView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-            [self.conversationView addSubview:self.conversationView.selfView];
-            __weak typeof(self) weakSelf = self;
-            // 布局
-            [self.conversationView.selfView mas_makeConstraints:^(MASConstraintMaker *make) {
-                if (@available(ios 11, *)) {
-                    make.top.equalTo(weakSelf.view);
-                    make.bottom.equalTo(weakSelf.view);
-                } else {
-                    make.top.equalTo(weakSelf.view);
-                    make.bottom.equalTo(weakSelf.view);
-                }
-                make.left.equalTo(weakSelf.view);
-                make.right.equalTo(weakSelf.view);
-            }];
+//            self.conversationView.selfView = [[UIView alloc] init];
+//            self.conversationView.selfView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+//            [self.conversationView addSubview:self.conversationView.selfView];
+//            [self.conversationView bringSubviewToFront:self.conversationView.selfView];
+//            __weak typeof(self) weakSelf = self;
+//            // 布局
+//            [self.conversationView.selfView mas_makeConstraints:^(MASConstraintMaker *make) {
+//                if (@available(ios 11, *)) {
+//                    make.top.equalTo(weakSelf.view);
+//                    make.bottom.equalTo(weakSelf.view);
+//                } else {
+//                    make.top.equalTo(weakSelf.view);
+//                    make.bottom.equalTo(weakSelf.view);
+//                }
+//                make.left.equalTo(weakSelf.view);
+//                make.right.equalTo(weakSelf.view);
+//            }];
             self.conversationView.hangUpButton.hidden = YES;
             self.conversationView.hangUpLabel.hidden = YES;
             break;
@@ -197,21 +203,26 @@
             self.conversationView.hangUpLabel.hidden = NO;
             //[self.echoCancellation start];
             
-            __weak typeof(self) weakSelf = self;
-            // 布局
-            [self.conversationView.selfView mas_makeConstraints:^(MASConstraintMaker *make) {
-                if (@available(ios 11, *)) {
-                    //            make.top.equalTo(weakSelf.view.mas_safeAreaLayoutGuideTop);
-                    //            make.bottom.equalTo(weakSelf.view.mas_safeAreaLayoutGuideBottom);
-                    make.top.equalTo(weakSelf.view);
-                    make.bottom.equalTo(weakSelf.view.mas_top).offset(155);
-                } else {
-                    make.top.equalTo(weakSelf.view);
-                    make.bottom.equalTo(weakSelf.view.mas_top).offset(155);
-                }
-                make.left.equalTo(weakSelf.view);
-                make.right.equalTo(weakSelf.view.mas_left).offset(116);
-            }];
+//            __weak typeof(self) weakSelf = self;
+//            // 布局
+//            [self.conversationView.selfView mas_makeConstraints:^(MASConstraintMaker *make) {
+///Users/admin/Desktop/starrtc_ios/starLibrary/starLibrary/model/core/im/StarIMMessageBuilder.h                if (@available(ios 11, *)) {
+//                    //            make.top.equalTo(weakSelf.view.mas_safeAreaLayoutGuideTop);
+//                    //            make.bottom.equalTo(weakSelf.view.mas_safeAreaLayoutGuideBottom);
+//                    make.top.equalTo(weakSelf.view);
+//                    make.bottom.equalTo(weakSelf.view.mas_top).offset(155);
+//                } else {
+//                    make.top.equalTo(weakSelf.view);
+//                    make.bottom.equalTo(weakSelf.view.mas_top).offset(155);
+//                }
+//                make.left.equalTo(weakSelf.view);
+//                make.right.equalTo(weakSelf.view.mas_left).offset(116);
+//            }];
+//            if (_voipStatus != VoipVCStatus_Calling)
+//            {
+//                //设置用于视频显示的View
+//                [[XHClient sharedClient].voipManager setupView:self.conversationView.selfView targetView:self.conversationView.targetView];
+//            }
             break;
     }
         default:

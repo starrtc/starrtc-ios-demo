@@ -127,11 +127,11 @@
     [[XHClient sharedClient].superRoomManager pickUpMic:^(NSError * _Nonnull error) {
         if(error)
         {
-             [UIWindow ilg_makeToast:@"发言失败"];
+//             [UIWindow ilg_makeToast:@"发言失败"];
         }
         else
         {
-            [UIWindow ilg_makeToast:@"可以发言了"];
+//            [UIWindow ilg_makeToast:@"可以发言了"];
         }
     }];
 }
@@ -141,12 +141,12 @@
         {
             if(![[error localizedDescription] isEqualToString:@"invalid operation"])
             {
-                [UIWindow ilg_makeToast:@"交出发言权限failed"];
+//                [UIWindow ilg_makeToast:@"交出发言权限failed"];
             }
         }
         else
         {
-            [UIWindow ilg_makeToast:@"已经交出发言权限"];
+//            [UIWindow ilg_makeToast:@"已经交出发言权限"];
         }
     }];
 }
